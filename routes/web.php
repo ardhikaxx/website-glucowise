@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DataPenggunaController;
+use App\Http\Controllers\DataAdminController;
+use App\Http\Controllers\DataKesehatanController;
+use App\Http\Controllers\EdukasiController;
+use App\Http\Controllers\RiwayatKesehatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +23,11 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::get('/register', [AuthController::class, 'showRegistForm']);
-
+Route::get('/data_pengguna', [DataPenggunaController::class, 'index']);
+Route::get('/data_admin', [DataAdminController::class, 'index']);
+Route::get('/data_kesehatan', [DataKesehatanController::class, 'index']);
+Route::get('/riwayat_kesehatan', [RiwayatKesehatanController::class, 'index']);
+Route::get('/edukasi', [EdukasiController::class, 'index']);
 // Route::get('/', function () {
 //     return view('welcome');
 // });
