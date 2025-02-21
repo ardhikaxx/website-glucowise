@@ -12,7 +12,7 @@
           <div class="col-md-8 col-lg-6 col-xxl-3">
             <div class="card mb-0">
               <div class="card-body">
-                <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                <a class="text-nowrap logo-img text-center d-block py-3 w-100">
                   <img src="{{ asset('images/logos/favicon1.png') }}" width="180" alt="">
                 </a>
                 <form>
@@ -28,15 +28,15 @@
                     <div class="form-check">
                       <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
                       <label class="form-check-label text-dark" for="flexCheckChecked">
-                        Remember this Device
+                        Ingat saya
                       </label>
                     </div>
-                    <a class="text-primary fw-bold" href="./index.html">Forgot Password ?</a>
+                    <a class="text-primary fw-bold" href="./index.html">Lupa Password ?</a>
                   </div>
                   <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a>
                   <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0 fw-bold">New?</p>
-                    <a class="text-primary fw-bold ms-2" href="">Create an account</a>
+                    <p class="fs-4 mb-0 fw-bold">Baru?</p>
+                    <a class="text-primary fw-bold ms-2" href="">Buat Akun Baru</a>
                   </div>
                 </form>
               </div>
