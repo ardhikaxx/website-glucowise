@@ -92,7 +92,14 @@
         </div>
     </div>
 
-    <style>
+    {{-- @push('styles')
+    <link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/Data-kesehatan/Data-kesehatan.js') }}"></script>
+@endpush --}}
+    {{-- <style>
         .pagination-container {
             display: flex;
             justify-content: flex-end; /* Align to the right */
@@ -384,5 +391,5 @@
             card.classList.add('visible');
         });
     });
-    </script>
+    </script> --}}
 @endsection

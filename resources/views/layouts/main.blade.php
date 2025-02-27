@@ -8,8 +8,9 @@
     
     <!-- Default Styles -->
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
+    <link rel="stylesheet"  href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}"/>
 
-    @yield('css/Data-kesehatan/Data-kesehatan.css') <!-- This will allow page-specific CSS to be injected -->
+    {{-- @yield('css/Data-kesehatan/Data-kesehatan.css') <!-- This will allow page-specific CSS to be injected --> --}}
 </head>
 <body>
     <!--  Body Wrapper -->
@@ -38,6 +39,9 @@
     <script src="{{ asset('libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @yield('js/Data-kesehatan/Data-kesehatan.js') <!-- This will allow page-specific JS to be injected -->
+    {{-- @yield('js/Data-kesehatan/Data-kesehatan.js') 
+    <!-- This will allow page-specific JS to be injected --> --}}
+
+    <script src="{{ asset('js/Data-kesehatan/Data-kesehatan.js') }}"></script>
 </body>
 </html>
