@@ -40,7 +40,7 @@ Route::get('/edukasi/{id}/edit', [EdukasiController::class, 'edit'])->name('eduk
 Route::put('/edukasi/{id}', [EdukasiController::class, 'update'])->name('edukasi.update');
 Route::delete('/edukasi/{id}', [EdukasiController::class, 'destroy'])->name('edukasi.destroy');
 
-Route::prefix('riwayat-kesehatan')->group(function () {
+Route::prefix('riwayat_kesehatan')->group(function () {
 
     // Menampilkan halaman utama Riwayat Kesehatan
     Route::get('/', [RiwayatKesehatanController::class, 'index'])->name('riwayatKesehatan.index');
