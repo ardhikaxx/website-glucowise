@@ -40,7 +40,33 @@ Route::get('/edukasi/{id}/edit', [EdukasiController::class, 'edit'])->name('eduk
 Route::put('/edukasi/{id}', [EdukasiController::class, 'update'])->name('edukasi.update');
 Route::delete('/edukasi/{id}', [EdukasiController::class, 'destroy'])->name('edukasi.destroy');
 
-Route::get('/riwayat_kesehatan', [RiwayatKesehatanController::class, 'index']);
+Route::prefix('riwayat-kesehatan')->group(function () {
+
+    // Menampilkan halaman utama Riwayat Kesehatan
+    Route::get('/', [RiwayatKesehatanController::class, 'index'])->name('riwayatKesehatan.index');
+
+    // Menampilkan form untuk menambah data Riwayat Kesehatan
+    Route::get('/create', [RiwayatKesehatanController::class, 'create'])->name('riwayatKesehatan.create');
+
+    // Menyimpan data Riwayat Kesehatan baru
+    Route::post('/', [RiwayatKesehatanController::class, 'store'])->name('riwayatKesehatan.store');
+
+    // Menampilkan halaman edit untuk Riwayat Kesehatan tertentu
+    Route::get('/{nomor_kk}/edit', [RiwayatKesehatanController::class, 'edit'])->name('riwayatKesehatan.edit');
+
+    // Mengupdate data Riwayat Kesehatan tertentu
+    Route::put('/{nomor_kk}', [RiwayatKesehatanController::class, 'update'])->name('riwayatKesehatan.update');
+
+    // Menampilkan detail data Riwayat Kesehatan tertentu
+    Route::get('/{nomor_kk}', [RiwayatKesehatanController::class, 'show'])->name('riwayatKesehatan.show');
+
+    // Menghapus data Riwayat Kesehatan tertentu
+    Route::delete('/{nomor_kk}', [RiwayatKesehatanController::class, 'destroy'])->name('riwayatKesehatan.destroy');
+
+    // Melakukan pencarian Riwayat Kesehatan
+    Route::get('/search', [RiwayatKesehatanController::class, 'search'])->name('riwayatKesehatan.search');
+});
+
 
 // Route::get('/', function () {
 //     return view('welcome');
