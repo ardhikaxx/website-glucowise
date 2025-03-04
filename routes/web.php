@@ -25,7 +25,30 @@ Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::get('/register', [AuthController::class, 'showRegistForm']);
 Route::get('/data_pengguna', [DataPenggunaController::class, 'index']);
-Route::get('/data_admin', [DataAdminController::class, 'index'])->name('admin.index');
+use App\Http\Controllers\AdminController;
+
+Route::prefix('admin') // Grup route untuk admin
+    ->name('admin.') // Menambahkan prefix untuk nama route
+        ->group(function() {
+        // Route untuk halaman index (tampilan daftar admin)
+        Route::get('/', [DataAdminController::class, 'index'])->name('index');
+
+        // Route untuk menampilkan form tambah admin
+        Route::get('create', [DataAdminController::class, 'create'])->name('create');
+
+        // Route untuk menyimpan data admin baru
+        Route::post('/', [DataAdminController::class, 'store'])->name('store');
+
+        // Route untuk menampilkan form edit admin
+        Route::get('{id}/edit', [DataAdminController::class, 'edit'])->name('edit');
+
+        // Route untuk mengupdate data admin
+        Route::put('{id}', [DataAdminController::class, 'update'])->name('update');
+
+        // Route untuk menghapus admin
+        Route::delete('{id}', [DataAdminController::class, 'destroy'])->name('destroy');
+    });
+
 Route::get('/data-kesehatan', [DataKesehatanController::class, 'index'])->name('dataKesehatan.index');
 Route::get('/data-kesehatan/search', [DataKesehatanController::class, 'search'])->name('dataKesehatan.search');
 Route::get('/data-kesehatan/edit/{nomor_kk}', [DataKesehatanController::class, 'edit'])->name('dataKesehatan.edit');

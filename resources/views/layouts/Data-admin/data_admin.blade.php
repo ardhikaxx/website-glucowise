@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <a  class="btn btn-primary float-left">
+                                <a href="{{ route('admin.create') }}" class="btn btn-primary float-left">
                                     <i class="fa fa-plus-circle"></i> Tambah Admin
                                 </a>                                    
                                 <form action="{{ route('admin.index') }}" method="GET" class="search-form float-right">
@@ -213,7 +213,7 @@
         }
 
         .search-form {
-            float: right;
+            float: right; /* Menjaga form berada di sebelah kanan */
             margin-top: 10px;
         }
 
@@ -245,11 +245,105 @@
             background-color: #15867D;
             transform: scale(1.1);
         }
+
+        /* Styling untuk tabel */
+        .page-title, .card-header {
+            color: #199A8E;
+            font-weight: 600;
+        }
+
+        /* Mengatur tinggi tabel dengan scroll */
+        .table-wrapper {
+            max-height: 300px; 
+            overflow-y: auto;
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .table-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #199A8E;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e6f7f3;
+        }
+
+        /* Responsive styling for smaller screens */
+        @media (max-width: 768px) {
+            .table-wrapper {
+                overflow-x: auto;
+            }
+
+            .search-form .input-group {
+                width: 100%;
+            }
+
+            .pagination-container {
+                justify-content: center;
+            }
+
+            .btn-search {
+                width: 100%;
+            }
+
+            .table th, .table td {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .page-link {
+                font-size: 14px;
+            }
+        }
     </style>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let buttons = document.querySelectorAll('.btn-rounded');
+            buttons.forEach(function(button) {
+                setTimeout(function() {
+                    button.classList.add('visible');
+                }, 200); // Memberikan delay untuk animasi muncul, misalnya 200ms
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector('.page-wrapper').classList.add('loaded');
+            let tableWrapper = document.querySelector('.table-wrapper');
+            tableWrapper.classList.add('visible');
+            let rows = document.querySelectorAll('.table tbody tr');
+            rows.forEach(function(row, index) {
+                setTimeout(function() {
+                    row.classList.add('visible');
+                }, index * 200);
+            });
+        });
+
         function confirmDelete(event) {
-            event.preventDefault();
+            event.preventDefault();  // Mencegah form dikirim langsung
 
             Swal.fire({
                 title: 'Apakah Anda yakin?',
@@ -262,7 +356,8 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    event.target.closest('form').submit();
+                    // Jika dikonfirmasi, kirimkan form untuk menghapus
+                    event.target.closest('form').submit(); // Mengirim form untuk melakukan penghapusan
                 }
             });
         }

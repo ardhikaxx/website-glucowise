@@ -50,7 +50,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/data_admin" aria-expanded="false">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
