@@ -8,9 +8,20 @@ use Illuminate\Http\Request;
 class DataAdminController extends Controller
 {
     // Menampilkan semua admin
-    public function index()
+    public function index(Request $request)
     {
-        $admins = Admin::paginate(10);
+        $search = $request->input('search'); // Ambil query pencarian
+
+        // Jika ada query pencarian, lakukan filter berdasarkan nama atau email
+        if ($search) {
+            $admins = Admin::where('nama', 'like', "%{$search}%")
+                           ->orWhere('email', 'like', "%{$search}%")
+                           ->paginate(10);
+        } else {
+            // Jika tidak ada pencarian, tampilkan semua data
+            $admins = Admin::paginate(10);
+        }
+
         return view('layouts.Data-admin.data_admin', compact('admins'));
     }
 

@@ -24,7 +24,15 @@ use App\Http\Controllers\RiwayatKesehatanController;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::get('/register', [AuthController::class, 'showRegistForm']);
-Route::get('/data_pengguna', [DataPenggunaController::class, 'index']);
+Route::prefix('data_pengguna')->group(function () {
+    Route::get('/', [DataPenggunaController::class, 'index'])->name('dataPengguna.index');
+    Route::get('/edit/{id}', [DataPenggunaController::class, 'edit'])->name('dataPengguna.edit');
+    Route::get('/show/{id}', [DataPenggunaController::class, 'show'])->name('dataPengguna.show');
+    Route::put('/update/{id}', [DataPenggunaController::class, 'update'])->name('dataPengguna.update');
+    
+    // Route untuk pencarian data pengguna
+    Route::get('/search', [DataPenggunaController::class, 'search'])->name('dataPengguna.search');
+});
 use App\Http\Controllers\AdminController;
 
 Route::prefix('admin') // Grup route untuk admin
@@ -73,6 +81,7 @@ Route::prefix('riwayat_kesehatan')->group(function () {
 
     // Menyimpan data Riwayat Kesehatan baru
     Route::post('/', [RiwayatKesehatanController::class, 'store'])->name('riwayatKesehatan.store');
+    
 
     // Menampilkan halaman edit untuk Riwayat Kesehatan tertentu
     Route::get('/{nomor_kk}/edit', [RiwayatKesehatanController::class, 'edit'])->name('riwayatKesehatan.edit'); 
@@ -86,9 +95,10 @@ Route::prefix('riwayat_kesehatan')->group(function () {
     // Menghapus data Riwayat Kesehatan tertentu
     Route::delete('/{nomor_kk}', [RiwayatKesehatanController::class, 'destroy'])->name('riwayatKesehatan.destroy');
 
-    // Melakukan pencarian Riwayat Kesehatan
-    Route::get('/search', [RiwayatKesehatanController::class, 'search'])->name('riwayatKesehatan.search');
+    
 });
+Route::get('/riwayat_kesehatan/search', [RiwayatKesehatanController::class, 'search'])->name('riwayatKesehatan.search');
+
 
 
 // Route::get('/', function () {

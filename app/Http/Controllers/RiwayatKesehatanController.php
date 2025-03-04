@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class RiwayatKesehatanController extends Controller
 {
     // Menampilkan daftar Riwayat Kesehatan
+
     public function index()
     {
         $riwayatKesehatan = RiwayatKesehatan::paginate(10);  // Menampilkan data dengan pagination
@@ -104,17 +105,22 @@ class RiwayatKesehatanController extends Controller
 
     // Pencarian data Riwayat Kesehatan
     public function search(Request $request)
-    {
-        // Ambil input pencarian
-        $search = $request->input('search');
+{
+    $search = $request->get('search'); // Mendapatkan nilai pencarian
+    $riwayatKesehatan = RiwayatKesehatan::where('nomor_kk', 'like', "%$search%")
+                                        ->orWhere('ibu', 'like', "%$search%")
+                                        ->orWhere('ayah', 'like', "%$search%")
+                                        ->orWhere('telepon', 'like', "%$search%")
+                                        ->orWhere('deskripsi', 'like', "%$search%")
+                                        ->orWhere('diagnosa', 'like', "%$search%")
+                                        ->orWhere('pengobatan', 'like', "%$search%")
+                                        ->orWhere('catatan_lainnya', 'like', "%$search%")
+                                        ->paginate(10);
+    
+    // Return hasil pencarian
+    return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan'));
+}
 
-        // Cari data berdasarkan pencarian
-        $riwayatKesehatan = RiwayatKesehatan::where('nomor_kk', 'like', "%$search%")
-                                            ->orWhere('ibu', 'like', "%$search%")
-                                            ->orWhere('ayah', 'like', "%$search%")
-                                            ->paginate(10);  // Paginate search results
 
-        // Tampilkan hasil pencarian
-        return view('riwayatKesehatan.index', compact('riwayatKesehatan'));
-    }
+
 }
