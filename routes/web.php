@@ -25,7 +25,7 @@ Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::get('/register', [AuthController::class, 'showRegistForm']);
 Route::get('/data_pengguna', [DataPenggunaController::class, 'index']);
-Route::get('/data_admin', [DataAdminController::class, 'index']);
+Route::get('/data_admin', [DataAdminController::class, 'index'])->name('admin.index');
 Route::get('/data-kesehatan', [DataKesehatanController::class, 'index'])->name('dataKesehatan.index');
 Route::get('/data-kesehatan/search', [DataKesehatanController::class, 'search'])->name('dataKesehatan.search');
 Route::get('/data-kesehatan/edit/{nomor_kk}', [DataKesehatanController::class, 'edit'])->name('dataKesehatan.edit');

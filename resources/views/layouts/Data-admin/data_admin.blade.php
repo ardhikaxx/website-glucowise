@@ -1,150 +1,270 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard')
+@section('title', 'Data Admin')
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Data Admin</h5>
+    <div class="container-fluid">
+        <!-- Judul Halaman -->
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="page-title">Data Admin</h1>
+            </div>
         </div>
-    </div>
 
-    <!-- Search Bar & Button in the same row -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">
-            Tambah Data Admin +
-        </button>
-        <input type="text" id="searchBox" class="form-control w-25" placeholder="Cari Nama Admin ...">
-    </div>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(request()->search)
+            <div class="alert alert-info">
+                Menampilkan hasil pencarian untuk: <strong>{{ request()->search }}</strong>
+            </div>
+        @endif
 
-    <!-- Modal Tambah Data Admin -->
-    <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addAdminModalLabel">Tambah Data Admin</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="adminName" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="adminName" placeholder="Masukkan Nama Lengkap">
+        <!-- Tabel Data Admin -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card visible">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <a  class="btn btn-primary float-left">
+                                    <i class="fa fa-plus-circle"></i> Tambah Admin
+                                </a>                                    
+                                <form action="{{ route('admin.index') }}" method="GET" class="search-form float-right">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control search-input" placeholder="Cari Nama Admin" value="{{ request()->search }}">
+                                        <button type="submit" class="btn btn-search">
+                                            <i class="fa fa-search"></i> Cari
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="adminEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="adminEmail" placeholder="Masukkan Email">
+
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Email</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($admins as $index => $admin)
+                                        <tr>
+                                            <td>{{ ($admins->currentPage() - 1) * $admins->perPage() + $loop->iteration }}</td>
+                                            <td>{{ $admin->nama }}</td>
+                                            <td>{{ $admin->email }}</td>
+                                            <td>{{ $admin->jenis_kelamin }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.edit', $admin->id) }}" class="btn btn-primary btn-rounded">Edit</a>
+                                                
+                                                <!-- Tombol Hapus -->
+                                                <form action="{{ route('admin.destroy', $admin->id) }}" method="POST" class="delete-form" style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="mb-3">
-                            <label for="adminGender" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select" id="adminGender">
-                                <option selected>Pilih Jenis Kelamin</option>
-                                <option value="Laki-laki">Laki-laki</option>
-                                <option value="Perempuan">Perempuan</option>
-                            </select>
+
+                        <!-- Pagination -->
+                        <div class="pagination-container">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <!-- Previous Button -->
+                                    <li class="page-item {{ $admins->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $admins->previousPageUrl() }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Loop through the pagination links -->
+                                    @foreach ($admins->links()->elements[0] as $page => $url)
+                                        <li class="page-item {{ $admins->currentPage() == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+
+                                    <!-- Next Button -->
+                                    <li class="page-item {{ $admins->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $admins->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary">Simpan</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Table Data Admin -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Lengkap</th>
-                            <th>Email</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($admins as $index => $admin)
-                        <tr>
-                            <td>{{ ($admins->currentPage() - 1) * $admins->perPage() + $loop->iteration }}</td>
-                            <td>{{ $admin->nama }}</td>
-                            <td>{{ $admin->email }}</td>
-                            <td>{{ $admin->jenis_kelamin }}</td>
-                            <td>
-                                <a class="btn btn-primary btn-sm">Edit</a>
-                                <a class="btn btn-danger btn-sm">Delete</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+    <style>
+        .pagination-container {
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+            margin-top: 20px;
+        }
 
-            <!-- Pagination di kiri bawah -->
-            <div class="d-flex justify-content-end mt-4">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item {{ $admins->onFirstPage() ? 'disabled' : '' }}">
-                            <a class="page-link" href="{{ $admins->previousPageUrl() }}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        @for ($i = 1; $i <= $admins->lastPage(); $i++)
-                            <li class="page-item {{ $admins->currentPage() == $i ? 'active' : '' }}">
-                                <a class="page-link" href="{{ $admins->url($i) }}">{{ $i }}</a>
-                            </li>
-                        @endfor
-                        <li class="page-item {{ $admins->hasMorePages() ? '' : 'disabled' }}">
-                            <a class="page-link" href="{{ $admins->nextPageUrl() }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-@endsection
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-@section('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        .page-item {
+            margin: 0 5px;
+        }
 
-<script>
-    $(document).ready(function() {
-        var table = $('#dataTable').DataTable({
-            "paging": false, // Karena Laravel sudah menangani pagination
-            "searching": true,
-            "info": false
-        });
+        .page-link {
+            padding: 8px 16px;
+            background-color: #199A8E;
+            color: white;
+            border: 1px solid #199A8E;
+            border-radius: 30px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
 
-        $('#searchBox').on('keyup', function() {
-            table.search(this.value).draw();
-        });
-    });
-</script>
+        .page-link:hover,
+        .page-item.active .page-link {
+            background-color: #15867D;
+            border-color: #15867D;
+            transform: scale(1.1);
+        }
 
-<style>
-    .pagination .page-item {
-        margin: 0 3px;
-    }
-    .pagination .page-link {
-        color: #007bff;
-        border-radius: 5px;
-        transition: all 0.3s ease-in-out;
-    }
-    .pagination .page-link:hover {
-        background-color: #007bff;
-        color: white;
-    }
-    .pagination .page-item.active .page-link {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-</style>
+        .btn-primary {
+            background-color: #199A8E; /* Ubah warna latar belakang tombol menjadi hijau */
+            border-color: #199A8E; /* Ubah warna border tombol */
+            color: white; /* Warna teks tombol */
+            font-size: 16px;
+            border-radius: 25px; /* Menambahkan sudut membulat pada tombol */
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #15867D; /* Warna tombol saat di-hover */
+            border-color: #15867D; /* Warna border saat di-hover */
+            transform: scale(1.1); /* Efek zoom in pada tombol */
+        }
+
+        .btn-primary:focus {
+            outline: none; /* Menghilangkan outline saat tombol di-click */
+        }
+
+        .btn-rounded {
+            padding: 8px 20px;
+            font-size: 14px;
+            border-radius: 50px; /* Membuat tombol bulat */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Efek transisi untuk hover dan transformasi */
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #199A8E;  /* Warna hijau */
+            border-color: #199A8E;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #15867D;  /* Warna hijau lebih gelap saat hover */
+            border-color: #15867D;
+            transform: scale(1.1); /* Efek zoom */
+        }
+
+        .btn-danger {
+            background-color: #FF5733; /* Warna merah terang */
+            border-color: #FF5733;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #C0392B;  /* Warna merah lebih gelap saat hover */
+            border-color: #C0392B;
+            transform: scale(1.1);  /* Efek zoom */
+        }
+
+        /* Animasi saat tombol ditekan (sedikit mengecil) */
+        .btn:active {
+            transform: scale(0.9); /* Efek tombol mengecil saat ditekan */
+        }
+
+        .search-form .input-group {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .search-form {
+            float: right;
+            margin-top: 10px;
+        }
+
+        .search-input {
+            padding: 10px;
+            border-radius: 25px 0 0 25px;
+            font-size: 14px;
+            border: 1px solid #199A8E;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #15867D;
+            box-shadow: 0 0 10px rgba(25, 154, 142, 0.2);
+        }
+
+        .btn-search {
+            background-color: #199A8E;
+            color: white;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-search:hover {
+            background-color: #15867D;
+            transform: scale(1.1);
+        }
+    </style>
+
+    <script>
+        function confirmDelete(event) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.target.closest('form').submit();
+                }
+            });
+        }
+    </script>
 @endsection
