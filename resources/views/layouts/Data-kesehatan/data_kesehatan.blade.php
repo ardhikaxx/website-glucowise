@@ -2,6 +2,7 @@
 
 @section('title', 'Data Kesehatan')
 
+<link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
 @section('content')
     <div class="container-fluid">
         <!-- Judul Halaman -->
@@ -92,13 +93,10 @@
         </div>
     </div>
 
-    {{-- @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
-@endpush
-
-@push('scripts')
+  
+    
     <script src="{{ asset('js/Data-kesehatan/Data-kesehatan.js') }}"></script>
-@endpush --}}
+
     {{-- <style>
         .pagination-container {
             display: flex;
@@ -391,5 +389,5 @@
             card.classList.add('visible');
         });
     });
-    </script> --}}
+    </script>
 @endsection

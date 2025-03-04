@@ -55,7 +55,7 @@
                             <!-- Tombol Simpan -->
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                <a href="{{ route('edukasi.create') }}"  class="btn btn-secondary">Kembali</a>
+                                <a href="{{ route('edukasi.index') }}"  class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>

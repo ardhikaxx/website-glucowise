@@ -57,7 +57,7 @@
                         </tbody>
                     </table>
 
-                    <a href="{{ route('dataKesehatan.index') }}" class="btn btn-secondary btn-animated">Kembali</a>
+                    <a href="{{ route('riwayatKesehatan.index') }}" class="btn btn-secondary btn-animated">Kembali</a>
                 </div>
             </div>
         </div>

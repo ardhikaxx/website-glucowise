@@ -52,7 +52,7 @@ Route::prefix('riwayat_kesehatan')->group(function () {
     Route::post('/', [RiwayatKesehatanController::class, 'store'])->name('riwayatKesehatan.store');
 
     // Menampilkan halaman edit untuk Riwayat Kesehatan tertentu
-    Route::get('/{nomor_kk}/edit', [RiwayatKesehatanController::class, 'edit'])->name('riwayatKesehatan.edit');
+    Route::get('/{nomor_kk}/edit', [RiwayatKesehatanController::class, 'edit'])->name('riwayatKesehatan.edit'); 
 
     // Mengupdate data Riwayat Kesehatan tertentu
     Route::put('/{nomor_kk}', [RiwayatKesehatanController::class, 'update'])->name('riwayatKesehatan.update');

@@ -2,7 +2,9 @@
 
 @section('title', 'Riwayat Kesehatan')
 
+
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
     <div class="container-fluid">
         <!-- Judul Halaman -->
         <div class="row">
@@ -50,7 +52,7 @@
                                             <td>{{ $data->ayah }}</td>
                                             <td>{{ $data->telepon }}</td>
                                             <td>
-                                                <a class="btn btn-warning" href="{{ route('riwayatKesehatan.edit', $data->nomor_kk) }}">Edit</a> <!-- Mengubah route sesuai dengan model baru -->
+                                                <a href="{{ route('riwayatKesehatan.edit', $data->nomor_kk) }}" class="btn btn-warning">Edit</a <!-- Mengubah route sesuai dengan model baru -->
                                                 <a class="btn btn-info" href="{{ route('riwayatKesehatan.show', $data->nomor_kk) }}">Action</a> <!-- Mengubah route sesuai dengan model baru -->
                                             </td>
                                         </tr>
@@ -91,7 +93,8 @@
             </div>
         </div>
     </div>
-
-    <!-- Custom styles and script remain unchanged -->
-
+    <script src="{{ asset('js/Data-kesehatan/Data-kesehatan.js') }}"></script>
 @endsection
+    <!-- Custom styles and script remain unchanged -->
+ 
+
