@@ -65,17 +65,29 @@
     text-decoration: underline;
 }
 
-.search-form .input-group {
-    max-width: 300px;
-    margin: 0 auto;
+/* Search form and filter aligned to the right */
+.search-form {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
 }
 
+.search-form .input-group {
+    display: flex;
+    align-items: center;
+    max-width: 450px; /* Adjusted max-width for better appearance */
+    width: 100%;
+}
+
+/* Styling for the search input field */
 .search-input {
     padding: 10px;
     border-radius: 25px 0 0 25px;
     font-size: 14px;
     border: 1px solid #199A8E;
     transition: all 0.3s ease;
+    width: 100%;
 }
 
 .search-input:focus {
@@ -83,11 +95,25 @@
     box-shadow: 0 0 10px rgba(25, 154, 142, 0.2);
 }
 
-.search-form {
-    float: right;
-    margin-top: 10px;
+/* Styling for the select (gender filter) */
+.search-form .input-group select {
+    padding: 10px;
+    border-radius: 0 25px 25px 0;
+    font-size: 14px;
+    border: 1px solid #199A8E;
+    background-color: white;
+    color: #199A8E;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 150px;
 }
 
+.search-form .input-group select:focus {
+    border-color: #15867D;
+    box-shadow: 0 0 10px rgba(25, 154, 142, 0.2);
+}
+
+/* Styling for the search button */
 .btn-search {
     background-color: #199A8E;
     color: white;
@@ -106,6 +132,24 @@
 
 .btn-search:focus {
     outline: none;
+}
+
+/* Adjustments for table layout */
+.table-wrapper {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.table-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .table-wrapper {

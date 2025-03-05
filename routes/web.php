@@ -26,13 +26,12 @@ Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::get('/register', [AuthController::class, 'showRegistForm']);
 Route::prefix('data_pengguna')->group(function () {
     Route::get('/', [DataPenggunaController::class, 'index'])->name('dataPengguna.index');
-    Route::get('/edit/{id}', [DataPenggunaController::class, 'edit'])->name('dataPengguna.edit');
     Route::get('/show/{id}', [DataPenggunaController::class, 'show'])->name('dataPengguna.show');
-    Route::put('/update/{id}', [DataPenggunaController::class, 'update'])->name('dataPengguna.update');
     
     // Route untuk pencarian data pengguna
-    Route::get('/search', [DataPenggunaController::class, 'search'])->name('dataPengguna.search');
+    Route::get('/search', [DataPenggunaController::class, 'index'])->name('dataPengguna.search');
 });
+
 use App\Http\Controllers\AdminController;
 
 Route::prefix('admin') // Grup route untuk admin

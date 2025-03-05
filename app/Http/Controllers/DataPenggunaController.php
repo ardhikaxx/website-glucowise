@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Sesuaikan dengan model yang kamu buat
-use Illuminate\Foundation\Auth\User as AuthUser;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 
 class DataPenggunaController extends Controller
@@ -12,50 +11,37 @@ class DataPenggunaController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
-        $dataPengguna = User::when($search, function ($query, $search) {
-            return $query->where('nama', 'like', "%{$search}%")
-                         ->orWhere('email', 'like', "%{$search}%")
-                         ->orWhere('nomor_hp', 'like', "%{$search}%");
-        })->paginate(10);
+        $jenisKelamin = $request->jenis_kelamin;
 
-        return view('layouts.Data-pengguna.data_pengguna', compact('dataPengguna'));
-    }
-    public function search(Request $request)
-{
-    $search = $request->search;
+        // Pencarian berdasarkan nama, NIK, dan jenis kelamin
+        $dataPengguna = Pengguna::query();
 
-    // Mengambil data berdasarkan pencarian
-    $dataPengguna = AuthUser::when($search, function ($query, $search) {
-        return $query->where('nomor_identitas', 'like', "%{$search}%")
-                     ->orWhere('nama_lengkap', 'like', "%{$search}%")
-                     ->orWhere('alamat', 'like', "%{$search}%")
-                     ->orWhere('telepon', 'like', "%{$search}%")
-                     ->orWhere('email', 'like', "%{$search}%");
-    })->paginate(10);
+        // Kondisi pencarian berdasarkan nama atau NIK
+        if ($search) {
+            $dataPengguna->where(function ($query) use ($search) {
+                $query->where('nama_lengkap', 'like', "%{$search}%")
+                      ->orWhere('nik', 'like', "%{$search}%");
+            });
+        }
 
-    return view('layouts.Data-pengguna.data_pengguna', compact('dataPengguna'));
-}
+        // Kondisi pencarian berdasarkan jenis kelamin
+        if ($jenisKelamin) {
+            $dataPengguna->where('jenis_kelamin', $jenisKelamin);
+        }
 
-    // Menampilkan form edit data pengguna
-    public function edit($id)
-    {
-        $dataPengguna = User::findOrFail($id);
-        return view('data-pengguna.edit', compact('dataPengguna'));
+        // Menyaring data pengguna dan melakukan pagination
+        $dataPengguna = $dataPengguna->paginate(10);
+
+        // Menyertakan status jika data tidak ditemukan
+        $message = $dataPengguna->isEmpty() ? 'Data tidak ditemukan.' : '';
+
+        return view('layouts.Data-pengguna.data_pengguna', compact('dataPengguna', 'message'));
     }
 
     // Menampilkan detail data pengguna
     public function show($id)
     {
-        $dataPengguna = User::findOrFail($id);
-        return view('data-pengguna.show', compact('dataPengguna'));
-    }
-
-    // Untuk update data pengguna
-    public function update(Request $request, $id)
-    {
-        $dataPengguna = User::findOrFail($id);
-        $dataPengguna->update($request->all());
-
-        return redirect()->route('dataPengguna.index')->with('success', 'Data berhasil diperbarui!');
+        $dataPengguna = Pengguna::findOrFail($id);
+        return view('layouts.Data-pengguna.detail_pengguna', compact('dataPengguna'));
     }
 }
