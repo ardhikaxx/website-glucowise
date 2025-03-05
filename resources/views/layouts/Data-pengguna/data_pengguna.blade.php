@@ -37,7 +37,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Lengkap</th>
-                                        <th>Username</th>
+                                        <th>Nomor Identitas</th>
                                         <th>Email</th>
                                         <th>Nomor Telepon</th>
                                         <th>Status</th>
@@ -48,10 +48,10 @@
                                     @foreach ($dataPengguna->take(10) as $data)
                                         <tr class="table-row">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $data->full_name }}</td>
-                                            <td>{{ $data->username }}</td>
+                                            <td>{{ $data->nama_lengkap }}</td>
+                                            <td>{{ $data->nomor_identitas }}</td>
                                             <td>{{ $data->email }}</td>
-                                            <td>{{ $data->phone_number }}</td>
+                                            <td>{{ $data->telepon }}</td>
                                             <td>{{ $data->status }}</td>
                                             <td>
                                                 <a class="btn btn-warning" href="{{ route('dataPengguna.edit', $data->id) }}">Edit</a>
