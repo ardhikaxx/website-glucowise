@@ -9,14 +9,22 @@ class RiwayatKesehatan extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika berbeda dari nama model
     protected $table = 'riwayat_kesehatan';
 
-    // Tentukan kolom yang dapat diisi (mass assignment)
     protected $fillable = [
-        'nomor_kk',
-        'ibu',
-        'ayah',
-        'telepon',
+        'id_data',
+        'id_admin',
+        'kategori_risiko',
+        'catatan',
     ];
+
+    public function dataKesehatan()
+    {
+        return $this->belongsTo(DataKesehatan::class, 'id_data', 'id_data');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
+    }
 }

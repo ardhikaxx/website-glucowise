@@ -30,6 +30,7 @@ class CreateAllTables extends Migration
             $table->string('email', 100)->unique();
             $table->string('password', 255);
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
+            $table->enum('hak_akses', ['Bidan', 'Kader']); // Kolom untuk hak akses 
             $table->timestamps();
         });
 

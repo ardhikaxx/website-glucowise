@@ -9,14 +9,27 @@ class DataKesehatan extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika tidak sesuai dengan penamaan model
-    protected $table = 'kesehatan';
+    protected $table = 'data_kesehatan';
 
-    // Tentukan kolom mana yang bisa diisi (fillable)
     protected $fillable = [
-        'nomor_kk',
-        'ibu',
-        'ayah',
-        'telepon',
+        'nik',
+        'tanggal_pemeriksaan',
+        'riwayat_keluarga_diabetes',
+        'umur',
+        'tinggi_badan',
+        'berat_badan',
+        'gula_darah',
+        'lingkar_pinggang',
+        'tensi_darah',
     ];
+
+    public function pengguna()
+    {
+        return $this->belongsTo(Pengguna::class, 'nik', 'nik');
+    }
+
+    public function riwayatKesehatan()
+    {
+        return $this->hasOne(RiwayatKesehatan::class, 'id_data', 'id_data');
+    }
 }

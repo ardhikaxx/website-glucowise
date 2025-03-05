@@ -9,18 +9,19 @@ class Edukasi extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika berbeda dari nama model yang di-plural-kan
     protected $table = 'edukasi';
 
-    // Tentukan kolom yang boleh diisi (mass assignable)
-    protected $fillable = ['judul', 'isi', 'gambar'];
+    protected $fillable = [
+        'id_admin',
+        'kategori',
+        'judul',
+        'deskripsi',
+        'gambar',
+        'tanggal_publikasi',
+    ];
 
-    // Tentukan kolom yang tidak boleh diisi
-    // protected $guarded = [];
-
-    // Menyembunyikan kolom sensitif (misal gambar jika ingin dirahasiakan)
-    protected $hidden = [];
-
-    // Kolom timestamp secara default
-    public $timestamps = false;
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
+    }
 }
