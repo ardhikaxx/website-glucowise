@@ -10,24 +10,23 @@ class EdukasiController extends Controller
 {
     // Menampilkan daftar edukasi
     public function index(Request $request)
-{
-    // Ambil parameter pencarian dari request
-    $search = $request->input('search');
-
-    // Query untuk mengambil data edukasi dengan pencarian berdasarkan judul atau isi
-    $dataEdukasi = Edukasi::when($search, function($query) use ($search) {
-        return $query->where('judul', 'like', '%' . $search . '%')
-                     ->orWhere('isi', 'like', '%' . $search . '%');
-    })
-    ->paginate(10);  // Menambahkan paginasi untuk hasil pencarian
-
-    return view('layouts.Edukasi.edukasi', compact('dataEdukasi'));
-}
-
-    // Menampilkan form untuk membuat edukasi baru
-    public function create()
     {
-        return view('layouts.Edukasi.tambah');
+        $search = $request->input('search');
+    
+        $dataEdukasi = Edukasi::when($search, function($query) use ($search) {
+            return $query->where('judul', 'like', '%' . $search . '%')
+                         ->orWhere('deskripsi', 'like', '%' . $search . '%');
+        })
+        ->paginate(10);
+    
+        return view('layouts.Edukasi.edukasi', compact('dataEdukasi'));
+    }
+
+    // Menampilkan form untuk membuat atau mengedit edukasi
+    public function createOrEdit($id_educasi = null)
+    {
+        $dataEdukasi = $id_educasi ? Edukasi::findOrFail($id_educasi) : new Edukasi();
+        return view('layouts.Edukasi.edit', compact('dataEdukasi'));
     }
 
     // Menyimpan data edukasi baru
@@ -35,69 +34,76 @@ class EdukasiController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-            'gambar' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'deskripsi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'kategori' => 'required|in:Dasar Diabetes,Manajemen Diabetes',
         ]);
-
-        // Menyimpan gambar
-        $imagePath = $request->file('gambar')->store('public/images/edukasi');
-
+    
+        // Menyimpan gambar jika ada
+        $imagePath = null;
+        if ($request->hasFile('gambar')) {
+            // Menyimpan gambar baru
+            $category = strtolower(str_replace(' ', '', $request->kategori)); // Menghilangkan spasi dan membuat huruf kecil
+            $imageFileName = $category . time() . '.' . $request->file('gambar')->getClientOriginalExtension();
+    
+            // Path lengkap untuk menyimpan gambar di folder lokal
+            $imagePath = public_path('images/edukasi/' . $imageFileName);
+    
+            // Menyimpan gambar ke dalam folder 'public/images/edukasi'
+            $request->file('gambar')->move(public_path('images/edukasi'), $imageFileName);
+        }
+    
         // Menyimpan data edukasi
         Edukasi::create([
+            'id_admin' => "1", // Assumed auth handling
+            'kategori' => $request->kategori,
             'judul' => $request->judul,
-            'isi' => $request->isi,
-            'gambar' => basename($imagePath),
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $imagePath ? 'images/edukasi/' . $imageFileName : null,
+            'tanggal_publikasi' => now(),
         ]);
-
-        // Mengarahkan kembali ke halaman index dengan pesan sukses
+    
         return redirect()->route('edukasi.index')->with('success', 'Edukasi berhasil ditambahkan');
     }
 
-    
-
-    // Menampilkan detail edukasi
-    public function show($id)
-    {
-        $edukasi = Edukasi::findOrFail($id);
-        return view('edukasi.show', compact('edukasi'));
-    }
-
-    // Menampilkan form untuk mengedit edukasi
-    public function edit($id)
-    {
-        $dataEdukasi = Edukasi::findOrFail($id);  // Mengambil data berdasarkan ID
-        return view('layouts.Edukasi.edit', compact('dataEdukasi'));
-    }
-    
-    public function update(Request $request, $id)
+    // Mengupdate data edukasi
+    public function update(Request $request, $id_educasi)
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
+            'deskripsi' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'kategori' => 'required|in:Dasar Diabetes,Manajemen Diabetes',
         ]);
     
-        $dataEdukasi = Edukasi::findOrFail($id);
+        $dataEdukasi = Edukasi::findOrFail($id_educasi);
     
         // Update data edukasi
         $dataEdukasi->judul = $request->judul;
-        $dataEdukasi->isi = $request->isi;
+        $dataEdukasi->deskripsi = $request->deskripsi;
+        $dataEdukasi->kategori = $request->kategori;
     
         // Update gambar jika ada
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada
-            Storage::delete('public/images/edukasi/' . $dataEdukasi->gambar);
+            // Menyimpan gambar baru
+            $category = strtolower(str_replace(' ', '', $request->kategori)); // Menghilangkan spasi dan membuat huruf kecil
+            $imageFileName = $category . $dataEdukasi->id_educasi . '.' . $request->file('gambar')->getClientOriginalExtension();
     
-            // Simpan gambar baru
-            $imagePath = $request->file('gambar')->store('public/images/edukasi');
-            $dataEdukasi->gambar = basename($imagePath);
+            // Path lengkap untuk menyimpan gambar di folder lokal
+            $imagePath = public_path('images/edukasi/' . $imageFileName);
+    
+            // Menyimpan gambar ke dalam folder 'public/images/edukasi'
+            $request->file('gambar')->move(public_path('images/edukasi'), $imageFileName);
+    
+            // Menyimpan nama gambar dengan path relatif untuk disimpan di database
+            $dataEdukasi->gambar = 'images/edukasi/' . $imageFileName;
         }
     
-        $dataEdukasi->save(); // Simpan perubahan
+        // Simpan perubahan
+        $dataEdukasi->save();
     
         return redirect()->route('edukasi.index')->with('success', 'Edukasi berhasil diperbarui');
     }
-    
 
     // Menghapus data edukasi
     public function destroy($id)
@@ -113,3 +119,4 @@ class EdukasiController extends Controller
         return redirect()->route('edukasi.index')->with('success', 'Edukasi berhasil dihapus');
     }
 }
+

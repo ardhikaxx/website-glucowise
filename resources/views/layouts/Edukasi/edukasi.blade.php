@@ -56,20 +56,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($dataEdukasi as $data)
+                                    @foreach ($dataEdukasi as $data)  <!-- Pastikan $data adalah objek Edukasi, bukan LengthAwarePaginator -->
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data->judul }}</td>
-                                            <td>{{ Str::limit($data->isi, 30) }}...</td>  <!-- Menampilkan hanya sebagian isi -->
+                                            <td>{{ Str::limit($data->kategori, 30) }}</td>  <!-- Menampilkan sebagian kategori -->
                                             <td>
                                                 <!-- Menampilkan Gambar -->
-                                                <img src="{{ asset('storage/images/edukasi/' . $data->gambar) }}" alt="Foto Edukasi" style="width: 50px; height: auto; border-radius: 8px;">
-                                            </td>
+                                                <img src="{{ asset($data->gambar) }}" alt="Foto Edukasi" class="img-fluid" style="max-width: 300px; height: auto; border-radius: 8px;">
+                                            </td>                                            
                                             <td>
-                                                <a href="{{ route('edukasi.edit', $data->id) }}" class="btn btn-primary btn-rounded">Edit</a>
-                                                
+                                                <a href="{{ route('edukasi.edit', $data->id_educasi) }}" class="btn btn-primary btn-rounded">Edit</a>
+                                
                                                 <!-- Tombol Hapus -->
-                                                <form action="{{ route('edukasi.destroy', $data->id) }}" method="POST" class="delete-form" style="display: inline-block;">
+                                                <form action="{{ route('edukasi.destroy', $data->id_educasi) }}" method="POST" class="delete-form" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)">Hapus</button>
@@ -78,6 +78,7 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
+                                
                                 
                                 
                             </table>

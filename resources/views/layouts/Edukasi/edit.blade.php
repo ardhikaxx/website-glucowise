@@ -1,42 +1,46 @@
 @extends('layouts.main')
 
-@section('title', 'Edit Edukasi')
+@section('title', isset($dataEdukasi->id_educasi) ? 'Edit Edukasi' : 'Tambah Edukasi')
 
 @section('content')
     <div class="container-fluid">
-        <!-- Judul Halaman -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title">Edit Edukasi</h1>
+                <h1 class="page-title">{{ isset($dataEdukasi->id_educasi) ? 'Edit Edukasi' : 'Tambah Edukasi' }}</h1>
             </div>
         </div>
 
-        <!-- Form Edit Edukasi -->
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('edukasi.update', $dataEdukasi->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ isset($dataEdukasi->id_educasi) ? route('edukasi.update', $dataEdukasi->id_educasi) : route('edukasi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT') <!-- Menggunakan metode PUT untuk update -->
+                            @if(isset($dataEdukasi->id_educasi))
+                                @method('PUT')
+                            @endif
 
                             <div class="row">
-                                <!-- Kolom Kiri: Judul dan Isi -->
                                 <div class="col-md-6">
-                                    <!-- Judul -->
                                     <div class="form-group">
                                         <label for="judul" class="form-label">Judul Edukasi</label>
                                         <input type="text" name="judul" id="judul" class="form-control" value="{{ old('judul', $dataEdukasi->judul) }}" placeholder="Masukkan Judul Edukasi" required>
                                     </div>
 
-                                    <!-- Isi -->
                                     <div class="form-group">
-                                        <label for="isi" class="form-label">Isi Edukasi</label>
-                                        <textarea name="isi" id="isi" class="form-control" rows="6" placeholder="Masukkan Isi Edukasi" required>{{ old('isi', $dataEdukasi->isi) }}</textarea>
+                                        <label for="deskripsi" class="form-label">Deskripsi Edukasi</label>
+                                        <textarea name="deskripsi" id="deskripsi" class="form-control" rows="6" placeholder="Masukkan Deskripsi Edukasi" required>{{ old('deskripsi', $dataEdukasi->deskripsi) }}</textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="kategori" class="form-label">Kategori</label>
+                                        <select name="kategori" id="kategori" class="form-control" required>
+                                            <option value="Dasar Diabetes" {{ old('kategori', $dataEdukasi->kategori) == 'Dasar Diabetes' ? 'selected' : '' }}>Dasar Diabetes</option>
+                                            <option value="Manajemen Diabetes" {{ old('kategori', $dataEdukasi->kategori) == 'Manajemen Diabetes' ? 'selected' : '' }}>Manajemen Diabetes</option>
+                                        </select>
                                     </div>
                                 </div>
 
-                                <!-- Kolom Kanan: Upload Gambar dan Preview -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="gambar" class="form-label">Upload Gambar</label>
@@ -46,16 +50,20 @@
                                     <!-- Preview Gambar -->
                                     <div class="form-group">
                                         <div id="image-container">
-                                            <img id="preview" src="{{ asset('storage/images/edukasi/' . $dataEdukasi->gambar) }}" alt="Foto Edukasi" class="img-fluid" style="width: 100%; border-radius: 8px;">
+                                            @if(isset($dataEdukasi->gambar) && $dataEdukasi->gambar)
+                                                <img id="preview" src="{{ asset($dataEdukasi->gambar) }}" alt="Foto Edukasi" class="img-fluid" style="width: 100%; border-radius: 8px;">
+                                            @else
+                                                <img id="preview" src="" alt="No image available" class="img-fluid" style="width: 100%; border-radius: 8px; display: none;">
+                                            @endif
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
-                            <!-- Tombol Simpan -->
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                <a href="{{ route('edukasi.index') }}"  class="btn btn-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-primary">{{ isset($dataEdukasi->id_educasi) ? 'Simpan Perubahan' : 'Tambah Edukasi' }}</button>
+                                <a href="{{ route('edukasi.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>
@@ -64,7 +72,6 @@
         </div>
     </div>
 
-    <!-- CSS Styling -->
     <style>
         .page-title {
             color: #199A8E;
@@ -127,7 +134,6 @@
             border-color: #b0b0b0;
         }
 
-        /* Styling untuk kolom kiri dan kanan */
         .form-group {
             margin-bottom: 20px;
         }
@@ -141,7 +147,6 @@
         }
     </style>
 
-    <!-- JavaScript untuk preview gambar -->
     <script>
         document.getElementById('gambar').addEventListener('change', function(event) {
             const preview = document.getElementById('preview');

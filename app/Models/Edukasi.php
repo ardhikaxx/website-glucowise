@@ -11,6 +11,9 @@ class Edukasi extends Model
 
     protected $table = 'edukasi';
 
+    // Menentukan kolom primary key yang digunakan
+    protected $primaryKey = 'id_educasi';
+
     protected $fillable = [
         'id_admin',
         'kategori',
@@ -25,3 +28,4 @@ class Edukasi extends Model
         return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
     }
 }
+

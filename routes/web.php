@@ -65,13 +65,15 @@ Route::prefix('admin') // Grup route untuk admin
     });
     
 
-Route::get('/edukasi', [EdukasiController::class, 'index'])->name('edukasi.index');
-Route::get('/edukasi/create', [EdukasiController::class, 'create'])->name('edukasi.create');
-Route::post('/edukasi', [EdukasiController::class, 'store'])->name('edukasi.store');
-Route::get('/edukasi/{id}', [EdukasiController::class, 'show'])->name('edukasi.show');
-Route::get('/edukasi/{id}/edit', [EdukasiController::class, 'edit'])->name('edukasi.edit');
-Route::put('/edukasi/{id}', [EdukasiController::class, 'update'])->name('edukasi.update');
-Route::delete('/edukasi/{id}', [EdukasiController::class, 'destroy'])->name('edukasi.destroy');
+    Route::prefix('edukasi')->name('edukasi.')->group(function () {
+        Route::get('/', [EdukasiController::class, 'index'])->name('index');
+        Route::get('/create', [EdukasiController::class, 'createOrEdit'])->name('create');
+        Route::post('/', [EdukasiController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [EdukasiController::class, 'createOrEdit'])->name('edit');
+        Route::put('/{id}', [EdukasiController::class, 'update'])->name('update');
+        Route::delete('/{id}', [EdukasiController::class, 'destroy'])->name('destroy');
+    });
+    
 
 Route::prefix('riwayat_kesehatan')->group(function () {
     Route::get('/', [RiwayatKesehatanController::class, 'index'])->name('riwayatKesehatan.index');
