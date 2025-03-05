@@ -7,7 +7,7 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title">Edit Riwayat Kesehatan - Nomor KK: {{ $data->nomor_kk }}</h1>
+            <h1 class="page-title">Edit Riwayat Kesehatan - ID: {{ $data->id_riwayat }}</h1>
         </div>
     </div>
 
@@ -16,50 +16,27 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form id="editForm" action="{{ route('riwayatKesehatan.update', $data->nomor_kk) }}" method="POST">
+                    <form id="editForm" action="{{ route('riwayatKesehatan.update', $data->id_riwayat) }}" method="POST">
                         @csrf
                         @method('PUT')
 
+                        <!-- Dropdown untuk Pilihan Risiko -->
                         <div class="form-group">
-                            <label for="ibu">Nama Ibu</label>
-                            <input type="text" name="ibu" class="form-control" value="{{ $data->ibu }}" required>
+                            <label for="kategori_risiko">Status Risiko</label>
+                            <select name="kategori_risiko" class="form-control" required>
+                                <option value="Rendah" {{ $data->kategori_risiko == 'Rendah' ? 'selected' : '' }}>Rendah</option>
+                                <option value="Sedang" {{ $data->kategori_risiko == 'Sedang' ? 'selected' : '' }}>Sedang</option>
+                                <option value="Tinggi" {{ $data->kategori_risiko == 'Tinggi' ? 'selected' : '' }}>Tinggi</option>
+                            </select>
                         </div>
 
+                        <!-- Input untuk Catatan -->
                         <div class="form-group">
-                            <label for="ayah">Nama Ayah</label>
-                            <input type="text" name="ayah" class="form-control" value="{{ $data->ayah }}" required>
+                            <label for="catatan">Catatan</label>
+                            <textarea name="catatan" class="form-control" rows="3">{{ $data->catatan }}</textarea>
                         </div>
 
-                        <div class="form-group">
-                            <label for="telepon">Nomor Telepon</label>
-                            <input type="text" name="telepon" class="form-control" value="{{ $data->telepon }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="deskripsi">Deskripsi Riwayat</label>
-                            <textarea name="deskripsi" class="form-control" rows="3" required>{{ $data->deskripsi }}</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="dokter">Dokter</label>
-                            <input type="text" name="dokter" class="form-control" value="{{ $data->dokter }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="diagnosa">Diagnosa</label>
-                            <input type="text" name="diagnosa" class="form-control" value="{{ $data->diagnosa }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="pengobatan">Pengobatan</label>
-                            <input type="text" name="pengobatan" class="form-control" value="{{ $data->pengobatan }}" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="catatan_lainnya">Catatan Lainnya</label>
-                            <input type="text" name="catatan_lainnya" class="form-control" value="{{ $data->catatan_lainnya }}">
-                        </div>
-
+                        <!-- Tombol Simpan -->
                         <button type="button" id="submitBtn" class="btn btn-primary">Simpan</button>
                         <a href="{{ route('riwayatKesehatan.index') }}" class="btn btn-secondary">Kembali</a>
                     </form>

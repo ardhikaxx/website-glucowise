@@ -264,6 +264,42 @@
     opacity: 1;
     transform: translateY(0);
 }
+/* Styling untuk Badge (Status Risiko) */
+.badge {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+.badge-success {
+    background-color: #4CAF50; /* Hijau untuk 'Rendah' */
+    color: white;
+}
+
+.badge-warning {
+    background-color: #FFC107; /* Kuning untuk 'Sedang' */
+    color: white;
+}
+
+.badge-danger {
+    background-color: #F44336; /* Merah untuk 'Tinggi' */
+    color: white;
+}
+
+.badge-secondary {
+    background-color: #6C757D; /* Abu-abu untuk 'Tidak Tersedia' */
+    color: white;
+}
+
+/* Tambahkan efek hover untuk Badge */
+.badge:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
 
 @media (max-width: 768px) {
     .table-wrapper {

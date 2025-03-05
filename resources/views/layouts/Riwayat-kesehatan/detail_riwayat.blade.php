@@ -7,7 +7,7 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title">Detail Riwayat Kesehatan - Nomor KK: {{ $data->nomor_kk }}</h1>
+            <h1 class="page-title">Detail Riwayat Kesehatan - NIK: {{ $data->dataKesehatan->nik }}</h1>
         </div>
     </div>
 
@@ -19,40 +19,46 @@
                     <table class="table table-bordered table-animated">
                         <tbody>
                             <tr class="table-row">
-                                <th>Nomor KK</th>
-                                <td>{{ $data->nomor_kk }}</td>
+                                <th>NIK</th>
+                                <td>{{ $data->dataKesehatan->nik }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Nama Ibu</th>
-                                <td>{{ $data->ibu }}</td>
+                                <th>Nama Lengkap</th>
+                                <td>{{ $data->dataKesehatan->pengguna->nama_lengkap }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Nama Ayah</th>
-                                <td>{{ $data->ayah }}</td>
+                                <th>Tinggi Badan</th>
+                                <td>{{ $data->dataKesehatan->tinggi_badan }} cm</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Nomor Telepon</th>
-                                <td>{{ $data->telepon }}</td>
+                                <th>Berat Badan</th>
+                                <td>{{ $data->dataKesehatan->berat_badan }} kg</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Deskripsi Riwayat</th>
-                                <td>{{ $data->deskripsi }}</td>
+                                <th>Gula Darah</th>
+                                <td>{{ $data->dataKesehatan->gula_darah }} mg/dl</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Dokter</th>
-                                <td>{{ $data->dokter }}</td>
+                                <th>Tekanan Darah</th>
+                                <td>{{ $data->dataKesehatan->tensi_darah }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Diagnosa</th>
-                                <td>{{ $data->diagnosa }}</td>
+                                <th>Status Risiko</th>
+                                <td>
+                                    @if ($data->kategori_risiko == 'Rendah')
+                                        <span class="badge badge-success p-2">Rendah</span>
+                                    @elseif ($data->kategori_risiko == 'Sedang')
+                                        <span class="badge badge-warning p-2">Sedang</span>
+                                    @elseif ($data->kategori_risiko == 'Tinggi')
+                                        <span class="badge badge-danger p-2">Tinggi</span>
+                                    @else
+                                        <span class="badge badge-secondary p-2">Tidak Tersedia</span>
+                                    @endif
+                                </td>
                             </tr>
                             <tr class="table-row">
-                                <th>Pengobatan</th>
-                                <td>{{ $data->pengobatan }}</td>
-                            </tr>
-                            <tr class="table-row">
-                                <th>Catatan Lainnya</th>
-                                <td>{{ $data->catatan_lainnya }}</td>
+                                <th>Catatan</th>
+                                <td>{{ $data->catatan }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -65,6 +71,42 @@
 </div>
 
 <style>
+    /* Styling untuk Badge (Status Risiko) */
+.badge {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+.badge-success {
+    background-color: #4CAF50; /* Hijau untuk 'Rendah' */
+    color: white;
+}
+
+.badge-warning {
+    background-color: #FFC107; /* Kuning untuk 'Sedang' */
+    color: white;
+}
+
+.badge-danger {
+    background-color: #F44336; /* Merah untuk 'Tinggi' */
+    color: white;
+}
+
+.badge-secondary {
+    background-color: #6C757D; /* Abu-abu untuk 'Tidak Tersedia' */
+    color: white;
+}
+
+/* Tambahkan efek hover untuk Badge */
+.badge:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
     .page-title {
         color: #199A8E;
         font-weight: 600;

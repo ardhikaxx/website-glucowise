@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class RiwayatKesehatanController extends Controller
 {
     // Menampilkan daftar Riwayat Kesehatan
-
     public function index()
     {
-        $riwayatKesehatan = RiwayatKesehatan::paginate(10);  // Menampilkan data dengan pagination
+        // Ambil data Riwayat Kesehatan dengan relasi yang diperlukan (DataKesehatan dan Pengguna)
+        $riwayatKesehatan = RiwayatKesehatan::with(['dataKesehatan.pengguna'])->paginate(10);
         return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan'));
     }
 
@@ -43,45 +43,58 @@ class RiwayatKesehatanController extends Controller
         return redirect()->route('riwayatKesehatan.index')->with('success', 'Data Riwayat Kesehatan berhasil ditambahkan!');
     }
 
-    // Menampilkan form untuk mengedit data Riwayat Kesehatan
-    public function edit($nomor_kk)
-    {
-        // Ambil data berdasarkan nomor KK
-       
-        $data = RiwayatKesehatan::where('nomor_kk', $nomor_kk)->first();
-        
-        // Kembalikan view dengan data yang akan diedit
-        return view('layouts.Riwayat-kesehatan.edit_riwayat', compact('data'));
-        
+    // Menampilkan form untuk mengedit data Riwayat Kesehatan berdasarkan NIK
+   // Menampilkan form untuk mengedit data Riwayat Kesehatan berdasarkan NIK
+// Menampilkan form untuk mengedit data Riwayat Kesehatan berdasarkan id_riwayat
+public function edit($id_riwayat)
+{
+    // Cari data RiwayatKesehatan berdasarkan id_riwayat
+    $data = RiwayatKesehatan::find($id_riwayat);  // Menggunakan id_riwayat untuk mencari
+
+    if (!$data) {
+        return redirect()->route('riwayatKesehatan.index')->with('error', 'Data tidak ditemukan!');
     }
 
-    // Mengupdate data Riwayat Kesehatan
-    public function update(Request $request, $nomor_kk)
+    return view('layouts.Riwayat-kesehatan.edit_riwayat', compact('data'));
+}
+
+
+
+    // Mengupdate data Riwayat Kesehatan berdasarkan NIK
+    // Mengupdate data Riwayat Kesehatan berdasarkan id_riwayat
+    public function update(Request $request, $id_riwayat)
     {
-        // Validasi input form
+        // Validasi input
         $request->validate([
-            'ibu' => 'required',
-            'ayah' => 'required',
-            'telepon' => 'required',
-            'deskripsi' => 'required',
-            'dokter' => 'required',
-            'diagnosa' => 'required',
-            'pengobatan' => 'required',
+            'kategori_risiko' => 'required|in:Rendah,Sedang,Tinggi',
+            'catatan' => 'nullable|string',  // Ganti dengan 'catatan' yang benar
         ]);
-
-        // Cari data berdasarkan nomor KK dan update
-        $data = RiwayatKesehatan::findOrFail($nomor_kk);
-        $data->update($request->all());
-
-        // Redirect setelah sukses
-        return redirect()->route('riwayatKesehatan.index')->with('success', 'Data Riwayat Kesehatan berhasil diperbarui!');
+    
+        // Cari data berdasarkan id_riwayat dan update
+        $data = RiwayatKesehatan::findOrFail($id_riwayat);
+    
+        // Simpan perubahan
+        $data->update([
+            'kategori_risiko' => $request->kategori_risiko,
+            'catatan' => $request->catatan, // Perbaiki nama kolom menjadi 'catatan'
+        ]);
+    
+        // Flash message untuk memberi tahu pengguna
+        return redirect()->route('riwayatKesehatan.index')->with('success', 'Riwayat Kesehatan berhasil diperbarui!');
     }
+    
 
-    // Menampilkan detail data Riwayat Kesehatan
-    public function show($nomor_kk)
+
+    
+
+
+    // Menampilkan detail data Riwayat Kesehatan berdasarkan NIK
+    public function show($nik)
     {
-        // Ambil data berdasarkan nomor KK
-        $data = RiwayatKesehatan::where('nomor_kk', $nomor_kk)->first();
+        // Ambil data RiwayatKesehatan berdasarkan NIK melalui relasi DataKesehatan
+        $data = RiwayatKesehatan::whereHas('dataKesehatan', function($query) use ($nik) {
+            $query->where('nik', $nik);
+        })->first();
 
         // Jika data tidak ditemukan
         if (!$data) {
@@ -92,35 +105,21 @@ class RiwayatKesehatanController extends Controller
         return view('layouts.Riwayat-kesehatan.detail_riwayat', compact('data'));
     }
 
-    // Menghapus data Riwayat Kesehatan
-    public function destroy($nomor_kk)
-    {
-        // Cari data berdasarkan nomor KK dan hapus
-        $data = RiwayatKesehatan::findOrFail($nomor_kk);
-        $data->delete();
-
-        // Redirect setelah data dihapus
-        return redirect()->route('riwayatKesehatan.index')->with('success', 'Data Riwayat Kesehatan berhasil dihapus!');
-    }
-
     // Pencarian data Riwayat Kesehatan
     public function search(Request $request)
-{
-    $search = $request->get('search'); // Mendapatkan nilai pencarian
-    $riwayatKesehatan = RiwayatKesehatan::where('nomor_kk', 'like', "%$search%")
-                                        ->orWhere('ibu', 'like', "%$search%")
-                                        ->orWhere('ayah', 'like', "%$search%")
-                                        ->orWhere('telepon', 'like', "%$search%")
-                                        ->orWhere('deskripsi', 'like', "%$search%")
-                                        ->orWhere('diagnosa', 'like', "%$search%")
-                                        ->orWhere('pengobatan', 'like', "%$search%")
-                                        ->orWhere('catatan_lainnya', 'like', "%$search%")
-                                        ->paginate(10);
-    
-    // Return hasil pencarian
-    return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan'));
-}
+    {
+        $search = $request->get('search'); // Mendapatkan nilai pencarian
+        $riwayatKesehatan = RiwayatKesehatan::where('nomor_kk', 'like', "%$search%")
+            ->orWhere('ibu', 'like', "%$search%")
+            ->orWhere('ayah', 'like', "%$search%")
+            ->orWhere('telepon', 'like', "%$search%")
+            ->orWhere('deskripsi', 'like', "%$search%")
+            ->orWhere('diagnosa', 'like', "%$search%")
+            ->orWhere('pengobatan', 'like', "%$search%")
+            ->orWhere('catatan_lainnya', 'like', "%$search%")
+            ->paginate(10);
 
-
-
+        // Return hasil pencarian
+        return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan'));
+    }
 }
