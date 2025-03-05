@@ -8,70 +8,101 @@ class DataKesehatanController extends Controller
 {
     // Menampilkan halaman daftar data kesehatan
     public function index()
-    {
-        $dataKesehatan = DataKesehatan::paginate(10); // Menampilkan 10 data per halaman
-        return view('layouts.Data-kesehatan.data_kesehatan', compact('dataKesehatan')); // Mengirim data ke view
-    }
-    public function search(Request $request)
-    {
-        $search = $request->get('search');
-        $dataKesehatan = DataKesehatan::where('nomor_kk', 'like', "%$search%")
-                                        ->orWhere('ibu', 'like', "%$search%")
-                                        ->orWhere('ayah', 'like', "%$search%")
-                                        ->orWhere('telepon', 'like', "%$search%")
-                                        ->paginate(10);
-    
-        return view('layouts.Data-kesehatan.data_kesehatan', compact('dataKesehatan'));
-    }
-    // Menampilkan halaman detail data kesehatan
-    public function show($nomor_kk)
-    {
-        // Ambil data berdasarkan nomor KK
-        $data = DataKesehatan::where('nomor_kk', $nomor_kk)->first();
-        
-        // Jika data tidak ditemukan, redirect atau tampilkan error
-        if (!$data) {
-            return redirect()->route('dataKesehatan.index')->with('error', 'Data tidak ditemukan!');
+{
+    // Mengambil data kesehatan beserta relasi dengan pengguna
+    $dataKesehatan = DataKesehatan::with('pengguna')->paginate(10); // Menampilkan 10 data per halaman dan mengambil data pengguna
+
+    return view('layouts.Data-kesehatan.data_kesehatan', compact('dataKesehatan')); // Mengirim data ke view
+}
+
+public function search(Request $request)
+{
+    // Ambil query pencarian dari input
+    $search = $request->get('search');
+
+    // Cari data kesehatan berdasarkan pencarian, termasuk mencari pada tabel pengguna
+    $dataKesehatan = DataKesehatan::with('pengguna') // Mengambil data kesehatan dengan relasi pengguna
+        ->when($search, function ($query, $search) {
+            // Pencarian berdasarkan NIK pada tabel data_kesehatan dan Nama Lengkap pada tabel pengguna
+            return $query->where('nik', 'like', "%$search%")
+                         ->orWhereHas('pengguna', function($query) use ($search) {
+                             $query->where('nama_lengkap', 'like', "%$search%");
+                         });
+        })
+        ->paginate(10); // Menampilkan 10 data per halaman
+
+    // Menentukan pesan berdasarkan jenis pencarian
+    $message = '';
+    if ($dataKesehatan->isEmpty()) {
+        if (preg_match('/^[0-9]+$/', $search)) { // Jika pencarian menggunakan NIK (angka)
+            $message = 'Data NIK ' . $search . ' tidak ditemukan.';
+        } else { // Jika pencarian menggunakan Nama Pengguna
+            $message = 'Data Nama ' . $search . ' tidak ditemukan.';
         }
-    
-        // Kembalikan view dengan data yang ditampilkan
-        return view('layouts.Data-kesehatan.detail_kesehatan', compact('data'));
     }
+
+    // Kirim data dan pesan ke view
+    return view('layouts.Data-kesehatan.data_kesehatan', compact('dataKesehatan', 'message'));
+}
+
+
+
+    // Menampilkan halaman detail data kesehatan
+    public function show($nik)
+{
+    // Ambil data berdasarkan NIK
+    $data = DataKesehatan::with('pengguna') // Mengambil data kesehatan beserta relasi dengan pengguna
+                          ->where('nik', $nik) // Menggunakan nik, bukan nomor_kk
+                          ->first();
     
+    // Jika data tidak ditemukan, redirect atau tampilkan error
+    if (!$data) {
+        return redirect()->route('dataKesehatan.index')->with('error', 'Data tidak ditemukan!');
+    }
+
+    // Kembalikan view dengan data yang ditampilkan
+    return view('layouts.Data-kesehatan.detail_kesehatan', compact('data'));
+}
+
     // Menampilkan halaman edit untuk data kesehatan
-    public function edit($nomor_kk)
+    public function edit($nik)
     {
         // Ambil data berdasarkan nomor KK
-        $data = DataKesehatan::where('nomor_kk', $nomor_kk)->first();
+        $data = DataKesehatan::where('nik', $nik)->first();
         
         // Kembalikan view dengan data yang akan diedit
         return view('layouts.Data-kesehatan.edit_kesehatan', compact('data'));
     }
     
-    public function update(Request $request, $nomor_kk)
+    public function update(Request $request, $nik)
     {
         // Validasi input
         $request->validate([
-            'ibu' => 'required|string|max:255',
-            'ayah' => 'required|string|max:255',
-            'telepon' => 'required|string|max:20',
-            'anak_1' => 'nullable|string|max:255',
-            'anak_2' => 'nullable|string|max:255',
-            'alamat' => 'nullable|string|max:255',
+            'tanggal_pemeriksaan' => 'required|date',
+            'umur' => 'required|integer',
+            'tinggi_badan' => 'required|numeric',
+            'berat_badan' => 'required|numeric',
+            'gula_darah' => 'required|numeric',
+            'lingkar_pinggang' => 'required|numeric',
+            'tensi_darah' => 'required|string|max:255',
+            'riwayat_keluarga_diabetes' => 'required|string|in:Ya,Tidak',
         ]);
     
-        // Update data berdasarkan nomor KK
-        DataKesehatan::where('nomor_kk', $nomor_kk)->update([
-            'ibu' => $request->ibu,
-            'ayah' => $request->ayah,
-            'telepon' => $request->telepon,
-            'anak_1' => $request->anak_1,
-            'anak_2' => $request->anak_2,
-            'alamat' => $request->alamat,
+        // Update data berdasarkan NIK
+        DataKesehatan::where('nik', $nik)->update([
+            'tanggal_pemeriksaan' => $request->tanggal_pemeriksaan,
+            'umur' => $request->umur,
+            'tinggi_badan' => $request->tinggi_badan,
+            'berat_badan' => $request->berat_badan,
+            'gula_darah' => $request->gula_darah,
+            'lingkar_pinggang' => $request->lingkar_pinggang,
+            'tensi_darah' => $request->tensi_darah,
+            'riwayat_keluarga_diabetes' => $request->riwayat_keluarga_diabetes,
         ]);
     
-        // Redirect setelah berhasil
-        return redirect()->route('dataKesehatan.index')->with('success', 'Data berhasil diperbarui!');
+        // Redirect setelah berhasil dengan flash message
+        return redirect()->route('dataKesehatan.index')->with('success', 'Data kesehatan dengan NIK ' . $nik . ' berhasil diperbarui!');
     }
+    
 
 }

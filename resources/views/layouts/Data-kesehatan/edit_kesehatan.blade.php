@@ -7,7 +7,7 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title">Edit Data Kesehatan - Nomor KK: {{ $data->nomor_kk }}</h1>
+            <h1 class="page-title">Edit Data Kesehatan - NIK: {{ $data->nik }}</h1>
         </div>
     </div>
 
@@ -16,41 +16,58 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form id="editForm" action="{{ route('dataKesehatan.update', $data->nomor_kk) }}" method="POST">
+                    <form id="editForm" action="{{ route('dataKesehatan.update', $data->nik) }}" method="POST">
                         @csrf
+                        @method('PUT') <!-- Menambahkan method spoofing untuk PUT -->
+                    
+                        <!-- Form fields -->
                         <div class="form-group">
-                            <label for="ibu">Nama Ibu</label>
-                            <input type="text" name="ibu" class="form-control" value="{{ $data->ibu }}" required>
+                            <label for="tanggal_pemeriksaan">Tanggal Pemeriksaan</label>
+                            <input type="date" name="tanggal_pemeriksaan" class="form-control" value="{{ $data->tanggal_pemeriksaan }}" required>
                         </div>
-
+                    
                         <div class="form-group">
-                            <label for="ayah">Nama Ayah</label>
-                            <input type="text" name="ayah" class="form-control" value="{{ $data->ayah }}" required>
+                            <label for="umur">Umur</label>
+                            <input type="number" name="umur" class="form-control" value="{{ $data->umur }}" required>
                         </div>
-
+                    
                         <div class="form-group">
-                            <label for="telepon">Nomor Telepon</label>
-                            <input type="text" name="telepon" class="form-control" value="{{ $data->telepon }}" required>
+                            <label for="tinggi_badan">Tinggi Badan (cm)</label>
+                            <input type="number" name="tinggi_badan" class="form-control" value="{{ $data->tinggi_badan }}" required>
                         </div>
-
+                    
                         <div class="form-group">
-                            <label for="anak_1">Nama Anak 1</label>
-                            <input type="text" name="anak_1" class="form-control" value="{{ $data->anak_1 }}">
+                            <label for="berat_badan">Berat Badan (kg)</label>
+                            <input type="number" name="berat_badan" class="form-control" value="{{ $data->berat_badan }}" required>
                         </div>
-
+                    
                         <div class="form-group">
-                            <label for="anak_2">Nama Anak 2</label>
-                            <input type="text" name="anak_2" class="form-control" value="{{ $data->anak_2 }}">
+                            <label for="gula_darah">Gula Darah</label>
+                            <input type="number" name="gula_darah" class="form-control" value="{{ $data->gula_darah }}" required>
                         </div>
-
+                    
                         <div class="form-group">
-                            <label for="alamat">Alamat</label>
-                            <textarea name="alamat" class="form-control">{{ $data->alamat }}</textarea>
+                            <label for="lingkar_pinggang">Lingkar Pinggang (cm)</label>
+                            <input type="number" name="lingkar_pinggang" class="form-control" value="{{ $data->lingkar_pinggang }}" required>
                         </div>
-
+                    
+                        <div class="form-group">
+                            <label for="tensi_darah">Tekanan Darah</label>
+                            <input type="text" name="tensi_darah" class="form-control" value="{{ $data->tensi_darah }}" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="riwayat_keluarga_diabetes">Riwayat Keluarga Diabetes</label>
+                            <select name="riwayat_keluarga_diabetes" class="form-control" required>
+                                <option value="Ya" {{ $data->riwayat_keluarga_diabetes == 'Ya' ? 'selected' : '' }}>Ya</option>
+                                <option value="Tidak" {{ $data->riwayat_keluarga_diabetes == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                            </select>
+                        </div>
+                    
                         <button type="button" id="submitBtn" class="btn btn-primary">Simpan</button>
                         <a href="{{ route('dataKesehatan.index') }}" class="btn btn-secondary">Kembali</a>
                     </form>
+                    
                 </div>
             </div>
         </div>

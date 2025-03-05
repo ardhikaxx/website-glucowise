@@ -56,11 +56,14 @@ Route::prefix('admin') // Grup route untuk admin
         Route::delete('{id}', [DataAdminController::class, 'destroy'])->name('destroy');
     });
 
-Route::get('/data-kesehatan', [DataKesehatanController::class, 'index'])->name('dataKesehatan.index');
-Route::get('/data-kesehatan/search', [DataKesehatanController::class, 'search'])->name('dataKesehatan.search');
-Route::get('/data-kesehatan/edit/{nomor_kk}', [DataKesehatanController::class, 'edit'])->name('dataKesehatan.edit');
-Route::post('/data-kesehatan/update/{nomor_kk}', [DataKesehatanController::class, 'update'])->name('dataKesehatan.update');
-Route::get('/data-kesehatan/detail/{nomor_kk}', [DataKesehatanController::class, 'show'])->name('dataKesehatan.show');
+    Route::prefix('data-kesehatan')->name('dataKesehatan.')->group(function () {
+        Route::get('/', [DataKesehatanController::class, 'index'])->name('index'); // Menampilkan daftar data kesehatan
+        Route::get('/search', [DataKesehatanController::class, 'search'])->name('search'); // Pencarian data kesehatan
+        Route::get('/edit/{nik}', [DataKesehatanController::class, 'edit'])->name('edit'); // Menampilkan halaman edit untuk data kesehatan berdasarkan NIK
+        Route::put('/update/{nik}', [DataKesehatanController::class, 'update'])->name('update'); // Mengupdate data kesehatan berdasarkan NIK
+        Route::get('/detail/{nik}', [DataKesehatanController::class, 'show'])->name('show'); // Menampilkan detail data kesehatan berdasarkan NIK
+    });
+    
 
 Route::get('/edukasi', [EdukasiController::class, 'index'])->name('edukasi.index');
 Route::get('/edukasi/create', [EdukasiController::class, 'create'])->name('edukasi.create');

@@ -7,7 +7,7 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title">Detail Riwayat Kesehatan - Nomor KK: {{ $data->nomor_kk }}</h1>
+            <h1 class="page-title">Detail Riwayat Kesehatan - NIK: {{ $data->nik }}</h1>
         </div>
     </div>
 
@@ -19,40 +19,44 @@
                     <table class="table table-bordered table-animated">
                         <tbody>
                             <tr class="table-row">
-                                <th>Nomor KK</th>
-                                <td>{{ $data->nomor_kk }}</td>
+                                <th>NIK</th>
+                                <td>{{ $data->nik }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Nama Ibu</th>
-                                <td>{{ $data->ibu }}</td>
+                                <th>Nama Lengkap</th>
+                                <td>{{ $data->pengguna->nama_lengkap }}</td> <!-- Nama lengkap diambil dari relasi pengguna -->
                             </tr>
                             <tr class="table-row">
-                                <th>Nama Ayah</th>
-                                <td>{{ $data->ayah }}</td>
+                                <th>Tanggal Pemeriksaan</th>
+                                <td>{{ $data->tanggal_pemeriksaan }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Nomor Telepon</th>
-                                <td>{{ $data->telepon }}</td>
+                                <th>Riwayat Keluarga Diabetes</th>
+                                <td>{{ $data->riwayat_keluarga_diabetes }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Deskripsi Riwayat</th>
-                                <td>{{ $data->deskripsi }}</td>
+                                <th>Umur</th>
+                                <td>{{ $data->umur }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Dokter</th>
-                                <td>{{ $data->dokter }}</td>
+                                <th>Tinggi Badan</th>
+                                <td>{{ $data->tinggi_badan }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Diagnosa</th>
-                                <td>{{ $data->diagnosa }}</td>
+                                <th>Berat Badan</th>
+                                <td>{{ $data->berat_badan }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Pengobatan</th>
-                                <td>{{ $data->pengobatan }}</td>
+                                <th>Gula Darah</th>
+                                <td>{{ $data->gula_darah }}</td>
                             </tr>
                             <tr class="table-row">
-                                <th>Catatan Lainnya</th>
-                                <td>{{ $data->catatan_lainnya }}</td>
+                                <th>Lingkar Pinggang</th>
+                                <td>{{ $data->lingkar_pinggang }}</td>
+                            </tr>
+                            <tr class="table-row">
+                                <th>Tensi Darah</th>
+                                <td>{{ $data->tensi_darah }}</td>
                             </tr>
                         </tbody>
                     </table>
