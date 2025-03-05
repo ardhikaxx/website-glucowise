@@ -16,41 +16,76 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card shadow-lg rounded-4">
                     <div class="card-body">
-                        <form action="{{ isset($admin) ? route('admin.update', $admin->id) : route('admin.store') }}" method="POST">
+                        <form action="{{ isset($admin) ? route('admin.update', $admin->id_admin) : route('admin.store') }}" method="POST">
                             @csrf
                             @if(isset($admin))
-                                @method('PUT') <!-- Menggunakan method PUT untuk update -->
-                            @endif
+                            @method('PUT')
+                        @endif
                             <div class="row">
-                                <!-- Kolom Kiri: Nama, Email, Jenis Kelamin -->
+                                <!-- Nama Lengkap -->
                                 <div class="col-md-12 mb-3">
-                                    <!-- Nama Lengkap -->
                                     <div class="form-group">
                                         <label for="nama" class="form-label">Nama Lengkap</label>
-                                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap" value="{{ isset($admin) ? $admin->nama : '' }}" required>
+                                        <input type="text" name="nama_lengkap" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap" value="{{ old('nama_lengkap', isset($admin) ? $admin->nama_lengkap : '') }}" required>
+                                        @error('nama_lengkap')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
+                                <!-- Email -->
                                 <div class="col-md-12 mb-3">
-                                    <!-- Email -->
                                     <div class="form-group">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan Email" value="{{ isset($admin) ? $admin->email : '' }}" required>
+                                        <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan Email" value="{{ old('email', isset($admin) ? $admin->email : '') }}" required>
+                                        @error('email')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
+                                <!-- Password -->
+                                @if(!isset($admin))  <!-- Menampilkan input password hanya saat menambah data admin -->
                                 <div class="col-md-12 mb-3">
-                                    <!-- Jenis Kelamin -->
+                                    <div class="form-group">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password" required>
+                                    </div>
+                                </div>
+
+                                <!-- Konfirmasi Password -->
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Masukkan Konfirmasi Password" required>
+                                    </div>
+                                </div>
+                                @endif
+
+                                <!-- Jenis Kelamin -->
+                                <div class="col-md-12 mb-3">
                                     <div class="form-group">
                                         <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-select" required>
                                             <option value="">Pilih Jenis Kelamin</option>
-                                            <option value="Laki-laki" {{ isset($admin) && $admin->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                            <option value="Perempuan" {{ isset($admin) && $admin->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                            <option value="Laki-laki" {{ old('jenis_kelamin', isset($admin) ? $admin->jenis_kelamin : '') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                            <option value="Perempuan" {{ old('jenis_kelamin', isset($admin) ? $admin->jenis_kelamin : '') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                         </select>
                                     </div>
                                 </div>
-                                
+
+                                <!-- Hak Akses -->
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label for="hak_akses" class="form-label">Hak Akses</label>
+                                        <select name="hak_akses" id="hak_akses" class="form-select" required>
+                                            <option value="">Pilih Hak Akses</option>
+                                            <option value="Bidan" {{ old('hak_akses', isset($admin) ? $admin->hak_akses : '') == 'Bidan' ? 'selected' : '' }}>Bidan</option>
+                                            <option value="Kader" {{ old('hak_akses', isset($admin) ? $admin->hak_akses : '') == 'Kader' ? 'selected' : '' }}>Kader</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <!-- Form Submit -->
                                 <div class="col-md-12 text-center">
                                     <button type="submit" class="btn btn-primary w-50">{{ isset($admin) ? 'Update' : 'Simpan' }}</button>
@@ -63,49 +98,7 @@
             </div>
         </div>
     </div>
-
-    <!-- CSS Styling -->
     <style>
-        .page-title {
-            color: #199A8E;
-            font-weight: 600;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-body {
-            background-color: #f9f9f9;
-            padding: 40px;
-        }
-
-        .form-label {
-            font-size: 16px;
-            color: #199A8E;
-        }
-
-        .form-control, .form-select {
-            font-size: 14px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            padding: 12px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: #199A8E;
-            box-shadow: 0 0 5px rgba(25, 154, 142, 0.2);
-        }
-
         .btn-primary {
             background-color: #199A8E;
             border-color: #199A8E;
@@ -113,14 +106,17 @@
             font-size: 16px;
             border-radius: 25px;
             padding: 12px 20px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
-
+    
         .btn-primary:hover {
             background-color: #15867D;
             border-color: #15867D;
+            transform: translateY(-2px);
         }
-
+    
         .btn-secondary {
             background-color: #f2f6f9;
             border-color: #f2f6f9;
@@ -128,26 +124,33 @@
             font-size: 16px;
             border-radius: 25px;
             padding: 12px 20px;
+            text-transform: uppercase;
+            font-weight: bold;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
-
+    
+        /* Button "Kembali" Hover tanpa mengubah warna teks */
         .btn-secondary:hover {
+            color: #199A8E;
             background-color: #e6f7f3;
             border-color: #e6f7f3;
+            transform: translateY(-2px);
         }
-
-        /* Responsive styling */
+    
+        .btn-secondary:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(25, 154, 142, 0.3);
+        }
+    
+        /* Responsive Design for Button */
         @media (max-width: 768px) {
-            .card-body {
-                padding: 30px;
-            }
-
             .btn-primary, .btn-secondary {
                 font-size: 14px;
                 width: 100%;
-                margin-top: 10px;
+                padding: 12px;
             }
         }
     </style>
-
+    
 @endsection

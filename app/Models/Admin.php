@@ -9,14 +9,16 @@ class Admin extends Model
 {
     use HasFactory;
 
-    protected $table = 'admin';
+    protected $table = 'admin'; // Nama tabel
+    protected $primaryKey = 'id_admin'; // Tentukan primary key yang benar
+    public $timestamps = false; // Jika tidak ada timestamps
 
     protected $fillable = [
         'nama_lengkap',
         'email',
         'password',
         'jenis_kelamin',
-        'hak_akses', // menambahkan kolom hak_akses
+        'hak_akses',
     ];
 
     public function riwayatKesehatan()
@@ -29,3 +31,4 @@ class Admin extends Model
         return $this->hasMany(Edukasi::class, 'id_admin', 'id_admin');
     }
 }
+

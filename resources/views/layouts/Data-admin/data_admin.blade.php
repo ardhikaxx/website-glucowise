@@ -58,19 +58,22 @@
                                     @foreach ($admins as $index => $admin)
                                         <tr>
                                             <td>{{ ($admins->currentPage() - 1) * $admins->perPage() + $loop->iteration }}</td>
-                                            <td>{{ $admin->nama }}</td>
+                                            <td>{{ $admin->nama_lengkap }}</td>
                                             <td>{{ $admin->email }}</td>
                                             <td>{{ $admin->jenis_kelamin }}</td>
                                             <td>
-                                                <a href="{{ route('admin.edit', $admin->id) }}" class="btn btn-primary btn-rounded">Edit</a>
-                                                
+                                                <!-- Tombol Edit -->
+                                                <a href="{{ route('admin.edit', $admin->id_admin) }}" class="btn btn-primary btn-rounded">Edit</a>
+
+                                            
                                                 <!-- Tombol Hapus -->
-                                                <form action="{{ route('admin.destroy', $admin->id) }}" method="POST" class="delete-form" style="display: inline-block;">
+                                                <form action="{{ route('admin.destroy', $admin->id_admin) }}" method="POST" class="delete-form" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)">Hapus</button>
                                                 </form>
                                             </td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

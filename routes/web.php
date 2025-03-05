@@ -34,27 +34,16 @@ Route::prefix('data_pengguna')->group(function () {
 
 use App\Http\Controllers\AdminController;
 
-Route::prefix('admin') // Grup route untuk admin
-    ->name('admin.') // Menambahkan prefix untuk nama route
-        ->group(function() {
-        // Route untuk halaman index (tampilan daftar admin)
-        Route::get('/', [DataAdminController::class, 'index'])->name('index');
 
-        // Route untuk menampilkan form tambah admin
-        Route::get('create', [DataAdminController::class, 'create'])->name('create');
+Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('admin/create', [AdminController::class, 'create'])->name('admin.create');
+Route::post('admin/store', [AdminController::class, 'store'])->name('admin.store');
+Route::get('admin/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
+Route::put('admin/{id_admin}/update', [AdminController::class, 'update'])->name('admin.update');
+Route::delete('admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
-        // Route untuk menyimpan data admin baru
-        Route::post('/', [DataAdminController::class, 'store'])->name('store');
 
-        // Route untuk menampilkan form edit admin
-        Route::get('{id}/edit', [DataAdminController::class, 'edit'])->name('edit');
 
-        // Route untuk mengupdate data admin
-        Route::put('{id}', [DataAdminController::class, 'update'])->name('update');
-
-        // Route untuk menghapus admin
-        Route::delete('{id}', [DataAdminController::class, 'destroy'])->name('destroy');
-    });
 
     Route::prefix('data-kesehatan')->name('dataKesehatan.')->group(function () {
         Route::get('/', [DataKesehatanController::class, 'index'])->name('index'); // Menampilkan daftar data kesehatan
