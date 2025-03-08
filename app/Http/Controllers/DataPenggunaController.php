@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class DataPenggunaController extends Controller
 {
+    public function dashboard()
+    {
+        // Get total admin count
+        $totalPengguna = Pengguna::count(); // This will get the total number of admins
+        // Return the dashboard view with the data
+        return view('layouts.Dashboard.dashboard', compact('totalPengguna'));
+    }
     // Menampilkan halaman data pengguna
     public function index(Request $request)
     {

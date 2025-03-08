@@ -49,9 +49,9 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>NIK</th>
-                                    <th>Nama Lengkap</th>
                                     <th>Tanggal Pemeriksaan</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>Gula Darah (mg/dl)</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -59,9 +59,9 @@
                                 @foreach ($dataKesehatan->take(10) as $data)
                                 <tr class="table-row">
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $data->nik }}</td>
-                                    <td>{{ $data->pengguna->nama_lengkap }}</td> <!-- Menampilkan Nama Lengkap Pengguna -->
                                     <td>{{ $data->tanggal_pemeriksaan }}</td>
+                                    <td>{{ $data->pengguna->nama_lengkap }}</td> <!-- Menampilkan Nama Lengkap Pengguna -->
+                                    <td>{{ $data->gula_darah }}</td>
                                     <td>
                                         <a class="btn btn-warning" href="{{ route('dataKesehatan.edit', $data->nik) }}">Edit</a>
                                         <a class="btn btn-info" href="{{ route('dataKesehatan.show', $data->nik) }}">Detail</a>

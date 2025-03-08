@@ -23,6 +23,20 @@ class CreateAllTables extends Migration
             $table->timestamps();
         });
 
+         // Tabel Admin
+        Schema::create('gluco_care', function (Blueprint $table) {
+            $table->id('id_care')->unsignedBigInteger()->autoIncrement();
+            $table->string('nik', 16);
+            $table->date('tanggal');
+            $table->string('nama_obat');
+            $table->string('dosis', 50);
+            $table->time('jam_minum');
+            $table->time('jam_makan');
+            $table->timestamps(0);
+
+            $table->foreign('nik')->references('nik')->on('pengguna')->onDelete('cascade');
+        });
+
         // Tabel Admin
         Schema::create('admin', function (Blueprint $table) {
             $table->id('id_admin');

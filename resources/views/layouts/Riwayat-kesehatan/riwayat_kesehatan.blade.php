@@ -60,10 +60,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nomor KK</th>
                                     <th>Nama Lengkap</th>
+                                    <th>Gula Darah(mg/dl)</th>
                                     <th>Tanggal Pemeriksaan</th>
-                                    <th>Telepon</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -71,8 +71,9 @@
                                 @foreach ($riwayatKesehatan as $data)
                                     <tr class="table-row">
                                         <td>{{ $data->id_riwayat }}</td>
-                                        <td>{{ $data->dataKesehatan ? $data->dataKesehatan->nik : 'N/A' }}</td>
                                         <td>{{ $data->dataKesehatan && $data->dataKesehatan->pengguna ? $data->dataKesehatan->pengguna->nama_lengkap : 'N/A' }}</td>
+                                        <td>{{ $data->dataKesehatan ? $data->dataKesehatan->gula_darah : 'N/A' }}</td>
+                                        
                                         <td>{{ $data->dataKesehatan ? $data->dataKesehatan->tanggal_pemeriksaan : 'Tanggal tidak tersedia' }}</td>
                                         <td>
                                             @if ($data->kategori_risiko == 'Rendah')

@@ -5,6 +5,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataPenggunaController;
 use App\Http\Controllers\DataAdminController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataKesehatanController;
 use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\RiwayatKesehatanController;
@@ -41,6 +42,8 @@ Route::post('admin/store', [AdminController::class, 'store'])->name('admin.store
 Route::get('admin/{id}/edit', [AdminController::class, 'edit'])->name('admin.edit');
 Route::put('admin/{id_admin}/update', [AdminController::class, 'update'])->name('admin.update');
 Route::delete('admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+// Add a route for the dashboard
+Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
 

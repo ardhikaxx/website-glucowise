@@ -17,17 +17,18 @@
             <div class="card shadow-sm border-0 rounded-3 p-3" style="background-color: #FFFBF0;">
                 <div class="card-body text-center">
                     <h5 class="card-title fw-bold fs-5 text-muted">Jumlah Admin</h5>
-                    <h2 class="display-4 text-dark" style="font-weight: bold; font-size: 56px;">10</h2>
+                    <h2 class="text-dark" style="font-weight: bold; font-size: 50px;">{{ $totalAdmins }}</h2>
                 </div>
             </div>
         </div>
+        
         
         <!-- Card for User Count -->
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm border-0 rounded-3 p-3" style="background-color: #FFFBF0;">
                 <div class="card-body text-center">
                     <h5 class="card-title fw-bold fs-5 text-muted">Jumlah Pengguna</h5>
-                    <h2 class="display-4 text-dark" style="font-weight: bold; font-size: 56px;">10</h2>
+                    <h2 class="text-dark" style="font-weight: bold; font-size: 50px;">{{ $totalPengguna }}</h2>
                 </div>
             </div>
         </div>
@@ -37,7 +38,7 @@
             <div class="card shadow-sm border-0 rounded-3 p-3" style="background-color: #FFFBF0;">
                 <div class="card-body text-center">
                     <h5 class="card-title fw-bold fs-5 text-muted">Jumlah Pasien Pemeriksaan</h5>
-                    <h2 class="display-4 text-dark" style="font-weight: bold; font-size: 56px;">5</h2>
+                    <h2 class="text-dark" style="font-weight: bold; font-size: 50px;">{{ $totalPemeriksaan }}</h2>
                 </div>
             </div>
         </div>
@@ -88,54 +89,74 @@
 <script>
     // JavaScript for rendering the Diabetes Risk Chart
     $(document).ready(function() {
-        var riskOptions = {
-            chart: {
-                type: 'bar',
-                height: 300,
-            },
-            series: [{
-                name: '2023',
-                data: [50, 60, 70, 80],
-            }, {
-                name: '2024',
-                data: [40, 50, 60, 70],
-            }, {
-                name: '2025',
-                data: [60, 70, 80, 90],
-            }],
-            xaxis: {
-                categories: ['January', 'February', 'March', 'April'],
-                title: {
-                    text: 'Bulan',
-                    style: {
-                        fontSize: '16px'
+        // Retrieve the risk data passed from the controller
+        var chartData = @json($chartData);
+
+        // Check if chartData exists
+        if (chartData) {
+            var weeks = chartData['weeks'];
+            var riskData = chartData['data'];
+            var categories = chartData['categories'];
+
+            // Configure the Diabetes Risk Chart
+            var riskOptions = {
+                chart: {
+                    type: 'bar',
+                    height: 300,
+                },
+                series: [
+                    {
+                        name: categories[0], // 'Rendah'
+                        data: riskData['Rendah'], // Week data for 'Rendah'
+                    },
+                    {
+                        name: categories[1], // 'Sedang'
+                        data: riskData['Sedang'], // Week data for 'Sedang'
+                    },
+                    {
+                        name: categories[2], // 'Tinggi'
+                        data: riskData['Tinggi'], // Week data for 'Tinggi'
                     }
-                }
-            },
-            yaxis: {
-                title: {
-                    text: 'Risiko',
-                    style: {
-                        fontSize: '16px'
+                ],
+                xaxis: {
+                    categories: weeks, // Week 1, Week 2, Week 3, Week 4
+                    title: {
+                        text: 'Minggu',
+                        style: {
+                            fontSize: '16px'
+                        }
                     }
-                }
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 5,
-                    columnWidth: '50%',
-                }
-            },
-            colors: ['#FFB85C', '#34B3A0', '#FF6161'],
-        };
-        var riskChart = new ApexCharts(document.querySelector("#risk-chart"), riskOptions);
-        riskChart.render();
-    
+                },
+                yaxis: {
+                    title: {
+                        text: 'Risiko',
+                        style: {
+                            fontSize: '16px'
+                        }
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 5,
+                        columnWidth: '50%',
+                    }
+                },
+                colors: ['#FFB85C', '#34B3A0', '#FF6161'], // Colors for categories
+            };
+
+            // Render the risk chart
+            var riskChart = new ApexCharts(document.querySelector("#risk-chart"), riskOptions);
+            riskChart.render();
+        } else {
+            // If no data is available for the selected month
+            $('#risk-chart').html('<p>No data available for the selected month.</p>');
+        }
+
         // Age Category Doughnut Chart Configuration
         const ageCategoryData = {
             labels: ['18-25', '26-35', '36-45'],
             datasets: [{
-                data: [22, 33, 44],
+                data: [22, 33, 44], // Example data, you can replace with dynamic data
                 backgroundColor: ['#FFB85C', '#34B3A0', '#FF6161'],
                 borderWidth: 0
             }]
@@ -190,10 +211,18 @@
             },
         };
 
+        // Render the age category chart
         var ageCategoryChart = new Chart(document.getElementById('age-category-chart'), ageCategoryConfig);
 
+        // Handle the month selection change
+        $('select').change(function() {
+            var selectedMonth = $(this).val();
+            // Update the page with the selected month data (you can add AJAX to reload the chart)
+            window.location.href = "/?month=" + selectedMonth;
+        });
     });
 </script>
+
 
     
 

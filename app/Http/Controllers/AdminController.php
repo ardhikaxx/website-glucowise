@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    public function dashboard()
+{
+    // Get total admin count
+    $totalAdmins = Admin::count(); // This will get the total number of admins
+
+    // Get counts based on hak_akses
+    $bidanCount = Admin::where('hak_akses', 'Bidan')->count(); // Count admins with hak_akses 'Bidan'
+    $kaderCount = Admin::where('hak_akses', 'Kader')->count(); // Count admins with hak_akses 'Kader'
+
+    // Return the dashboard view with the data
+    return view('layouts.Dashboard.dashboard', compact('totalAdmins', 'bidanCount', 'kaderCount'));
+}
+
+
     public function index(Request $request)
     {
         // If search query is present
