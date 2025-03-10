@@ -10,6 +10,7 @@ class PertanyaanScreening extends Model
     use HasFactory;
 
     protected $table = 'pertanyaan_screening';
+    protected $primaryKey = 'id_pertanyaan';
 
     protected $fillable = [
         'pertanyaan',

@@ -53,7 +53,6 @@
                                         <th>No</th>
                                         <th>Pertanyaan</th>
                                         <th>Jawaban</th>
-                                        <th>Hasil Screening</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -67,11 +66,7 @@
                                                     <p>{{ $jawaban->jawaban }}</p>
                                                 @endforeach
                                             </td>
-                                            <td>
-                                                @foreach ($data->hasilScreening as $hasil)
-                                                    <p>{{ $hasil->hasil }}</p>
-                                                @endforeach
-                                            </td>
+                                            
                                             <td>
                                                 <a href="{{ route('screening.edit', $data->id_pertanyaan) }}" class="btn btn-primary btn-rounded">Edit</a>
                                                 
