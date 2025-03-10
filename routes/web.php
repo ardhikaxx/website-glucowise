@@ -9,6 +9,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataKesehatanController;
 use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\RiwayatKesehatanController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ScreeningController;
 
 
 /*
@@ -21,6 +23,14 @@ use App\Http\Controllers\RiwayatKesehatanController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::prefix('data-screening')->name('screening.')->group(function () {
+    Route::get('/', [ScreeningController::class, 'index'])->name('index');
+    Route::get('create', [ScreeningController::class, 'create'])->name('create');
+    Route::post('/', [ScreeningController::class, 'store'])->name('store');
+    Route::get('{id}/edit', [ScreeningController::class, 'edit'])->name('edit');
+    Route::put('{id}', [ScreeningController::class, 'update'])->name('update');
+    Route::delete('{id}', [ScreeningController::class, 'destroy'])->name('destroy');
+});
 
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/login', [AuthController::class, 'showLoginForm']);
@@ -33,7 +43,7 @@ Route::prefix('data_pengguna')->group(function () {
     Route::get('/search', [DataPenggunaController::class, 'index'])->name('dataPengguna.search');
 });
 
-use App\Http\Controllers\AdminController;
+
 
 
 Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
