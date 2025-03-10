@@ -91,4 +91,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/riwayat_kesehatan/search', [RiwayatKesehatanController::class, 'search'])->name('riwayatKesehatan.search');
     });
 
+    Route::get('/', function () {
+        return redirect()->route('login');
+    });
+
 });
