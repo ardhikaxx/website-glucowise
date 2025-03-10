@@ -46,7 +46,7 @@
     
     <div class="row mt-4">
         <!-- Section for Risk Graph (Diabetes) -->
-        <div class="col-lg-8 col-md-12">
+       <div class="col-lg-8 col-md-12">
             <div class="card shadow-sm border-0 rounded-lg">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between mb-3">
@@ -61,7 +61,7 @@
                     <div id="risk-chart" style="height: 300px;"></div>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <!-- Section for User Age Category (Doughnut Chart) -->
         <div class="col-lg-4 col-md-6">
