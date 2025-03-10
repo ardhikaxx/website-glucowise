@@ -52,11 +52,13 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h5 class="card-title fw-semibold text-muted" style="font-size: 20px;">Grafik Risiko Diabetes</h5>
                         <select class="form-select w-auto" style="font-size: 14px;">
-                            <option value="1">Januari 2025</option>
-                            <option value="2">Februari 2025</option>
-                            <option value="3">Maret 2025</option>
-                            <option value="4">April 2025</option>
+                            @foreach(range(1, 12) as $month)
+                                <option value="{{ $month }}" {{ $month == $selectedMonth ? 'selected' : '' }}>
+                                    {{ \Carbon\Carbon::create()->month($month)->format('F') }} {{ \Carbon\Carbon::now()->year }} <!-- Tambahkan tahun yang sesuai -->
+                                </option>
+                            @endforeach
                         </select>
+                        
                     </div>
                     <div id="risk-chart" style="height: 300px;"></div>
                 </div>
@@ -85,7 +87,6 @@
 <script src="{{ asset('js/dashboard.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-
 <script>
     // JavaScript for rendering the Diabetes Risk Chart
     $(document).ready(function() {
@@ -121,7 +122,7 @@
                 xaxis: {
                     categories: weeks, // Week 1, Week 2, Week 3, Week 4
                     title: {
-                        text: 'Minggu',
+                        text: '',
                         style: {
                             fontSize: '16px'
                         }
@@ -153,11 +154,17 @@
         }
 
         // Age Category Doughnut Chart Configuration
+        const ageData = @json($ageData);  // Get the dynamic age data passed from the controller
         const ageCategoryData = {
-            labels: ['18-25', '26-35', '36-45'],
+            labels: ['0-18', '19-35', '36-50', '51+'],  // Age categories
             datasets: [{
-                data: [22, 33, 44], // Example data, you can replace with dynamic data
-                backgroundColor: ['#FFB85C', '#34B3A0', '#FF6161'],
+                data: [
+                    ageData['0-18'],
+                    ageData['19-35'],
+                    ageData['36-50'],
+                    ageData['51+']
+                ], // Dynamic data from controller
+                backgroundColor: ['#FFB85C', '#34B3A0', '#FF6161', '#FF7F50'],
                 borderWidth: 0
             }]
         };
@@ -222,8 +229,5 @@
         });
     });
 </script>
-
-
-    
 
 @endsection
