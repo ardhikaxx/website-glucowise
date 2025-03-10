@@ -15,10 +15,16 @@ class ScreeningController extends Controller
         return view('layouts.data-screening.data', compact('dataScreening'));
     }
 
+    
     public function create()
-    {
-        return view('screening.create');
-    }
+{
+    // Mengambil ID terakhir yang di-generate oleh database dan menambah 1 untuk ID berikutnya
+    $lastId = PertanyaanScreening::latest('id_pertanyaan')->first(); 
+    $id_pertanyaan = $lastId ? $lastId->id_pertanyaan + 1 : 1; // Jika tidak ada data, ID pertama adalah 1
+
+    return view('layouts.data-screening.tambahpertanyaan', compact('id_pertanyaan'));
+}
+
 
     public function store(Request $request)
     {

@@ -29,12 +29,13 @@
                 <div class="card visible">
                     <div class="card-body">
                         <div class="row mb-3">
-                            <div class="col-md-12">
-                                <a href="{{ route('screening.create') }}" class="btn btn-primary float-left">
+                            <div class="col-md-12 d-flex justify-content-between">
+                                <a href="{{ route('screening.create') }}" class="btn btn-primary btn-rounded">
                                     <i class="fa fa-plus-circle"></i> Create
                                 </a>
+
                                 <!-- Form Pencarian di sebelah kanan -->
-                                <form action="{{ route('screening.index') }}" method="GET" class="search-form float-right">
+                                <form action="{{ route('screening.index') }}" method="GET" class="search-form">
                                     <div class="input-group">
                                         <input type="text" name="search" class="form-control search-input" placeholder="Search" value="{{ request()->search }}">
                                         <button type="submit" class="btn btn-search">
@@ -159,7 +160,8 @@
             transform: scale(1.1);
         }
 
-        .btn-primary {
+        .btn-primary,
+        .btn-danger {
             background-color: #199A8E;
             border-color: #199A8E;
             color: white;
@@ -169,7 +171,8 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover,
+        .btn-danger:hover {
             background-color: #15867D;
             border-color: #15867D;
             transform: scale(1.1);
