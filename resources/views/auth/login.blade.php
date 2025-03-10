@@ -53,6 +53,15 @@
                                     Sign In
                                 </button>
                             </form>
+
+                            {{-- Tombol Continue with Google --}}
+                            <div class="d-flex justify-content-center mt-4">
+                                <a href="#" class="btn btn-outline-danger w-100 py-3 fs-4 rounded-2 d-flex align-items-center justify-content-center">
+                                    <img src="{{ asset('images/logos/search.png') }}" alt="Google Logo" width="30" class="me-2">
+                                    Continue with Google
+                                </a>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
