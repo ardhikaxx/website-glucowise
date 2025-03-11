@@ -99,6 +99,5 @@
         </div>
     </div>
 </div>
-
 <script src="{{ asset('js/Data-kesehatan/Data-kesehatan.js') }}"></script>
 @endsection

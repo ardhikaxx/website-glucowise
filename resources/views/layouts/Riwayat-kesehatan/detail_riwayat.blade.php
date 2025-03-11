@@ -3,6 +3,7 @@
 @section('title', 'Detail Riwayat Kesehatan')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/riwayat-kesehatan/detail-riwayat.css') }}">
 <div class="container-fluid">
     <!-- Judul Halaman -->
     <div class="row">
@@ -69,140 +70,6 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/riwayat-kesehatan/detail-riwayat.js') }}"></script>
 
-<style>
-    /* Styling untuk Badge (Status Risiko) */
-.badge {
-    font-size: 14px;
-    font-weight: bold;
-    padding: 8px 16px;
-    border-radius: 20px;
-    text-align: center;
-    display: inline-block;
-}
-
-.badge-success {
-    background-color: #4CAF50; /* Hijau untuk 'Rendah' */
-    color: white;
-}
-
-.badge-warning {
-    background-color: #FFC107; /* Kuning untuk 'Sedang' */
-    color: white;
-}
-
-.badge-danger {
-    background-color: #F44336; /* Merah untuk 'Tinggi' */
-    color: white;
-}
-
-.badge-secondary {
-    background-color: #6C757D; /* Abu-abu untuk 'Tidak Tersedia' */
-    color: white;
-}
-
-/* Tambahkan efek hover untuk Badge */
-.badge:hover {
-    transform: scale(1.05);
-    transition: all 0.3s ease;
-}
-
-    .page-title {
-        color: #199A8E;
-        font-weight: 600;
-    }
-
-    .card {
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .card.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .table th, .table td {
-        padding: 15px;
-        text-align: left;
-        font-size: 15px;
-    }
-
-    .table th {
-        background-color: #199A8E;
-        color: white;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-
-    .table td {
-        background-color: #f9f9f9;
-        border-radius: 8px;
-    }
-
-    .table-bordered {
-        border: 1px solid #ddd;
-    }
-
-    .table-row {
-        border-radius: 10px;
-        opacity: 0;
-        transform: translateX(-20px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .table-row.visible {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    .btn-secondary {
-        background-color: #f2f6f9;
-        color: #199A8E;
-        border: 1px solid #199A8E;
-        border-radius: 50px;
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-secondary:hover {
-        background-color: #e6f7f3;
-        transform: scale(1.05);
-    }
-
-    /* Animasi untuk tombol */
-    .btn-animated {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .btn-animated.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-</style>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let card = document.querySelector('.card');
-        card.classList.add('visible');
-
-        let rows = document.querySelectorAll('.table-row');
-        rows.forEach(function(row, index) {
-            setTimeout(function() {
-                row.classList.add('visible');
-            }, index * 200);
-        });
-
-        let button = document.querySelector('.btn-animated');
-        setTimeout(function() {
-            button.classList.add('visible');
-        }, 1000);
-    });
-</script>
 @endsection
