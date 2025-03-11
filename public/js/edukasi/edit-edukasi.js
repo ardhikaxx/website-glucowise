@@ -1,5 +1,5 @@
 
-        function previewImage(event) {
+        document.getElementById('gambar').addEventListener('change', function(event) {
             const preview = document.getElementById('preview');
             const file = event.target.files[0];
             const reader = new FileReader();
@@ -12,7 +12,7 @@
             if (file) {
                 reader.readAsDataURL(file);
             }
-        }
+        });
         document.addEventListener("DOMContentLoaded", function () {
             // Menambahkan kelas 'active' pada menu sidebar yang relevan
             const sidebarLinks = document.querySelectorAll('.sidebar-link');

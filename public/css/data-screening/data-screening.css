@@ -1,0 +1,159 @@
+
+        /* Animasi dan Pengaturan Tombol */
+        .pagination-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .page-item {
+            margin: 0 5px;
+        }
+
+        .page-link {
+            padding: 8px 16px;
+            background-color: #199A8E;
+            color: white;
+            border: 1px solid #199A8E;
+            border-radius: 30px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .page-link:hover,
+        .page-item.active .page-link {
+            background-color: #15867D;
+            border-color: #15867D;
+            transform: scale(1.1);
+        }
+
+        .btn-primary,
+        .btn-danger {
+            background-color: #199A8E;
+            border-color: #199A8E;
+            color: white;
+            font-size: 16px;
+            border-radius: 25px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover,
+        .btn-danger:hover {
+            background-color: #15867D;
+            border-color: #15867D;
+            transform: scale(1.1);
+        }
+
+        .btn-search {
+            background-color: #199A8E;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-search:hover {
+            background-color: #15867D;
+            transform: scale(1.1);
+        }
+
+        .search-form .input-group {
+            width: 300px;
+            transition: transform 0.5s ease;
+        }
+
+        .search-input {
+            padding: 10px;
+            border-radius: 25px 0 0 25px;
+            font-size: 14px;
+            border: 1px solid #199A8E;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #15867D;
+            box-shadow: 0 0 10px rgba(25, 154, 142, 0.2);
+        }
+
+        .table-wrapper {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #199A8E;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e6f7f3;
+        }
+
+        .table-row {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .table-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .table-wrapper {
+                overflow-x: auto;
+            }
+
+            .search-form .input-group {
+                width: 100%;
+            }
+
+            .pagination-container {
+                justify-content: center;
+            }
+
+            .table th, .table td {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .page-link {
+                font-size: 14px;
+            }
+        }

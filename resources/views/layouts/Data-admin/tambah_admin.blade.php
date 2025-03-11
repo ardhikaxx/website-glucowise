@@ -3,6 +3,7 @@
 @section('title', isset($admin) ? 'Edit Admin' : 'Tambah Admin')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/admin/tambah-admin.css') }}">
     <div class="container-fluid">
         <!-- Judul Halaman -->
         <div class="row">
@@ -98,59 +99,5 @@
             </div>
         </div>
     </div>
-    <style>
-        .btn-primary {
-            background-color: #199A8E;
-            border-color: #199A8E;
-            color: white;
-            font-size: 16px;
-            border-radius: 25px;
-            padding: 12px 20px;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-    
-        .btn-primary:hover {
-            background-color: #15867D;
-            border-color: #15867D;
-            transform: translateY(-2px);
-        }
-    
-        .btn-secondary {
-            background-color: #f2f6f9;
-            border-color: #f2f6f9;
-            color: #199A8E;
-            font-size: 16px;
-            border-radius: 25px;
-            padding: 12px 20px;
-            text-transform: uppercase;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-    
-        /* Button "Kembali" Hover tanpa mengubah warna teks */
-        .btn-secondary:hover {
-            color: #199A8E;
-            background-color: #e6f7f3;
-            border-color: #e6f7f3;
-            transform: translateY(-2px);
-        }
-    
-        .btn-secondary:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(25, 154, 142, 0.3);
-        }
-    
-        /* Responsive Design for Button */
-        @media (max-width: 768px) {
-            .btn-primary, .btn-secondary {
-                font-size: 14px;
-                width: 100%;
-                padding: 12px;
-            }
-        }
-    </style>
-    
+    <script src="{{ asset('js/admin/tambah-admin.js') }}"></script>
 @endsection
