@@ -66,51 +66,31 @@
 }
 
 /* Search form and filter aligned to the right */
+/* Search form and filter aligned to the right */
 .search-form {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     margin-top: 10px;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .search-form .input-group {
     display: flex;
     align-items: center;
-    max-width: 450px; /* Adjusted max-width for better appearance */
+    max-width: 450px; /* Ensure the form doesn't stretch too wide on large screens */
     width: 100%;
+    margin-bottom: 10px; /* Add some margin at the bottom on smaller screens */
 }
 
 /* Styling for the search input field */
 .search-input {
     padding: 10px;
-    border-radius: 25px 0 0 25px;
+    border-radius: 25px 0 0 25px; /* Rounded left side */
     font-size: 14px;
     border: 1px solid #199A8E;
     transition: all 0.3s ease;
-    width: 100%;
-}
-
-.search-input:focus {
-    border-color: #15867D;
-    box-shadow: 0 0 10px rgba(25, 154, 142, 0.2);
-}
-
-/* Styling for the select (gender filter) */
-.search-form .input-group select {
-    padding: 10px;
-    border-radius: 0 25px 25px 0;
-    font-size: 14px;
-    border: 1px solid #199A8E;
-    background-color: white;
-    color: #199A8E;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    width: 150px;
-}
-
-.search-form .input-group select:focus {
-    border-color: #15867D;
-    box-shadow: 0 0 10px rgba(25, 154, 142, 0.2);
+    width: calc(100% - 80px); /* Adjust width so it leaves space for the button */
 }
 
 /* Styling for the search button */
@@ -118,13 +98,15 @@
     background-color: #199A8E;
     color: white;
     border: none;
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 25px 25px 0; /* Rounded right side */
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 70px; /* Set a fixed width for the button */
 }
 
+/* Hover effect for the search button */
 .btn-search:hover {
     background-color: #15867D;
     transform: scale(1.1);
@@ -307,16 +289,28 @@
     }
 
     .search-form .input-group {
-        width: 100%;
+        width: 100%; /* Ensure the form takes full width on mobile */
+        margin-bottom: 10px;
     }
 
+    /* Search input and button adjustments for mobile */
+    .search-input {
+        width: calc(100% - 90px); /* Adjust input to leave space for the button */
+    }
+
+    .btn-search {
+        width: 70px; /* Keep button width fixed on mobile as well */
+        padding: 10px 0; /* Make the button taller */
+    }
+
+    .search-form {
+        justify-content: space-between; /* Distribute space between input and button */
+    }
     .pagination-container {
         justify-content: center;
     }
 
-    .btn-search {
-        width: 100%;
-    }
+    
 
     .table th, .table td {
         padding: 10px;

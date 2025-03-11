@@ -1,0 +1,79 @@
+
+    .page-title {
+        color: #199A8E;
+        font-weight: 600;
+    }
+
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: left;
+        font-size: 15px;
+    }
+
+    .table th {
+        background-color: #199A8E;
+        color: white;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .table td {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    .table-row {
+        border-radius: 10px;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .table-row.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .btn-secondary {
+        background-color: #f2f6f9;
+        color: #199A8E;
+        border: 1px solid #199A8E;
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background-color: #e6f7f3;
+        transform: scale(1.05);
+    }
+
+    /* Animasi untuk tombol */
+    .btn-animated {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .btn-animated.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }

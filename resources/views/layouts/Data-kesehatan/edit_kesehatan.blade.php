@@ -3,6 +3,7 @@
 @section('title', 'Edit Data Kesehatan')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/Data-kesehatan/edit-kesehatan.css') }}">
 <div class="container-fluid">
     <!-- Judul Halaman -->
     <div class="row">
@@ -23,37 +24,45 @@
                         <!-- Form fields -->
                         <div class="form-group">
                             <label for="tanggal_pemeriksaan">Tanggal Pemeriksaan</label>
-                            <input type="date" name="tanggal_pemeriksaan" class="form-control" value="{{ $data->tanggal_pemeriksaan }}" required>
+                            <!-- Kolom tanggal tidak bisa diedit -->
+                            <input type="date" name="tanggal_pemeriksaan" class="form-control" value="{{ $data->tanggal_pemeriksaan }}" required readonly>
                         </div>
                     
                         <div class="form-group">
                             <label for="umur">Umur</label>
-                            <input type="number" name="umur" class="form-control" value="{{ $data->umur }}" required>
+                            <!-- Kolom umur hanya bisa menerima angka -->
+                            <input type="number" name="umur" class="form-control" value="{{ $data->umur }}" required min="0" step="1">
                         </div>
                     
                         <div class="form-group">
                             <label for="tinggi_badan">Tinggi Badan (cm)</label>
-                            <input type="number" name="tinggi_badan" class="form-control" value="{{ $data->tinggi_badan }}" required>
+                            <!-- Kolom tinggi badan hanya bisa menerima angka -->
+                            <input type="number" name="tinggi_badan" class="form-control" value="{{ $data->tinggi_badan }}" required min="0" step="1">
                         </div>
                     
                         <div class="form-group">
                             <label for="berat_badan">Berat Badan (kg)</label>
-                            <input type="number" name="berat_badan" class="form-control" value="{{ $data->berat_badan }}" required>
+                            <!-- Kolom berat badan hanya bisa menerima angka -->
+                            <input type="number" name="berat_badan" class="form-control" value="{{ $data->berat_badan }}" required min="0" step="0.1">
                         </div>
                     
                         <div class="form-group">
                             <label for="gula_darah">Gula Darah</label>
-                            <input type="number" name="gula_darah" class="form-control" value="{{ $data->gula_darah }}" required>
+                            <!-- Kolom gula darah hanya bisa menerima angka -->
+                            <input type="number" name="gula_darah" class="form-control" value="{{ $data->gula_darah }}" required min="0" step="0.1">
                         </div>
                     
                         <div class="form-group">
                             <label for="lingkar_pinggang">Lingkar Pinggang (cm)</label>
-                            <input type="number" name="lingkar_pinggang" class="form-control" value="{{ $data->lingkar_pinggang }}" required>
+                            <!-- Kolom lingkar pinggang hanya bisa menerima angka -->
+                            <input type="number" name="lingkar_pinggang" class="form-control" value="{{ $data->lingkar_pinggang }}" required min="0" step="1">
                         </div>
                     
                         <div class="form-group">
                             <label for="tensi_darah">Tekanan Darah</label>
-                            <input type="text" name="tensi_darah" class="form-control" value="{{ $data->tensi_darah }}" required>
+                            <!-- Kolom tekanan darah hanya bisa menerima angka -->
+                            <input type="text" name="tensi_darah" class="form-control" value="{{ $data->tensi_darah }}" required pattern="\d{1,3}/\d{1,3}">
+                            <!-- Pattern regex untuk format tekanan darah seperti 120/80 -->
                         </div>
                     
                         <div class="form-group">
@@ -74,82 +83,6 @@
     </div>
 </div>
 
-<!-- SweetAlert2 Script -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.getElementById('submitBtn').addEventListener('click', function() {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Data yang telah diedit akan disimpan.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#199A8E',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, simpan!',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('editForm').submit(); // Submit the form if confirmed
-            }
-        });
-    });
-</script>
-
-<style>
-    .page-title {
-        color: #199A8E;
-        font-weight: 600;
-    }
-
-    .card {
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .form-group label {
-        color: #199A8E;
-        font-weight: bold;
-    }
-
-    .form-control {
-        border-radius: 25px;
-        border: 1px solid #199A8E;
-        transition: all 0.3s ease;
-    }
-
-    .form-control:focus {
-        border-color: #15867D;
-        box-shadow: 0 0 10px rgba(25, 154, 142, 0.2);
-    }
-
-    .btn-primary {
-        background-color: #199A8E;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: #15867D;
-        transform: scale(1.05);
-    }
-
-    .btn-secondary {
-        background-color: #f2f6f9;
-        color: #199A8E;
-        border: 1px solid #199A8E;
-        border-radius: 50px;
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-secondary:hover {
-        background-color: #e6f7f3;
-        transform: scale(1.05);
-    }
-</style>
+<script src="{{ asset('js/Data-kesehatan/edit-kesehatan.js') }}"></script>
 @endsection
