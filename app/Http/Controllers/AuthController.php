@@ -14,27 +14,30 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+    $remember = $request->has('remember'); // Cek apakah "Ingat Saya" dicentang
 
-            if ($user->hak_akses == 'Bidan') {
-                return redirect()->route('dashboard');
-            } elseif ($user->hak_akses == 'Kader') {
-                return redirect()->route('dashboard');
-            } else {
-                Auth::logout();
-                return redirect('/login')->withErrors(['error' => 'Hak akses tidak valid.']);
-            }
+    if (Auth::attempt($credentials, $remember)) { // Gunakan $remember di sini
+        $user = Auth::user();
+
+        if ($user->hak_akses == 'Bidan') {
+            return redirect()->route('dashboard');
+        } elseif ($user->hak_akses == 'Kader') {
+            return redirect()->route('dashboard');
+        } else {
+            Auth::logout();
+            return redirect('/login')->withErrors(['error' => 'Hak akses tidak valid.']);
         }
-
-        return back()->withErrors(['email' => 'Email atau password salah.']);
     }
+
+    return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();
+}
+
 
     public function logout(Request $request)
     {
