@@ -13,6 +13,23 @@
 
         <div class="row g-4">
             <!-- Card for Admin Count with adjusted size and font -->
+            <div class="col-lg-4 col-md-6 grid-margin stretch-card">
+                <div class="card border-0 shadow-l">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="font-weight-normal mb-2 text-primary">Data Admin</h4>
+                            <h2 class="text-primary mb-0">{{ $totalAdmins }}</h2>
+                        </div>
+                        <div class="icon icon-box-primary">
+                            <span class="mdi mdi-shield-account mdi-36px"></span>
+                        </div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            {{-- <!-- Card for Admin Count with adjusted size and font -->
             <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm border-0 rounded-3 p-3" style="background-color: #FFFBF0;">
                     <div class="card-body text-center">
@@ -20,28 +37,61 @@
                         <h2 class="text-dark" style="font-weight: bold; font-size: 50px;">{{ $totalAdmins }}</h2>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
             <!-- Card for User Count -->
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 grid-margin stretch-card">
+                <div class="card border-0 shadow-l">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="font-weight-normal mb-2 text-danger">Data Pengguna</h4>
+                            <h2 class="text-danger mb-0">{{ $totalPengguna }}</h2>
+                        </div>
+                        <div class="icon icon-box-danger">
+                            <span class="mdi mdi-account-circle mdi-36px"></span>
+                        </div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- <div class="col-lg-4 col-md-6">
                 <div class="card shadow-sm border-0 rounded-3 p-3" style="background-color: #FFFBF0;">
                     <div class="card-body text-center">
                         <h5 class="card-title fw-bold fs-5 text-muted">Jumlah Pengguna</h5>
                         <h2 class="text-dark" style="font-weight: bold; font-size: 50px;">{{ $totalPengguna }}</h2>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Card for Patients Checked Today -->
-            <div class="col-lg-4 col-md-6">
-                <div class="card shadow-sm border-0 rounded-3 p-3" style="background-color: #FFFBF0;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-5 text-muted">Jumlah Pasien Pemeriksaan</h5>
-                        <h2 class="text-dark" style="font-weight: bold; font-size: 50px;">{{ $totalPemeriksaan }}</h2>
+            <div class="col-lg-4 col-md-6 grid-margin stretch-card">
+                <div class="card border-0 shadow-l">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="font-weight-normal mb-2 text-success">Data Pemeriksaan</h4>
+                            <h2 class="text-success mb-0">{{ $totalPemeriksaan }}</h2>
+                        </div>
+                        <div class="icon icon-box-success">
+                            <span class="mdi mdi-medical-bag mdi-36px"></span>
+                        </div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
+            {{-- <div class="col-lg-4 col-md-6">
+                <div class="card shadow-sm border-0 rounded-3 p-3" style="background-color: #FFFBF0;">
+                    <div class="card-body text-center">
+                        <h5 class="card-title fw-bold fs-5 text-muted">Jumlah Pengguna Pemeriksaan</h5>
+                        <h2 class="text-dark" style="font-weight: bold; font-size: 50px;">{{ $totalPemeriksaan }}</h2>
+                    </div>
+                </div>
+            </div> --}}
         </div>
 
         <div class="row mt-4">

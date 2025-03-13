@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Glucowise')</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logos/favicon.png') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     
     <!-- Default Styles -->
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
