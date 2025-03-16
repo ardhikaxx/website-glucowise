@@ -21,45 +21,46 @@
                         <tbody>
                             <tr class="table-row">
                                 <th>Nomor Identitas</th>
-                                <td>{{ $dataPengguna->nik }}</td>
+                                <td>{{ $dataPengguna->nik ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Email</th>
-                                <td>{{ $dataPengguna->email }}</td>
+                                <td>{{ $dataPengguna->email ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Password</th>
-                                <td>{{ $dataPengguna->password }}</td> <!-- For security, you may not want to display password -->
+                                <td>Terenkripsi</td> <!-- Aman, tidak tampilkan password -->
                             </tr>
                             <tr class="table-row">
                                 <th>Nama Lengkap</th>
-                                <td>{{ $dataPengguna->nama_lengkap }}</td>
+                                <td>{{ $dataPengguna->nama_lengkap ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Tempat Lahir</th>
-                                <td>{{ $dataPengguna->tempat_lahir }}</td>
+                                <td>{{ $dataPengguna->tempat_lahir ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Tanggal Lahir</th>
-                                <td>{{ $dataPengguna->tanggal_lahir }}</td>
+                                <td>{{ $dataPengguna->tanggal_lahir ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Jenis Kelamin</th>
-                                <td>{{ $dataPengguna->jenis_kelamin }}</td>
+                                <td>{{ $dataPengguna->jenis_kelamin ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Alamat Lengkap</th>
-                                <td>{{ $dataPengguna->alamat_lengkap }}</td>
+                                <td>{{ $dataPengguna->alamat_lengkap ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Nomor Telepon</th>
-                                <td>{{ $dataPengguna->nomor_telepon }}</td>
+                                <td>{{ $dataPengguna->nomor_telepon ?? 'Tidak Ada Data' }}</td>
                             </tr>
                             <tr class="table-row">
                                 <th>Nama Ibu Kandung</th>
-                                <td>{{ $dataPengguna->nama_ibu_kandung }}</td>
+                                <td>{{ $dataPengguna->nama_ibu_kandung ?? 'Tidak Ada Data' }}</td>
                             </tr>
                         </tbody>
+                        
                     </table>
 
                     <a href="{{ route('dataPengguna.index') }}" class="btn btn-secondary btn-animated">Kembali</a>

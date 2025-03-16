@@ -56,19 +56,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataPengguna as $data)
+                                @forelse ($dataPengguna as $data)
                                     <tr class="table-row">
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->nama_lengkap }}</td>
-                                        <td>{{ $data->nik }}</td>
-                                        <td>{{ $data->email }}</td>
-                                        <td>{{ $data->nomor_telepon }}</td>
+                                        <td>{{ $data->nama_lengkap ?? 'Tidak Ada Data' }}</td>
+                                        <td>{{ $data->nik ?? 'Tidak Ada Data' }}</td>
+                                        <td>{{ $data->email ?? 'Tidak Ada Data' }}</td>
+                                        <td>{{ $data->nomor_telepon ?? 'Tidak Ada Data' }}</td>
                                         <td>
                                             <a class="btn btn-info" href="{{ route('dataPengguna.show', $data->nik) }}">Detail</a>
                                         </td>
                                     </tr>
-                                @endforeach
-                            </tbody>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted">Tidak ada data pengguna yang tersedia</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>                            
                         </table>
                     </div>
 
