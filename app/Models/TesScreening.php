@@ -10,6 +10,7 @@ class TesScreening extends Model
     use HasFactory;
 
     protected $table = 'tes_screening';
+    protected $primaryKey = 'id_screening';
 
     protected $fillable = [
         'nik',

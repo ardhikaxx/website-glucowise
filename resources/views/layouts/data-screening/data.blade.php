@@ -3,6 +3,7 @@
 @section('title', 'Data Screening')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <div class="container-fluid">
         <!-- Judul Halaman -->
         <div class="row">
@@ -23,29 +24,12 @@
             </div>
         @endif
 
-        <!-- Tabel Data Screening -->
-        <div class="row">
+        <!-- Tabel Data Screening Pertanyaan -->
+        <div class="row mb-4">
             <div class="col-md-12">
                 <div class="card visible">
                     <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-md-12 d-flex justify-content-between">
-                                <a href="{{ route('screening.create') }}" class="btn btn-primary btn-rounded">
-                                    <i class="fa fa-plus-circle"></i> Create
-                                </a>
-
-                                <!-- Form Pencarian di sebelah kanan -->
-                                <form action="{{ route('screening.index') }}" method="GET" class="search-form">
-                                    <div class="input-group">
-                                        <input type="text" name="search" class="form-control search-input" placeholder="Search" value="{{ request()->search }}">
-                                        <button type="submit" class="btn btn-search">
-                                            <i class="fa fa-search"></i> Search
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
+                        <h4>Data Screening Pertanyaan</h4>
                         <div class="table-wrapper">
                             <table class="table">
                                 <thead>
@@ -68,14 +52,18 @@
                                             </td>
                                             
                                             <td>
-                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}" class="btn btn-primary btn-rounded">Edit</a>
+                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}" class="btn btn-primary btn-rounded">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
                                                 
-                                                <!-- Tombol Hapus -->
                                                 <form action="{{ route('screening.destroy', $data->id_pertanyaan) }}" method="POST" class="delete-form" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)">Hapus</button>
+                                                    <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)">
+                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                    </button>
                                                 </form>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach
@@ -83,25 +71,20 @@
                             </table>
                         </div>
 
-                        <!-- Pagination -->
+                        <!-- Pagination for Pertanyaan Table -->
                         <div class="pagination-container">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
-                                    <!-- Previous Button -->
                                     <li class="page-item {{ $dataScreening->onFirstPage() ? 'disabled' : '' }}">
                                         <a class="page-link" href="{{ $dataScreening->previousPageUrl() }}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
-
-                                    <!-- Loop through the pagination links -->
                                     @foreach ($dataScreening->links()->elements[0] as $page => $url)
                                         <li class="page-item {{ $dataScreening->currentPage() == $page ? 'active' : '' }}">
                                             <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                                         </li>
                                     @endforeach
-
-                                    <!-- Next Button -->
                                     <li class="page-item {{ $dataScreening->hasMorePages() ? '' : 'disabled' }}">
                                         <a class="page-link" href="{{ $dataScreening->nextPageUrl() }}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
@@ -114,7 +97,74 @@
                 </div>
             </div>
         </div>
+
+       
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card visible">
+                    <div class="card-body">
+                        <h4>Data Screening Tes</h4>
+                        <div class="table-wrapper">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Pengguna</th>
+                                        <th>Tanggal Screening</th>
+                                        <th>Skor Risiko</th>
+                                        <th>Kategori Risiko</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($tesScreeningData as $tes)
+                                        <tr class="table-row">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $tes->pengguna->nama_lengkap }}</td> 
+                                            <td>{{ $tes->tanggal_screening }}</td>
+                                            <td>{{ $tes->skor_risiko }}</td>
+                                            <td>{{ $tes->kategori_risiko }}</td>
+                                            
+                                            <td>
+                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}" class="btn btn-primary btn-rounded">
+                                                    <i class="fas fa-eye"></i> Detail
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination for TesScreening Table -->
+                        <div class="pagination-container">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li class="page-item {{ $tesScreeningData->onFirstPage() ? 'disabled' : '' }}">
+                                        <a class="page-link" href="{{ $tesScreeningData->previousPageUrl() }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    @foreach ($tesScreeningData->links()->elements[0] as $page => $url)
+                                        <li class="page-item {{ $tesScreeningData->currentPage() == $page ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                        </li>
+                                    @endforeach
+                                    <li class="page-item {{ $tesScreeningData->hasMorePages() ? '' : 'disabled' }}">
+                                        <a class="page-link" href="{{ $tesScreeningData->nextPageUrl() }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+    
 
     <style>
         /* Animasi dan Pengaturan Tombol */

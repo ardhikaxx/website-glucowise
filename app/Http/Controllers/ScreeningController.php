@@ -4,17 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\PertanyaanScreening;
 use App\Models\JawabanScreening;
+use App\Models\TesScreening;
 use Illuminate\Http\Request;
 
 class ScreeningController extends Controller
 {
     public function index(Request $request)
     {
+        // Fetch PertanyaanScreening with JawabanScreening and HasilScreening
         $dataScreening = PertanyaanScreening::with(['jawabanScreening', 'hasilScreening'])
-            ->paginate(10); // Ambil data dengan pagination
-
-        return view('layouts.data-screening.data', compact('dataScreening'));
+            ->paginate(10); // For pagination of the first table
+    
+        // Fetch TesScreening data
+        $tesScreeningData = TesScreening::with('pengguna') // Assuming you want to show related 'Pengguna'
+            ->paginate(10); // For pagination of the second table
+    
+        // Return the view with both datasets
+        return view('layouts.data-screening.data', compact('dataScreening', 'tesScreeningData'));
     }
+    
 
     
     public function create()
