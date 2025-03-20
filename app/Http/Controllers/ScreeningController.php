@@ -35,10 +35,9 @@ public function store(Request $request)
         'jawaban.*' => 'required|string|max:255',
         'skoring' => 'required|array|min:1',
         'skoring.*' => 'required|integer',
-        'id_pertanyaan' => 'required|integer', // Validasi id_pertanyaan
     ]);
 
-    // Menyimpan data pertanyaan
+    // Menyimpan data pertanyaan dan mengambil id_pertanyaan yang baru saja disimpan
     $pertanyaan = PertanyaanScreening::create([
         'pertanyaan' => $request->pertanyaan,
     ]);
@@ -48,9 +47,9 @@ public function store(Request $request)
         // Gabungkan jawaban dengan skoring dalam format Jawaban(Skoring)
         $jawabanDenganSkoring = $jawaban . '(' . $request->skoring[$index] . ')';
 
-        // Menyimpan jawaban ke dalam database dengan id_pertanyaan
+        // Menyimpan jawaban ke dalam database dengan id_pertanyaan yang valid
         JawabanScreening::create([
-            'id_pertanyaan' => $request->id_pertanyaan, // Menyimpan id_pertanyaan yang dikirimkan
+            'id_pertanyaan' => $pertanyaan->id_pertanyaan, // Menyimpan id_pertanyaan yang baru saja disimpan
             'jawaban' => $jawabanDenganSkoring, // Menyimpan jawaban dalam format "Jawaban(Skoring)"
         ]);
     }
@@ -58,6 +57,7 @@ public function store(Request $request)
     // Redirect ke halaman screening index dengan pesan sukses
     return redirect()->route('screening.index')->with('success', 'Data screening berhasil disimpan.');
 }
+
 
 
 public function edit($id)
