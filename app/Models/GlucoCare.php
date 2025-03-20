@@ -11,6 +11,7 @@ class GlucoCare extends Model
 
     // Nama tabel yang digunakan
     protected $table = 'gluco_care';
+    protected $primaryKey = 'id_care';
 
     // Kolom-kolom yang boleh diisi (fillable)
     protected $fillable = [
@@ -19,7 +20,6 @@ class GlucoCare extends Model
         'nama_obat',
         'dosis',
         'jam_minum',
-        'jam_makan'
     ];
 
     // Jika kolom waktu menggunakan format timestamp

@@ -31,7 +31,6 @@ class CreateAllTables extends Migration
             $table->string('nama_obat');
             $table->string('dosis', 50);
             $table->time('jam_minum');
-            $table->time('jam_makan');
             $table->timestamps(0);
 
             $table->foreign('nik')->references('nik')->on('pengguna')->onDelete('cascade');

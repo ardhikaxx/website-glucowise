@@ -151,7 +151,6 @@ class DataPenggunaController extends Controller
             return response()->json(['message' => 'Pengguna tidak ditemukan'], 404);
         }
 
-        // Cek apakah password baru sama dengan password lama
         if (Hash::check($request->password, $pengguna->password)) {
             return response()->json(['message' => 'Gunakan password yang berbeda dari sebelumnya'], 400);
         }
