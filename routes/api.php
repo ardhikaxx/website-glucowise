@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\DataPenggunaController;
 use App\Http\Controllers\Api\GlucoCareController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\GlucoCheckController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,4 @@ Route::post('/gluco-care/edit/{id_care}', [GlucoCareController::class, 'editCare
 Route::get('/gluco-care/active/{nik}', [GlucoCareController::class, 'getActiveCare']);
 Route::get('/gluco-care/history/{nik}', [GlucoCareController::class, 'getHistoryCare']);
 Route::delete('/gluco-care/delete/{id_care}', [GlucoCareController::class, 'deleteCare']);
+Route::post('/gluco-check/add', [GlucoCheckController::class, 'addCheck']);

@@ -10,7 +10,6 @@ use Illuminate\Support\Carbon;
 
 class GlucoCareController extends Controller
 {
-    // Tambah alarm pengingat
     public function addCare(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -22,7 +21,11 @@ class GlucoCareController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'message' => $validator->errors()], 400);
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi gagal',
+                'errors' => $validator->errors()
+            ], 400);
         }
 
         $care = GlucoCare::create([

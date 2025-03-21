@@ -11,6 +11,8 @@ class DataKesehatan extends Model
 
     protected $table = 'data_kesehatan';
 
+    protected $primaryKey = 'id_data';
+
     protected $fillable = [
         'nik',
         'tanggal_pemeriksaan',
