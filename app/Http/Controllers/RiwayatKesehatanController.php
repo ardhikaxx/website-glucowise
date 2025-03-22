@@ -43,9 +43,6 @@ class RiwayatKesehatanController extends Controller
         return redirect()->route('riwayatKesehatan.index')->with('success', 'Data Riwayat Kesehatan berhasil ditambahkan!');
     }
 
-    // Menampilkan form untuk mengedit data Riwayat Kesehatan berdasarkan NIK
-   // Menampilkan form untuk mengedit data Riwayat Kesehatan berdasarkan NIK
-// Menampilkan form untuk mengedit data Riwayat Kesehatan berdasarkan id_riwayat
 public function edit($id_riwayat)
 {
     // Cari data RiwayatKesehatan berdasarkan id_riwayat

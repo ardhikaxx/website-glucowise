@@ -17,7 +17,7 @@ class GlucoCareController extends Controller
             'tanggal' => 'required|date',
             'nama_obat' => 'required|string',
             'dosis' => 'required|string|max:50',
-            'jam_minum' => 'required|date_format:H:i',
+            'jam_minum' => 'required|date_format:H:i:s', // Format HH:MM:SS
         ]);
 
         if ($validator->fails()) {
@@ -47,10 +47,11 @@ class GlucoCareController extends Controller
     public function editCare(Request $request, $id_care)
     {
         $validator = Validator::make($request->all(), [
+            'nik' => 'required|exists:pengguna,nik',
             'tanggal' => 'required|date',
             'nama_obat' => 'required|string',
             'dosis' => 'required|string|max:50',
-            'jam_minum' => 'required|date_format:H:i',
+            'jam_minum' => 'required|date_format:H:i:s', // Format HH:MM:SS
         ]);
 
         if ($validator->fails()) {
@@ -76,18 +77,17 @@ class GlucoCareController extends Controller
         ]);
     }
 
-    // Ambil semua alarm yang masih aktif
     public function getActiveCare($nik)
     {
-        $nowDate = Carbon::now()->toDateString();
-        $nowTime = Carbon::now()->format('H:i:s');
+        $nowDate = Carbon::now()->toDateString(); // Format: YYYY-MM-DD
+        $nowTime = Carbon::now()->format('H:i:s'); // Format: HH:MM:SS
 
         $active = GlucoCare::where('nik', $nik)
             ->where(function ($query) use ($nowDate, $nowTime) {
-                $query->where('tanggal', '>', $nowDate)
+                $query->where('tanggal', '>', $nowDate) // Tanggal lebih besar dari sekarang
                     ->orWhere(function ($q) use ($nowDate, $nowTime) {
-                        $q->where('tanggal', $nowDate)
-                            ->where('jam_minum', '>', $nowTime);
+                        $q->where('tanggal', $nowDate) // Tanggal sama dengan sekarang
+                            ->where('jam_minum', '>', $nowTime); // Jam lebih besar dari sekarang
                     });
             })
             ->orderBy('tanggal', 'asc')
@@ -100,18 +100,17 @@ class GlucoCareController extends Controller
         ]);
     }
 
-    // Ambil semua alarm yang sudah lewat (riwayat)
     public function getHistoryCare($nik)
     {
-        $nowDate = Carbon::now()->toDateString();
-        $nowTime = Carbon::now()->format('H:i:s');
+        $nowDate = Carbon::now()->toDateString(); // Format: YYYY-MM-DD
+        $nowTime = Carbon::now()->format('H:i:s'); // Format: HH:MM:SS
 
         $history = GlucoCare::where('nik', $nik)
             ->where(function ($query) use ($nowDate, $nowTime) {
-                $query->where('tanggal', '<', $nowDate)
+                $query->where('tanggal', '<', $nowDate) // Tanggal lebih kecil dari sekarang
                     ->orWhere(function ($q) use ($nowDate, $nowTime) {
-                        $q->where('tanggal', $nowDate)
-                            ->where('jam_minum', '<=', $nowTime);
+                        $q->where('tanggal', $nowDate) // Tanggal sama dengan sekarang
+                            ->where('jam_minum', '<=', $nowTime); // Jam kurang dari atau sama dengan sekarang
                     });
             })
             ->orderBy('tanggal', 'desc')

@@ -23,7 +23,7 @@ class CreateAllTables extends Migration
             $table->timestamps();
         });
 
-         // Tabel Admin
+        // Tabel Admin
         Schema::create('gluco_care', function (Blueprint $table) {
             $table->id('id_care')->unsignedBigInteger()->autoIncrement();
             $table->string('nik', 16);
@@ -107,10 +107,10 @@ class CreateAllTables extends Migration
             $table->id('id_riwayat');
             $table->unsignedBigInteger('id_data');
             $table->foreign('id_data')->references('id_data')->on('data_kesehatan')->onDelete('cascade');
-            $table->unsignedBigInteger('id_admin');
+            $table->unsignedBigInteger('id_admin')->nullable();
             $table->foreign('id_admin')->references('id_admin')->on('admin')->onDelete('cascade');
-            $table->enum('kategori_risiko', ['Rendah', 'Sedang', 'Tinggi']);
-            $table->text('catatan');
+            $table->enum('kategori_risiko', ['Dalam proses', 'Rendah', 'Sedang', 'Tinggi'])->default('Dalam proses');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
 
