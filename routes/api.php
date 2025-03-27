@@ -33,3 +33,5 @@ Route::get('/gluco-care/active/{nik}', [GlucoCareController::class, 'getActiveCa
 Route::get('/gluco-care/history/{nik}', [GlucoCareController::class, 'getHistoryCare']);
 Route::delete('/gluco-care/delete/{id_care}', [GlucoCareController::class, 'deleteCare']);
 Route::post('/gluco-check/add', [GlucoCheckController::class, 'addCheck']);
+Route::get('/gluco-check/history/{nik}', [GlucoCheckController::class, 'getHistory']);
+Route::get('/gluco-check/status/{id_data}', [GlucoCheckController::class, 'getStatus']);
