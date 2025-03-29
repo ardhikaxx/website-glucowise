@@ -116,7 +116,7 @@ class CreateAllTables extends Migration
 
         // Tabel Edukasi
         Schema::create('edukasi', function (Blueprint $table) {
-            $table->id('id_educasi');
+            $table->id('id_edukasi');
             $table->unsignedBigInteger('id_admin');
             $table->foreign('id_admin')->references('id_admin')->on('admin')->onDelete('cascade');
             $table->enum('kategori', ['Dasar Diabetes', 'Manajemen Diabetes']);
