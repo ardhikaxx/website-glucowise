@@ -3,12 +3,13 @@
 @section('title', 'Data Pengguna')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;">Data Pengguna</h1>
+            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-user me-1" style="color: #34B3A0;"></i>Data Pengguna</h1>
         </div>
     </div>
 
@@ -20,17 +21,17 @@
                     <!-- Form Pencarian dan Filter Jenis Kelamin di sebelah kanan -->
                     <form action="{{ route('dataPengguna.search') }}" method="GET" class="search-form">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control search-input" placeholder="Search" value="{{ request()->search }}">
+                            <input type="text" name="search" class="form-control search-input" placeholder="Cari Data Pengguna" value="{{ request()->search }}">
 
                             <!-- Filter Jenis Kelamin -->
-                            <select name="jenis_kelamin" class="form-control">
+                            <select name="jenis_kelamin" class="form-control search-input">
                                 <option value="">Pilih Jenis Kelamin</option>
                                 <option value="Laki-laki" {{ request()->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                 <option value="Perempuan" {{ request()->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                             </select>
 
                             <button type="submit" class="btn btn-search">
-                                <i class="fa fa-search"></i> Cari
+                                <i class="fa fa-search me-1"></i>Cari
                             </button>
                         </div>
                     </form>
@@ -64,7 +65,7 @@
                                         <td>{{ $data->email ?? 'Tidak Ada Data' }}</td>
                                         <td>{{ $data->nomor_telepon ?? 'Tidak Ada Data' }}</td>
                                         <td>
-                                            <a class="btn btn-info" href="{{ route('dataPengguna.show', $data->nik) }}">Detail</a>
+                                            <a class="btn btn-info" href="{{ route('dataPengguna.show', $data->nik) }}"><i class="fa fa-info-circle me-1"></i>Detail</a>
                                         </td>
                                     </tr>
                                 @empty

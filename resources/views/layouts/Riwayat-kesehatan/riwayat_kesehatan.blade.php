@@ -3,6 +3,7 @@
 @section('title', 'Riwayat Kesehatan')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
 <div class="container-fluid">
     @if(session('success'))
@@ -20,7 +21,7 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;">Riwayat Kesehatan</h1>
+            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-clipboard-list me-1" style="color: #34B3A0;"></i>Riwayat Kesehatan</h1>
         </div>
     </div>
      <!-- Menampilkan Flash Message -->
@@ -73,8 +74,13 @@
                                         <td>{{ $data->id_riwayat }}</td>
                                         <td>{{ $data->dataKesehatan && $data->dataKesehatan->pengguna ? $data->dataKesehatan->pengguna->nama_lengkap : 'N/A' }}</td>
                                         <td>{{ $data->dataKesehatan ? $data->dataKesehatan->gula_darah : 'N/A' }}</td>
-                                        
-                                        <td>{{ $data->dataKesehatan ? $data->dataKesehatan->tanggal_pemeriksaan : 'Tanggal tidak tersedia' }}</td>
+                                        <td>
+                                            @if($data->dataKesehatan && $data->dataKesehatan->tanggal_pemeriksaan)
+                                                {{ \Carbon\Carbon::parse($data->dataKesehatan->tanggal_pemeriksaan)->format('d M Y') }}
+                                            @else
+                                                Tanggal tidak tersedia
+                                            @endif
+                                        </td>
                                         <td>
                                             @if ($data->kategori_risiko == 'Rendah')
                                                 <span class="badge badge-success p-2">Rendah</span>
@@ -87,8 +93,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('riwayatKesehatan.edit', $data->id_riwayat) }}" class="btn btn-warning">Edit</a>
-                                            <a href="{{ route('riwayatKesehatan.show', $data->dataKesehatan->nik) }}" class="btn btn-info">Detail</a>
+                                            <a href="{{ route('riwayatKesehatan.edit', $data->id_riwayat) }}" class="btn btn-warning"><i class="fa fa-edit me-1"></i>Edit</a>
+                                            <a href="{{ route('riwayatKesehatan.show', $data->dataKesehatan->nik) }}" class="btn btn-info"> <i class="fa fa-info-circle me-1"></i>Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach

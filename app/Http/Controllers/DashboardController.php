@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $bidanCount = Admin::where('hak_akses', 'Bidan')->count();
         $kaderCount = Admin::where('hak_akses', 'Kader')->count();
         $totalPengguna = Pengguna::count();
-        $totalPemeriksaan = DataKesehatan::whereDate('tanggal_pemeriksaan', Carbon::today())->count();
+        $totalPemeriksaan = DataKesehatan::count();
 
         // Prepare data for the diabetes risk graph (weekly data)
         $chartData = [];
@@ -45,7 +45,7 @@ class DashboardController extends Controller
                 $endOfWeek = $startOfWeek->copy()->endOfWeek();
 
                 // Filter health data within the current week
-                $weeklyData = $healthData->filter(function($item) use ($startOfWeek, $endOfWeek) {
+                $weeklyData = $healthData->filter(function ($item) use ($startOfWeek, $endOfWeek) {
                     return Carbon::parse($item->tanggal_pemeriksaan)->between($startOfWeek, $endOfWeek);
                 });
 
@@ -86,17 +86,23 @@ class DashboardController extends Controller
             '51+' => Pengguna::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, ?) >= 51', [Carbon::now()])->count()
         ];
 
+        $latestPemeriksaan = DataKesehatan::with('pengguna', 'riwayatKesehatan')
+            ->orderBy('tanggal_pemeriksaan', 'desc')
+            ->take(3) // Ambil 10 data terbaru
+            ->get();
+
         // Return the dashboard view with the data
         return view('layouts.Dashboard.dashboard', compact(
-            'totalAdmins', 
-            'bidanCount', 
-            'kaderCount', 
-            'totalPengguna', 
+            'totalAdmins',
+            'bidanCount',
+            'kaderCount',
+            'totalPengguna',
             'totalPemeriksaan',
             'chartData', // Pass chartData to the view
             'ageCategories', // Pass age categories
             'ageData', // Pass age data for chart
-            'selectedMonth' // Pass selectedMonth to the view
+            'selectedMonth',// Pass selectedMonth to the view
+            'latestPemeriksaan'
         ));
     }
 }

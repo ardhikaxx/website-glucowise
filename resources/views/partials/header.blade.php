@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <!-- Header Start -->
 <header class="app-header">
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -12,12 +13,9 @@
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
 
                 <!-- Teks Status Login -->
-                <li class="nav-item me-3">
-                    <span class="text-dark fw-bold">
-                        Anda login sebagai:
-                        <span class="text-primary">
-                            {{ Auth::user()->hak_akses }}
-                        </span>
+                <li class="nav-item me-1">
+                    <span class="text-center" style="color: #34B3A0; font-size: 18px; font-weight: bold;">
+                        {{ Auth::user()->nama_lengkap }}
                     </span>
                 </li>
 
@@ -25,8 +23,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('images/profile/user-1.jpg') }}" alt="User Profile" width="35"
-                            height="35" class="rounded-circle">
+                        <div style="width: 40px; height: 40px; background-color: #34B3A0; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center;">
+                            <i class="fa fa-user-md" style="color: white; font-size: 20px;"></i>
+                        </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">

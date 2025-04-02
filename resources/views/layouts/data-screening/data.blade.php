@@ -3,22 +3,23 @@
 @section('title', 'Data Screening')
 
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <div class="container-fluid">
         <!-- Judul Halaman -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;">Data Screening</h1>
+                <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i
+                        class="fa fa-file-medical-alt me-1" style="color: #34B3A0;"></i>Data Screening</h1>
             </div>
         </div>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        @if(request()->search)
+        @if (request()->search)
             <div class="alert alert-info">
                 Menampilkan hasil pencarian untuk: <strong>{{ request()->search }}</strong>
             </div>
@@ -50,20 +51,23 @@
                                                     <p>{{ $jawaban->jawaban }}</p>
                                                 @endforeach
                                             </td>
-                                            
+
                                             <td>
-                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}" class="btn btn-primary btn-rounded">
-                                                    <i class="fas fa-edit"></i> Edit
+                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
+                                                    class="btn btn-primary btn-rounded">
+                                                    <i class="fas fa-edit me-1"></i>Edit
                                                 </a>
-                                                
-                                                <form action="{{ route('screening.destroy', $data->id_pertanyaan) }}" method="POST" class="delete-form" style="display: inline-block;">
+
+                                                <form action="{{ route('screening.destroy', $data->id_pertanyaan) }}"
+                                                    method="POST" class="delete-form" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)">
-                                                        <i class="fas fa-trash-alt"></i> Hapus
+                                                    <button type="button" class="btn btn-danger btn-rounded"
+                                                        onclick="confirmDelete(event)">
+                                                        <i class="fas fa-trash-alt me-1"></i>Hapus
                                                     </button>
                                                 </form>
-                                                
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -76,7 +80,8 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li class="page-item {{ $dataScreening->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $dataScreening->previousPageUrl() }}" aria-label="Previous">
+                                        <a class="page-link" href="{{ $dataScreening->previousPageUrl() }}"
+                                            aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
@@ -98,7 +103,7 @@
             </div>
         </div>
 
-       
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card visible">
@@ -120,14 +125,15 @@
                                     @foreach ($tesScreeningData as $tes)
                                         <tr class="table-row">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $tes->pengguna->nama_lengkap }}</td> 
+                                            <td>{{ $tes->pengguna->nama_lengkap }}</td>
                                             <td>{{ $tes->tanggal_screening }}</td>
                                             <td>{{ $tes->skor_risiko }}</td>
                                             <td>{{ $tes->kategori_risiko }}</td>
-                                            
+
                                             <td>
-                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}" class="btn btn-primary btn-rounded">
-                                                    <i class="fas fa-eye"></i> Detail
+                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
+                                                    class="btn btn-primary btn-rounded">
+                                                    <i class="fas fa-eye"></i><i class="fa fa-info-circle me-1"></i>Detail
                                                 </a>
                                             </td>
                                         </tr>
@@ -141,17 +147,20 @@
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
                                     <li class="page-item {{ $tesScreeningData->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $tesScreeningData->previousPageUrl() }}" aria-label="Previous">
+                                        <a class="page-link" href="{{ $tesScreeningData->previousPageUrl() }}"
+                                            aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                     @foreach ($tesScreeningData->links()->elements[0] as $page => $url)
-                                        <li class="page-item {{ $tesScreeningData->currentPage() == $page ? 'active' : '' }}">
+                                        <li
+                                            class="page-item {{ $tesScreeningData->currentPage() == $page ? 'active' : '' }}">
                                             <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                                         </li>
                                     @endforeach
                                     <li class="page-item {{ $tesScreeningData->hasMorePages() ? '' : 'disabled' }}">
-                                        <a class="page-link" href="{{ $tesScreeningData->nextPageUrl() }}" aria-label="Next">
+                                        <a class="page-link" href="{{ $tesScreeningData->nextPageUrl() }}"
+                                            aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
@@ -164,7 +173,7 @@
         </div>
 
     </div>
-    
+
 
     <style>
         /* Animasi dan Pengaturan Tombol */
@@ -276,7 +285,8 @@
             border-collapse: collapse;
         }
 
-        .table th, .table td {
+        .table th,
+        .table td {
             padding: 12px;
             text-align: center;
             font-size: 14px;
@@ -316,7 +326,8 @@
                 justify-content: center;
             }
 
-            .table th, .table td {
+            .table th,
+            .table td {
                 padding: 10px;
                 font-size: 12px;
             }
@@ -329,7 +340,7 @@
 
     <script>
         function confirmDelete(event) {
-            event.preventDefault();  // Mencegah form dikirim langsung
+            event.preventDefault(); // Mencegah form dikirim langsung
 
             Swal.fire({
                 title: 'Apakah Anda yakin?',

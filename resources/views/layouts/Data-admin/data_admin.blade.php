@@ -3,12 +3,13 @@
 @section('title', 'Data Admin')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('css/admin/data-admin.css') }}">
     <div class="container-fluid">
         <!-- Judul Halaman -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;">Data Admin</h1>
+                <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-user-shield me-1" style="color: #34B3A0;"></i>Data Admin</h1>
             </div>
         </div>
 
@@ -37,7 +38,7 @@
                                     <div class="input-group">
                                         <input type="text" name="search" class="form-control search-input" placeholder="Cari Nama Admin" value="{{ request()->search }}">
                                         <button type="submit" class="btn btn-search">
-                                            <i class="fa fa-search"></i> Cari
+                                            <i class="fa fa-search me-1"></i>Cari
                                         </button>
                                     </div>
                                 </form>
@@ -64,14 +65,14 @@
                                             <td>{{ $admin->jenis_kelamin }}</td>
                                             <td>
                                                 <!-- Tombol Edit -->
-                                                <a href="{{ route('admin.edit', $admin->id_admin) }}" class="btn btn-primary btn-rounded">Edit</a>
+                                                <a href="{{ route('admin.edit', $admin->id_admin) }}" class="btn btn-primary btn-rounded"><i class="fa fa-edit me-1"></i>Edit</a>
 
                                             
                                                 <!-- Tombol Hapus -->
                                                 <form action="{{ route('admin.destroy', $admin->id_admin) }}" method="POST" class="delete-form" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)">Hapus</button>
+                                                    <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)"><i class="fa fa-trash-alt me-1"></i>Hapus</button>
                                                 </form>
                                             </td>
                                             
