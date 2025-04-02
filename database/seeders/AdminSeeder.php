@@ -10,7 +10,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         Admin::create([
-            'nama_lengkap' => 'Bidan A',
+            'nama_lengkap' => 'Lina Kartika, S. Kep.',
             'email' => 'bidan1@example.com',
             'password' => bcrypt('password'),
             'jenis_kelamin' => 'Perempuan',
@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
         ]);
         
         Admin::create([
-            'nama_lengkap' => 'Kader B',
+            'nama_lengkap' => 'Rahmat Hidayat',
             'email' => 'kader1@example.com',
             'password' => bcrypt('password'),
             'jenis_kelamin' => 'Laki-laki',
@@ -26,7 +26,7 @@ class AdminSeeder extends Seeder
         ]);
         
         Admin::create([
-            'nama_lengkap' => 'Bidan C',
+            'nama_lengkap' => 'Nurul Ananda Pratiwi, S.Tr.Keb.',
             'email' => 'bidan2@example.com',
             'password' => bcrypt('password'),
             'jenis_kelamin' => 'Perempuan',
