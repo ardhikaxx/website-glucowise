@@ -12,7 +12,7 @@ class Edukasi extends Model
     protected $table = 'edukasi';
 
     // Menentukan kolom primary key yang digunakan
-    protected $primaryKey = 'id_educasi';
+    protected $primaryKey = 'id_edukasi';
 
     protected $fillable = [
         'id_admin',

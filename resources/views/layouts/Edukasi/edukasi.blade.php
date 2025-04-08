@@ -68,10 +68,10 @@
                                                 <img src="{{ asset($data->gambar) }}" alt="Foto Edukasi" class="img-fluid" style="max-width: 300px; height: auto; border-radius: 8px;">
                                             </td>                                            
                                             <td>
-                                                <a href="{{ route('edukasi.edit', $data->id_educasi) }}" class="btn btn-primary btn-rounded"><i class="fa fa-edit me-1"></i>Edit</a>
+                                                <a href="{{ route('edukasi.edit', $data->id_edukasi) }}" class="btn btn-primary btn-rounded"><i class="fa fa-edit me-1"></i>Edit</a>
                                 
                                                 <!-- Tombol Hapus -->
-                                                <form action="{{ route('edukasi.destroy', $data->id_educasi) }}" method="POST" class="delete-form" style="display: inline-block;">
+                                                <form action="{{ route('edukasi.destroy', $data->id_edukasi) }}" method="POST" class="delete-form" style="display: inline-block;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger btn-rounded" onclick="confirmDelete(event)"><i class="fa fa-trash-alt me-1"></i>Hapus</button>

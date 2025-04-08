@@ -23,9 +23,9 @@ class EdukasiController extends Controller
     }
 
     // Menampilkan form untuk membuat atau mengedit edukasi
-    public function createOrEdit($id_educasi = null)
+    public function createOrEdit($id_edukasi = null)
     {
-        $dataEdukasi = $id_educasi ? Edukasi::findOrFail($id_educasi) : new Edukasi();
+        $dataEdukasi = $id_edukasi ? Edukasi::findOrFail($id_edukasi) : new Edukasi();
         return view('layouts.Edukasi.edit', compact('dataEdukasi'));
     }
 
@@ -67,7 +67,7 @@ class EdukasiController extends Controller
     }
 
     // Mengupdate data edukasi
-    public function update(Request $request, $id_educasi)
+    public function update(Request $request, $id_edukasi)
     {
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -76,7 +76,7 @@ class EdukasiController extends Controller
             'kategori' => 'required|in:Dasar Diabetes,Manajemen Diabetes',
         ]);
     
-        $dataEdukasi = Edukasi::findOrFail($id_educasi);
+        $dataEdukasi = Edukasi::findOrFail($id_edukasi);
     
         // Update data edukasi
         $dataEdukasi->judul = $request->judul;
@@ -87,7 +87,7 @@ class EdukasiController extends Controller
         if ($request->hasFile('gambar')) {
             // Menyimpan gambar baru
             $category = strtolower(str_replace(' ', '', $request->kategori)); // Menghilangkan spasi dan membuat huruf kecil
-            $imageFileName = $category . $dataEdukasi->id_educasi . '.' . $request->file('gambar')->getClientOriginalExtension();
+            $imageFileName = $category . $dataEdukasi->id_edukasi . '.' . $request->file('gambar')->getClientOriginalExtension();
     
             // Path lengkap untuk menyimpan gambar di folder lokal
             $imagePath = public_path('images/edukasi/' . $imageFileName);

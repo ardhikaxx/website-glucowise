@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\DataPenggunaController;
-use App\Http\Controllers\Api\GlucoCareController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\DataPenggunaController;
+use App\Http\Controllers\Api\GlucoCareController;
 use App\Http\Controllers\Api\GlucoCheckController;
+use App\Http\Controllers\api\EdukasiController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,4 @@ Route::delete('/gluco-care/delete/{id_care}', [GlucoCareController::class, 'dele
 Route::post('/gluco-check/add', [GlucoCheckController::class, 'addCheck']);
 Route::get('/gluco-check/history/{nik}', [GlucoCheckController::class, 'getHistory']);
 Route::get('/gluco-check/status/{id_data}', [GlucoCheckController::class, 'getStatus']);
+Route::get('/edukasi', [EdukasiController::class, 'index']);
