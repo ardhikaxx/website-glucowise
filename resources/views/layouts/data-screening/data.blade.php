@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Data Screening')
+@section('title', 'Manajemen Screening')
 
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i
-                        class="fa fa-file-medical-alt me-1" style="color: #34B3A0;"></i>Data Screening</h1>
+                        class="fa fa-file-medical-alt me-1" style="color: #34B3A0;"></i>Manajemen Screening</h1>
             </div>
         </div>
 
