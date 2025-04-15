@@ -6,11 +6,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
 <div class="container-fluid">
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
+    
 
     <!-- Menampilkan Pesan jika Data Tidak Ditemukan -->
     @if(isset($message) && $message != '')
@@ -21,9 +17,14 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-clipboard-list me-1" style="color: #34B3A0;"></i>Riwayat Kesehatan</h1>
+            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-clipboard-list me-1" style="color: #34B3A0;"></i>Rekam Medis</h1>
         </div>
     </div>
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
      <!-- Menampilkan Flash Message -->
                     @if(session('success'))
                         <script>
@@ -35,6 +36,12 @@
                             });
                         </script>
                     @endif
+                    @if(isset($message) && $message != '')
+<div class="alert alert-warning">
+    {{ $message }}
+</div>
+@endif
+
 
 
     <!-- Tabel Riwayat Kesehatan -->
@@ -46,12 +53,12 @@
                         <div class="col-md-12">
                             <form action="{{ route('riwayatKesehatan.search') }}" method="GET" class="search-form float-right">
                                 <div class="input-group">
-                                    <input type="text" name="search" class="form-control search-input" placeholder="Cari Riwayat Kesehatan" value="{{ request()->search }}">
+                                    <input type="text" name="search" class="form-control search-input" placeholder="Cari Data Kesehatan" value="{{ request()->search }}">
                                     <button type="submit" class="btn btn-search">
-                                        <i class="fa fa-search"></i> Cari
+                                        <i class="fa fa-search me-1"></i>Cari
                                     </button>
                                 </div>
-                            </form>
+                            </form>                                                      
                         </div>
                     </div>
 
@@ -131,5 +138,16 @@
         </div>
     </div>
 </div>
+@if(session('success'))
+    <script>
+        Swal.fire({
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonColor: '#199A8E'
+        });
+    </script>
+@endif
+
 <script src="{{ asset('js/Data-kesehatan/Data-kesehatan.js') }}"></script>
 @endsection

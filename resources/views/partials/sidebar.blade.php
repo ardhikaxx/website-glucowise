@@ -52,7 +52,7 @@
           <li class="sidebar-item {{ request()->is('riwayatKesehatan*') ? 'active' : '' }}">
             <a class="sidebar-link" href="{{ route('riwayatKesehatan.index') }}" aria-expanded="false">
               <span><i class="ti ti-notes"></i></span>
-              <span class="hide-menu">Riwayat Kesehatan</span>
+              <span class="hide-menu">Rekam Medis</span>
             </a>
           </li>
           @endif

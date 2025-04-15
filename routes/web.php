@@ -77,7 +77,8 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}', [EdukasiController::class, 'destroy'])->name('destroy');
         });
 
-        // **Riwayat Kesehatan**
+  
+
         Route::prefix('riwayat_kesehatan')->name('riwayatKesehatan.')->group(function () {
             Route::get('/', [RiwayatKesehatanController::class, 'index'])->name('index');
             Route::get('/create', [RiwayatKesehatanController::class, 'create'])->name('create');
@@ -85,10 +86,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id_riwayat}/edit', [RiwayatKesehatanController::class, 'edit'])->name('edit');
             Route::put('/{id_riwayat}', [RiwayatKesehatanController::class, 'update'])->name('update');
             Route::get('/{nik}', [RiwayatKesehatanController::class, 'show'])->name('show');
+            
+            // Pastikan ini ada
+            Route::get('/search', [RiwayatKesehatanController::class, 'search'])->name('search');
         });
-
-        // **Pencarian Riwayat Kesehatan**
-        Route::get('/riwayat_kesehatan/search', [RiwayatKesehatanController::class, 'search'])->name('riwayatKesehatan.search');
+        
+        
+        
+        
+       
     });
 
     Route::get('/', function () {

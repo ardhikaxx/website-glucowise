@@ -103,20 +103,42 @@ public function edit($id_riwayat)
     }
 
     // Pencarian data Riwayat Kesehatan
+  
     public function search(Request $request)
-    {
-        $search = $request->get('search'); // Mendapatkan nilai pencarian
-        $riwayatKesehatan = RiwayatKesehatan::where('nomor_kk', 'like', "%$search%")
-            ->orWhere('ibu', 'like', "%$search%")
-            ->orWhere('ayah', 'like', "%$search%")
-            ->orWhere('telepon', 'like', "%$search%")
-            ->orWhere('deskripsi', 'like', "%$search%")
-            ->orWhere('diagnosa', 'like', "%$search%")
-            ->orWhere('pengobatan', 'like', "%$search%")
-            ->orWhere('catatan_lainnya', 'like', "%$search%")
-            ->paginate(10);
+{
+    // Ambil query pencarian dari input
+    $search = $request->get('search');
+    
+    // Cari data riwayat kesehatan berdasarkan pencarian, termasuk mencari pada tabel pengguna
+    $riwayatKesehatan = RiwayatKesehatan::with('dataKesehatan.pengguna')
+        ->when($search, function ($query, $search) {
+            return $query->whereHas('dataKesehatan', function($query) use ($search) {
+                $query->whereHas('pengguna', function($query) use ($search) {
+                    // Menambahkan pencarian pada nama lengkap di tabel pengguna
+                    $query->where('nama_lengkap', 'like', "%$search%");
+                });
+            })
+            ->orWhereHas('dataKesehatan', function($query) use ($search) {
+                // Menambahkan pencarian pada gula darah di tabel data_kesehatan
+                $query->where('gula_darah', 'like', "%$search%");
+            });
+        })
+        ->paginate(10); // Menampilkan 10 data per halaman
 
-        // Return hasil pencarian
-        return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan'));
+    // Menentukan pesan berdasarkan jenis pencarian
+    $message = '';
+    if ($riwayatKesehatan->isEmpty()) {
+        // Menampilkan pesan jika data tidak ditemukan
+        $message = 'Data dengan Nama atau Gula Darah "' . $search . '" tidak ditemukan.';
     }
+
+    // Kirim data dan pesan ke view
+    return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan', 'message'));
+}
+
+    
+    
+    
+    
+
 }
