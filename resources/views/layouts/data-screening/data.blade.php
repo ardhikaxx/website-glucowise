@@ -123,7 +123,7 @@
                                         <th>Nama Pengguna</th>
                                         <th>Tanggal Screening</th>
                                         <th>Skor Risiko</th>
-                                        <th>Kategori Risiko</th>
+                                      
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -134,14 +134,15 @@
                                             <td>{{ $tes->pengguna->nama_lengkap }}</td>
                                             <td>{{ $tes->tanggal_screening }}</td>
                                             <td>{{ $tes->skor_risiko }}</td>
-                                            <td>{{ $tes->kategori_risiko }}</td>
+                                            
 
                                             <td>
-                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
+                                                <a href="{{ route('screening.show', $tes->id_screening) }}"
                                                     class="btn btn-primary btn-rounded">
                                                     <i class="fas fa-eye"></i><i class="fa fa-info-circle me-1"></i>Detail
                                                 </a>
                                             </td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

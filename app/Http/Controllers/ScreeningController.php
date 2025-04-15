@@ -32,6 +32,30 @@ class ScreeningController extends Controller
 
     return view('layouts.data-screening.tambahpertanyaan', compact('id_pertanyaan'));
 }
+public function show($id)
+{
+    // Fetch the TesScreening data, including related PertanyaanScreening and JawabanScreening through HasilScreening
+    $tesScreening = TesScreening::with(['hasilScreening.pertanyaanScreening', 'hasilScreening.jawabanScreening'])
+        ->where('id_screening', $id) // Assuming you want to filter by 'nik'
+        ->firstOrFail();
+
+    // Prepare answers and scores (split them into separate columns)
+    foreach ($tesScreening->hasilScreening as $hasil) {
+        // Split Jawaban and Skor (number inside parentheses)
+        if (preg_match('/(.*)\((\d+)\)/', $hasil->jawabanScreening->jawaban, $matches)) {
+            $hasil->jawaban = $matches[1]; // Answer without the score
+            $hasil->skor = $matches[2];   // The score as a separate column
+        } else {
+            $hasil->jawaban = $hasil->jawabanScreening->jawaban; // If no score exists, just return the answer
+            $hasil->skor = null;  // No score available
+        }
+    }
+
+    // Return the data to the view for display
+    return view('layouts.data-screening.detailscreening', compact('tesScreening'));
+}
+
+
 
 
 public function store(Request $request)

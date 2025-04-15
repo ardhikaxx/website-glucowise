@@ -65,7 +65,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{id}/edit', [ScreeningController::class, 'edit'])->name('edit');
             Route::put('{id}', [ScreeningController::class, 'update'])->name('update');
             Route::delete('{id}', [ScreeningController::class, 'destroy'])->name('destroy');
+            
+            // Add the missing route for 'screening.show'
+            Route::get('{id}', [ScreeningController::class, 'show'])->name('show'); // This is the route for showing the details
         });
+        
+        
+        
+      
+// Route untuk menampilkan detail screening tes
+
+
 
         // **Edukasi**
         Route::prefix('edukasi')->name('edukasi.')->group(function () {
