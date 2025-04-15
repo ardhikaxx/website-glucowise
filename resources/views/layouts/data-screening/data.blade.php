@@ -11,7 +11,9 @@
                 <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i
                         class="fa fa-file-medical-alt me-1" style="color: #34B3A0;"></i>Manajemen Screening</h1>
             </div>
+            
         </div>
+         
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -27,10 +29,14 @@
 
         <!-- Tabel Data Screening Pertanyaan -->
         <div class="row mb-4">
+            
             <div class="col-md-12">
                 <div class="card visible">
                     <div class="card-body">
                         <h4>Data Screening Pertanyaan</h4>
+                        <a href="{{ route('screening.create') }}" class="btn btn-primary float-left">
+                            <i class="fa fa-plus-circle"></i> Create
+                        </a>  
                         <div class="table-wrapper">
                             <table class="table">
                                 <thead>
