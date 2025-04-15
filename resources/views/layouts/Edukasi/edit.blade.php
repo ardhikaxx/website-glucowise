@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
-@section('title', isset($dataEdukasi->id_educasi) ? 'Edit Edukasi' : 'Tambah Edukasi')
+@section('title', isset($dataEdukasi->id_edukasi) ? 'Edit Edukasi' : 'Tambah Edukasi')
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/edukasi/edit-edukasi.css') }}">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title">{{ isset($dataEdukasi->id_educasi) ? 'Edit Edukasi' : 'Tambah Edukasi' }}</h1>
+                <h1 class="page-title">{{ isset($dataEdukasi->id_edukasi) ? 'Edit Edukasi' : 'Tambah Edukasi' }}</h1>
             </div>
         </div>
 
@@ -15,9 +15,9 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ isset($dataEdukasi->id_educasi) ? route('edukasi.update', $dataEdukasi->id_educasi) : route('edukasi.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ isset($dataEdukasi->id_edukasi) ? route('edukasi.update', $dataEdukasi->id_edukasi) : route('edukasi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @if(isset($dataEdukasi->id_educasi))
+                            @if(isset($dataEdukasi->id_edukasi))
                                 @method('PUT')
                             @endif
 
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">{{ isset($dataEdukasi->id_educasi) ? 'Simpan Perubahan' : 'Tambah Edukasi' }}</button>
+                                <button type="submit" class="btn btn-primary">{{ isset($dataEdukasi->id_edukasi) ? 'Simpan Perubahan' : 'Tambah Edukasi' }}</button>
                                 <a href="{{ route('edukasi.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>

@@ -20,7 +20,7 @@
                         <form action="{{ route('edukasi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <!-- Kolom Kiri: Judul dan Isi -->
+                                <!-- Kolom Kiri: Judul dan Deskripsi -->
                                 <div class="col-md-6">
                                     <!-- Judul -->
                                     <div class="form-group">
@@ -28,10 +28,10 @@
                                         <input type="text" name="judul" id="judul" class="form-control" placeholder="Masukkan Judul Edukasi" required>
                                     </div>
 
-                                    <!-- Isi -->
+                                    <!-- Deskripsi -->
                                     <div class="form-group">
-                                        <label for="isi" class="form-label">Isi Edukasi</label>
-                                        <textarea name="isi" id="isi" class="form-control" rows="6" placeholder="Masukkan Isi Edukasi" required></textarea>
+                                        <label for="deskripsi" class="form-label">Deskripsi Edukasi</label>
+                                        <textarea name="deskripsi" id="deskripsi" class="form-control" rows="6" placeholder="Masukkan Deskripsi Edukasi" required></textarea>
                                     </div>
                                 </div>
 
