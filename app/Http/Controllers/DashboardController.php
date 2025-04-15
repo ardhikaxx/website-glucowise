@@ -12,72 +12,68 @@ class DashboardController extends Controller
 {
     public function dashboard(Request $request)
     {
-        // Default to the current month if no month is selected
-        $selectedMonth = $request->input('month', Carbon::now()->month);
+        // Ambil tahun yang dipilih, jika tidak ada, set default ke tahun saat ini
+        $selectedYear = $request->input('year', Carbon::now()->year);
 
-        // Get total admin count
+        // Dapatkan jumlah admin dan pengguna
         $totalAdmins = Admin::count();
         $bidanCount = Admin::where('hak_akses', 'Bidan')->count();
         $kaderCount = Admin::where('hak_akses', 'Kader')->count();
         $totalPengguna = Pengguna::count();
         $totalPemeriksaan = DataKesehatan::count();
 
-        // Prepare data for the diabetes risk graph (weekly data)
+        // Menyiapkan data untuk grafik risiko diabetes (per bulan sepanjang tahun)
         $chartData = [];
-        $weeks = [];
+        $months = [];
         $riskData = [
             'Rendah' => [],
             'Sedang' => [],
             'Tinggi' => []
         ];
 
-        // Get all health records for the selected month
-        $healthData = DataKesehatan::whereMonth('tanggal_pemeriksaan', $selectedMonth)->get();
+        // Ambil data kesehatan untuk seluruh bulan sepanjang tahun yang dipilih
+        $healthData = DataKesehatan::whereYear('tanggal_pemeriksaan', $selectedYear)->get();
 
-        // Check if there's any data for the selected month
+        // Pastikan ada data untuk tahun yang dipilih
         if ($healthData->isEmpty()) {
-            $chartData = null; // No data for this month
+            $chartData = null; // Tidak ada data untuk tahun ini
         } else {
-            // Loop through the weeks (week 1, week 2, week 3, week 4) and get the risk data
-            for ($week = 1; $week <= 4; $week++) {
-                // Calculate the start and end date for each week
-                $startOfWeek = Carbon::now()->month($selectedMonth)->startOfMonth()->addWeeks($week - 1)->startOfWeek();
-                $endOfWeek = $startOfWeek->copy()->endOfWeek();
-
-                // Filter health data within the current week
-                $weeklyData = $healthData->filter(function ($item) use ($startOfWeek, $endOfWeek) {
-                    return Carbon::parse($item->tanggal_pemeriksaan)->between($startOfWeek, $endOfWeek);
+            // Loop melalui bulan (bulan 1 hingga bulan 12) dan ambil data risiko
+            for ($month = 1; $month <= 12; $month++) {
+                $monthlyData = $healthData->filter(function ($item) use ($month, $selectedYear) {
+                    return Carbon::parse($item->tanggal_pemeriksaan)->month == $month && 
+                           Carbon::parse($item->tanggal_pemeriksaan)->year == $selectedYear;
                 });
 
-                // Calculate the risk count for each category (low, medium, high)
-                $lowRiskCount = RiwayatKesehatan::whereIn('id_data', $weeklyData->pluck('id_data'))
+                // Hitung jumlah risiko untuk setiap kategori (Rendah, Sedang, Tinggi)
+                $lowRiskCount = RiwayatKesehatan::whereIn('id_data', $monthlyData->pluck('id_data'))
                     ->where('kategori_risiko', 'Rendah')
                     ->count();
 
-                $mediumRiskCount = RiwayatKesehatan::whereIn('id_data', $weeklyData->pluck('id_data'))
+                $mediumRiskCount = RiwayatKesehatan::whereIn('id_data', $monthlyData->pluck('id_data'))
                     ->where('kategori_risiko', 'Sedang')
                     ->count();
 
-                $highRiskCount = RiwayatKesehatan::whereIn('id_data', $weeklyData->pluck('id_data'))
+                $highRiskCount = RiwayatKesehatan::whereIn('id_data', $monthlyData->pluck('id_data'))
                     ->where('kategori_risiko', 'Tinggi')
                     ->count();
 
-                // Store the risk data for the current week
-                $weeks[] = 'Minggu ' . $week;
+                // Simpan data risiko untuk bulan ini
+                $months[] = Carbon::create()->month($month)->format('F');
                 $riskData['Rendah'][] = $lowRiskCount;
                 $riskData['Sedang'][] = $mediumRiskCount;
                 $riskData['Tinggi'][] = $highRiskCount;
             }
 
-            // Prepare the chart data to pass to the view
+            // Menyiapkan data grafik untuk dikirimkan ke view
             $chartData = [
-                'weeks' => $weeks,
+                'months' => $months,
                 'data' => $riskData,
                 'categories' => ['Rendah', 'Sedang', 'Tinggi']
             ];
         }
 
-        // Prepare the data for the age category chart based on date of birth
+        // Menyiapkan data kategori umur berdasarkan tanggal lahir
         $ageCategories = ['0-18', '19-35', '36-50', '51+'];
         $ageData = [
             '0-18' => Pengguna::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, ?) <= 18', [Carbon::now()])->count(),
@@ -86,22 +82,30 @@ class DashboardController extends Controller
             '51+' => Pengguna::whereRaw('TIMESTAMPDIFF(YEAR, tanggal_lahir, ?) >= 51', [Carbon::now()])->count()
         ];
 
+        // Mengambil pemeriksaan terbaru
         $latestPemeriksaan = DataKesehatan::with('pengguna', 'riwayatKesehatan')
             ->orderBy('tanggal_pemeriksaan', 'desc')
-            ->take(3) // Ambil 10 data terbaru
+            ->take(3) // Ambil 3 data terbaru
             ->get();
 
-        // Return the dashboard view with the data
+        // Mendapatkan daftar tahun yang tersedia
+        $availableYears = DataKesehatan::selectRaw('YEAR(tanggal_pemeriksaan) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+        
+        // Mengembalikan tampilan dashboard dengan data yang sudah disiapkan
         return view('layouts.Dashboard.dashboard', compact(
             'totalAdmins',
             'bidanCount',
             'kaderCount',
             'totalPengguna',
             'totalPemeriksaan',
-            'chartData', // Pass chartData to the view
-            'ageCategories', // Pass age categories
-            'ageData', // Pass age data for chart
-            'selectedMonth',// Pass selectedMonth to the view
+            'chartData', // Kirim chartData ke tampilan
+            'ageCategories', // Kirim kategori umur
+            'ageData', // Kirim data umur untuk grafik
+            'selectedYear', // Kirim tahun yang dipilih
+            'availableYears', // Kirim daftar tahun yang tersedia
             'latestPemeriksaan'
         ));
     }
