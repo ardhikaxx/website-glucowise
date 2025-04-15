@@ -54,7 +54,6 @@ class CreateAllTables extends Migration
             $table->foreign('nik')->references('nik')->on('pengguna')->onDelete('cascade');
             $table->dateTime('tanggal_screening');
             $table->integer('skor_risiko');
-            $table->enum('kategori_risiko', ['Rendah', 'Sedang', 'Tinggi']);
             $table->timestamps();
         });
 
