@@ -3,12 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <!-- Dashboard Title -->
-                <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-chart-line me-1" style="color: #34B3A0;"></i> Dashboard</h1>
+                <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i
+                        class="fa fa-chart-line me-1" style="color: #34B3A0;"></i> Dashboard</h1>
             </div>
         </div>
 
@@ -26,7 +27,8 @@
                         </div>
                     </div>
                     <div class="progress mt-2">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70"
+                            aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
@@ -45,7 +47,8 @@
                         </div>
                     </div>
                     <div class="progress mt-2">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 60%;" aria-valuenow="60"
+                            aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
@@ -63,7 +66,8 @@
                         </div>
                     </div>
                     <div class="progress mt-2">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="80"
+                            aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
@@ -76,7 +80,7 @@
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h5 class="card-title fw-semibold text-muted" style="font-size: 20px;">Grafik Risiko Diabetes
                             </h5>
-                            <select class="form-select w-auto" style="font-size: 14px;">
+                            <select class="form-select w-auto" style="font-size: 14px;" id="month-selector">
                                 @foreach(range(1, 12) as $month)
                                     <option value="{{ $month }}" {{ $month == $selectedMonth ? 'selected' : '' }}>
                                         {{ \Carbon\Carbon::create()->month($month)->format('F') }}
@@ -112,15 +116,16 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $pemeriksaan->pengguna->nama_lengkap ?? 'N/A' }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($pemeriksaan->tanggal_pemeriksaan)->format('d M Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($pemeriksaan->tanggal_pemeriksaan)->format('d M Y') }}
+                                            </td>
                                             <td>{{ $pemeriksaan->umur }}</td>
                                             <td>{{ $pemeriksaan->gula_darah }} mg/dL</td>
                                             <td>
                                                 <span class="badge 
-                                                    @if($pemeriksaan->riwayatKesehatan->kategori_risiko == 'Rendah') bg-warning text-dark
-                                                    @elseif($pemeriksaan->riwayatKesehatan->kategori_risiko == 'Sedang') bg-info text-dark
-                                                    @elseif($pemeriksaan->riwayatKesehatan->kategori_risiko == 'Tinggi') bg-danger text-white
-                                                    @endif">
+                                                            @if($pemeriksaan->riwayatKesehatan->kategori_risiko == 'Rendah') bg-warning text-dark
+                                                            @elseif($pemeriksaan->riwayatKesehatan->kategori_risiko == 'Sedang') bg-info text-dark
+                                                            @elseif($pemeriksaan->riwayatKesehatan->kategori_risiko == 'Tinggi') bg-danger text-white
+                                                            @endif">
                                                     {{ $pemeriksaan->riwayatKesehatan->kategori_risiko ?? 'N/A' }}
                                                 </span>
                                             </td>
@@ -210,15 +215,12 @@
                 $('#risk-chart').html('<p>No data available for the selected month.</p>');
             }
             // Handle the month selection change
-            $('select').change(function () {
+            $('#month-selector').change(function () {
                 var selectedMonth = $(this).val();
-                // Update the page with the selected month data (you can add AJAX to reload the chart)
-                window.location.href = "/?month=" + selectedMonth;
+                window.location.href = "{{ url()->current() }}?month=" + selectedMonth;
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 @endsection
