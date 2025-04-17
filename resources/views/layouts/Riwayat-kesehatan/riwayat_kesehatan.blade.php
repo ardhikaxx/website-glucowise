@@ -7,13 +7,6 @@
 <link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
 <div class="container-fluid">
     
-
-    <!-- Menampilkan Pesan jika Data Tidak Ditemukan -->
-    @if(isset($message) && $message != '')
-    <div class="alert alert-warning">
-        {{ $message }}
-    </div>
-    @endif
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">

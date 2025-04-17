@@ -145,55 +145,69 @@
     <script src="{{ asset('js/app.min.js') }}"></script>
     <script src="{{ asset('libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script>
-        $(document).ready(function () {
-            var chartData = @json($chartData);
+    $(document).ready(function () {
+        var chartData = @json($chartData);
 
-            if (chartData) {
-                var months = chartData['months'];
-                var riskData = chartData['data'];
-                var categories = chartData['categories'];
+        if (chartData) {
+            var months = chartData['months'];
+            var riskData = chartData['data'];
+            var categories = chartData['categories'];
 
-                var riskOptions = {
-                    chart: {
-                        type: 'bar',
-                        height: 300,
-                    },
-                    series: [
-                        { name: categories[0], data: riskData['Rendah'] },
-                        { name: categories[1], data: riskData['Sedang'] },
-                        { name: categories[2], data: riskData['Tinggi'] }
-                    ],
-                    xaxis: {
-                        categories: months,
-                        title: {
-                            text: 'Bulan',
-                            style: { fontSize: '16px' }
-                        }
-                    },
-                    yaxis: {
-                        title: {
-                            text: 'Risiko',
-                            style: { fontSize: '16px' }
-                        }
-                    },
-                    plotOptions: {
-                        bar: {
-                            borderRadius: 5,
-                            columnWidth: '50%',
-                        }
-                    },
-                    colors: ['#FFB85C', '#34B3A0', '#FF6161'],
-                };
+            var riskOptions = {
+                chart: {
+                    type: 'bar',
+                    height: 300,
+                },
+                series: [
+                    { name: categories[0], data: riskData['Rendah'] },
+                    { name: categories[1], data: riskData['Sedang'] },
+                    { name: categories[2], data: riskData['Tinggi'] }
+                ],
+                xaxis: {
+                    categories: months,
+                    title: {
+        text: 'Bulan',
+        style: {
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: '#333'
+        },
+        offsetY: 180 // Memindahkan judul "Bulan" lebih ke bawah
+    },
+                    labels: {
+                        style: {
+                            fontSize: '12px',
+                            fontWeight: 'bold',
+                            colors: '#333'
+                        },
+                        offsetY: 10,  // Jarak label dari sumbu X
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Risiko',
+                        style: { fontSize: '16px' }
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 5,
+                        columnWidth: '50%',
+                    }
+                },
+                colors: ['#FFB85C', '#34B3A0', '#FF6161'],
+            };
 
-                var riskChart = new ApexCharts(document.querySelector("#risk-chart"), riskOptions);
-                riskChart.render();
-            }
+            var riskChart = new ApexCharts(document.querySelector("#risk-chart"), riskOptions);
+            riskChart.render();
+        }
 
-            // Handle the year selection change
-            $('#year-selector').change(function () {
-                var selectedYear = $('#year-selector').val();
-                window.location.href = "{{ url()->current() }}?year=" + selectedYear;
-            });
+        // Handle the year selection change
+        $('#year-selector').change(function () {
+            var selectedYear = $('#year-selector').val();
+            window.location.href = "{{ url()->current() }}?year=" + selectedYear;
         });
-    </script>
+    });
+</script>
+ 
 @endsection

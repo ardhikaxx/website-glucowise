@@ -40,12 +40,21 @@
                                             <option value="Manajemen Diabetes" {{ old('kategori', $dataEdukasi->kategori) == 'Manajemen Diabetes' ? 'selected' : '' }}>Manajemen Diabetes</option>
                                         </select>
                                     </div>
+
+                                    <!-- Submit Button placed below the Kategori field -->
+                                    <div class="form-group text-left mt-3" id="button-container">
+    <button type="submit" class="btn btn-primary" id="submit-button" disabled>
+        {{ isset($dataEdukasi->id_edukasi) ? 'Simpan Perubahan' : 'Tambah Edukasi' }}
+    </button>
+    <a href="{{ route('edukasi.index') }}" class="btn btn-secondary" style="margin-left: 10px;">Kembali</a>
+</div>
+
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="gambar" class="form-label">Upload Gambar</label>
-                                        <input type="file" name="gambar" id="gambar" class="form-control-file" accept="image/*">
+                                        <input type="file" name="gambar" id="gambar" class="form-control-file" accept="image/*" onchange="validateImageSize()">
                                     </div>
 
                                     <!-- Preview Gambar -->
@@ -59,12 +68,11 @@
                                         </div>
                                     </div>
 
+                                    <!-- Warning Message -->
+                                    <div id="image-warning" class="text-danger" style="display: none;">
+                                        Gambar yang diunggah melebihi batas ukuran 2MB. Harap pilih gambar dengan ukuran lebih kecil.
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">{{ isset($dataEdukasi->id_edukasi) ? 'Simpan Perubahan' : 'Tambah Edukasi' }}</button>
-                                <a href="{{ route('edukasi.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
                     </div>
@@ -73,4 +81,25 @@
         </div>
     </div>
     <script src="{{ asset('js/edukasi/edit-edukasi.js') }}"></script>
+
+    <script>
+        // Function to validate image size
+        function validateImageSize() {
+            const fileInput = document.getElementById('gambar');
+            const file = fileInput.files[0];
+            const submitButton = document.getElementById('submit-button');
+            const warningMessage = document.getElementById('image-warning');
+
+            if (file) {
+                const fileSizeInMB = file.size / (1024 * 1024); // Convert bytes to MB
+                if (fileSizeInMB > 2) {
+                    submitButton.disabled = true; // Disable the submit button
+                    warningMessage.style.display = 'block'; // Show the warning
+                } else {
+                    submitButton.disabled = false; // Enable the submit button
+                    warningMessage.style.display = 'none'; // Hide the warning
+                }
+            }
+        }
+    </script>
 @endsection
