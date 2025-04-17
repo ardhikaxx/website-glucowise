@@ -10,6 +10,7 @@ use App\Http\Controllers\DataKesehatanController;
 use App\Http\Controllers\EdukasiController;
 use App\Http\Controllers\RiwayatKesehatanController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ScreeningController;
 
 /*
@@ -98,8 +99,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{nik}', [RiwayatKesehatanController::class, 'show'])->name('show');
             
             // Pastikan ini ada
-            Route::get('/search', [RiwayatKesehatanController::class, 'search'])->name('search');
+            // Route::get('/search', [RiwayatKesehatanController::class, 'search'])->name('search');
         });
+
+        Route::get('/search', [RekamMedisController::class, 'search'])->name('rekammedis.search');
         
         
         
