@@ -192,7 +192,7 @@
                 plotOptions: {
                     bar: {
                         borderRadius: 5,
-                        columnWidth: '50%',
+                        columnWidth: '100%',
                     }
                 },
                 colors: ['#FFB85C', '#34B3A0', '#FF6161'],
