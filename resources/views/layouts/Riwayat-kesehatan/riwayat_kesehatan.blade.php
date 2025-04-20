@@ -7,13 +7,6 @@
 <link rel="stylesheet" href="{{ asset('css/Data-kesehatan/Data-kesehatan.css') }}">
 <div class="container-fluid">
     
-
-    <!-- Menampilkan Pesan jika Data Tidak Ditemukan -->
-    @if(isset($message) && $message != '')
-    <div class="alert alert-warning">
-        {{ $message }}
-    </div>
-    @endif
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
@@ -51,7 +44,7 @@
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-md-12">
-                            <form action="{{ route('riwayatKesehatan.search') }}" method="GET" class="search-form float-right">
+                            <form action="{{ route('rekammedis.search') }}" method="GET" class="search-form float-right">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control search-input" placeholder="Cari Data Kesehatan" value="{{ request()->search }}">
                                     <button type="submit" class="btn btn-search">

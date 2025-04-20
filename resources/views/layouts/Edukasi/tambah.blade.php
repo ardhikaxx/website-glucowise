@@ -40,6 +40,7 @@
                                     <div class="form-group">
                                         <label for="gambar" class="form-label">Upload Gambar</label>
                                         <input type="file" name="gambar" id="gambar" class="form-control-file" accept="image/*" onchange="previewImage(event)" required>
+                                        <small id="image-warning" class="form-text text-danger" style="display:none;">Ukuran gambar tidak boleh lebih dari 2MB.</small>
                                     </div>
 
                                     <!-- Preview Gambar -->
@@ -53,7 +54,7 @@
 
                             <!-- Tombol Simpan -->
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" id="submit-button" class="btn btn-primary" disabled>Simpan</button>
                                 <a href="{{ route('edukasi.index') }}" class="btn btn-secondary">Kembali</a>
                             </div>
                         </form>
@@ -63,4 +64,33 @@
         </div>
     </div>
     <script src="{{ asset('js/edukasi/tambah-edukasi.js') }}"></script>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+            const submitButton = document.getElementById('submit-button');
+            const warningMessage = document.getElementById('image-warning');
+            const preview = document.getElementById('preview');
+
+            if (file) {
+                // Check if file size exceeds 2MB
+                if (file.size > maxSize) {
+                    submitButton.disabled = true;
+                    warningMessage.style.display = 'block';
+                } else {
+                    submitButton.disabled = false;
+                    warningMessage.style.display = 'none';
+
+                    // Show image preview
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+    </script>
 @endsection
