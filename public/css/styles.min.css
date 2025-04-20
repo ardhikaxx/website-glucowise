@@ -52,7 +52,7 @@
     --bs-light-indigo: #EBF3FE;
     --bs-dark-light: #2A3547;
     --bs-light-gray: #F6F9FC;
-    --bs-primary-rgb: 93, 135, 255;
+    --bs-primary-rgb: #199A8E;
     --bs-secondary-rgb: 73, 190, 255;
     --bs-success-rgb: 19, 222, 185;
     --bs-info-rgb: 83, 155, 255;
@@ -547,7 +547,8 @@ select:disabled {
 [type=reset],
 [type=submit],
 button {
-    -webkit-appearance: button
+    -webkit-appearance: button;
+    appearance: button;
 }
 
 [type=button]:not(:disabled),
@@ -608,7 +609,8 @@ legend+* {
 
 [type=search] {
     outline-offset: -2px;
-    -webkit-appearance: textfield
+    -webkit-appearance: textfield;
+    appearance: textfield;
 }
 
 ::-webkit-search-decoration {
@@ -626,7 +628,8 @@ legend+* {
 
 ::file-selector-button {
     font: inherit;
-    -webkit-appearance: button
+    -webkit-appearance: button;
+    appearance: button;
 }
 
 output {
@@ -12223,8 +12226,7 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-    --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important
+    background-color: #199A8E;
 }
 
 .bg-secondary {
