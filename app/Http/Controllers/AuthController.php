@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Password;
+
 
 class AuthController extends Controller
 {
@@ -46,5 +48,53 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    public function showForgotPasswordForm()
+    {
+        return view('auth.lupa-password');
+    }
+
+    public function sendResetLink(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+        
+        // Kirimkan link reset password
+        $response = Password::sendResetLink($request->only('email'));
+
+        if ($response == Password::RESET_LINK_SENT) {
+            return back()->with('status', 'Reset link sent to your email.');
+        }
+
+        return back()->withErrors(['email' => 'We could not find a user with that email address.']);
+    }
+
+    public function showResetPasswordForm($token)
+    {
+        return view('auth.reset-password', ['token' => $token]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+            'token' => 'required',
+        ]);
+
+        // Proses reset password
+        $response = Password::reset(
+            $request->only('email', 'password', 'token'),
+            function ($user, $password) {
+                $user->password = bcrypt($password);
+                $user->save();
+            }
+        );
+
+        if ($response == Password::PASSWORD_RESET) {
+            return redirect()->route('login')->with('status', 'Your password has been reset!');
+        }
+
+        return back()->withErrors(['email' => 'Failed to reset password.']);
     }
 }
