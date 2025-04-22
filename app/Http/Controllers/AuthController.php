@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Hash;
+
 
 
 class AuthController extends Controller
@@ -86,7 +88,7 @@ class AuthController extends Controller
         $response = Password::reset(
             $request->only('email', 'password', 'token'),
             function ($user, $password) {
-                $user->password = bcrypt($password);
+                $user->password = Hash::make($password);
                 $user->save();
             }
         );
