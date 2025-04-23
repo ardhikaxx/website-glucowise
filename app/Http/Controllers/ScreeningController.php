@@ -40,20 +40,52 @@ public function show($id)
         ->firstOrFail();
 
     // Prepare answers and scores (split them into separate columns)
+    $totalSkor = 0;
     foreach ($tesScreening->hasilScreening as $hasil) {
         // Split Jawaban and Skor (number inside parentheses)
         if (preg_match('/(.*)\((\d+)\)/', $hasil->jawabanScreening->jawaban, $matches)) {
             $hasil->jawaban = $matches[1]; // Answer without the score
-            $hasil->skor = $matches[2];   // The score as a separate column
+            $hasil->skor = (int)$matches[2]; // The score as a separate column
+            $totalSkor += $hasil->skor; // Accumulate the score
         } else {
             $hasil->jawaban = $hasil->jawabanScreening->jawaban; // If no score exists, just return the answer
             $hasil->skor = null;  // No score available
         }
     }
 
-    // Return the data to the view for display
-    return view('layouts.data-screening.detailscreening', compact('tesScreening'));
+    // Pass the total score to the view
+    return view('layouts.data-screening.detailscreening', compact('tesScreening', 'totalSkor'));
 }
+public function updateSkorRisiko($id)
+{
+    // Fetch TesScreening data, including related PertanyaanScreening and JawabanScreening through HasilScreening
+    $tesScreening = TesScreening::with(['hasilScreening.pertanyaanScreening', 'hasilScreening.jawabanScreening'])
+        ->where('id_screening', $id)
+        ->firstOrFail();
+
+    // Calculate total score
+    $totalSkor = 0;
+    foreach ($tesScreening->hasilScreening as $hasil) {
+        // Split Jawaban and Skor (number inside parentheses)
+        if (preg_match('/(.*)\((\d+)\)/', $hasil->jawabanScreening->jawaban, $matches)) {
+            $hasil->jawaban = $matches[1]; // Answer without the score
+            $hasil->skor = (int)$matches[2]; // The score as a separate column
+            $totalSkor += $hasil->skor; // Accumulate the score
+        } else {
+            $hasil->jawaban = $hasil->jawabanScreening->jawaban; // If no score exists, just return the answer
+            $hasil->skor = null;  // No score available
+        }
+    }
+
+    // Update the Skor Risiko and save to the database
+    $tesScreening->skor_risiko = $totalSkor;
+    $tesScreening->save();
+
+    // Redirect back to the index page (or any other page as needed)
+    return redirect()->route('screening.index');
+}
+
+
 
 
 

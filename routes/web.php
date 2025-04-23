@@ -84,6 +84,10 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+// Route untuk update Skor Risiko
+Route::post('/screening/update-skor/{id}', [ScreeningController::class, 'updateSkorRisiko'])->name('screening.update-skor');
+
+
         // **Edukasi**
         Route::prefix('edukasi')->name('edukasi.')->group(function () {
             Route::get('/', [EdukasiController::class, 'index'])->name('index');

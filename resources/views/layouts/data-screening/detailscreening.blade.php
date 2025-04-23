@@ -38,22 +38,26 @@
                         </div>
 
                         <!-- Right Column (Skor Risiko) -->
-                        <div class="col-md-4">
-                            <table class="table table-bordered table-striped table-hover">
-                                <tbody>
-                                    <!-- Skor Risiko Label -->
-                                    <tr class="table-row">
-                                        <th>Skor Risiko</th>
-                                    </tr>
-                                    <!-- Skor Risiko Value Below -->
-                                    <tr class="table-row">
-                                        <td class="text-center" style="font-size: 50px; font-weight: bold; color: #34B3A0;">
-                                            {{ $tesScreening->skor_risiko }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                     <!-- Right Column (Skor Risiko) -->
+<!-- Right Column (Skor Risiko) -->
+<div class="col-md-4">
+    <table class="table table-bordered table-striped table-hover">
+        <tbody>
+            <!-- Skor Risiko Label -->
+            <tr class="table-row">
+                <th>Skor Risiko</th>
+            </tr>
+            <!-- Skor Risiko Value Below -->
+            <tr class="table-row">
+                <td class="text-center" style="font-size: 50px; font-weight: bold; color: #34B3A0;">
+                    {{ $totalSkor }} <!-- Display the total score here -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
                     </div>
 
                     <!-- Pertanyaan dan Jawaban -->
@@ -79,9 +83,13 @@
                         </tbody>
                     </table>
 
-                    <div class="text-center mt-4">
-                        <a href="{{ route('screening.index') }}" class="btn btn-primary btn-animated">Kembali</a>
-                    </div>
+<!-- Button Kembali (Form) -->
+<form action="{{ route('screening.update-skor', $tesScreening->id_screening) }}" method="POST">
+    @csrf
+    @method('POST') <!-- Use POST method to trigger the update -->
+    <button type="submit" class="btn btn-primary btn-animated">Kembali</button>
+</form>
+
                 </div>
             </div>
         </div>

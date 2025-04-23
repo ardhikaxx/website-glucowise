@@ -132,7 +132,14 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $tes->pengguna->nama_lengkap }}</td>
                                             <td>{{ $tes->tanggal_screening }}</td>
-                                            <td>{{ $tes->skor_risiko }}</td>
+                                            <td>
+                                                @if (is_null($tes->skor_risiko) || $tes->skor_risiko == 0)
+                                                    Coba Check Detail Dulu
+                                                @else
+                                                    {{ $tes->skor_risiko }}
+                                                @endif
+                                            </td>
+                                            
                                             
 
                                             <td>
