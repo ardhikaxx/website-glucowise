@@ -89,7 +89,7 @@
                                             @elseif ($data->kategori_risiko == 'Tinggi')
                                                 <span class="badge badge-danger p-2">Tinggi</span>
                                             @else
-                                                <span class="badge badge-secondary p-2">Tidak Tersedia</span>
+                                                <span class="badge badge-secondary p-2"><i class="fa fa-clock me-1"></i>Menunggu Proses</span>
                                             @endif
                                         </td>
                                         <td>
