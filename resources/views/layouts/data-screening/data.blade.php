@@ -59,20 +59,22 @@
                                             </td>
 
                                             <td>
-                                                <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
-                                                    class="btn btn-primary btn-rounded mb-2">
-                                                    <i class="fas fa-edit me-1"></i>Edit
-                                                </a>
-
-                                                <form action="{{ route('screening.destroy', $data->id_pertanyaan) }}"
-                                                    method="POST" class="delete-form" style="display: inline-block;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-rounded"
-                                                        onclick="confirmDelete(event)">
-                                                        <i class="fas fa-trash-alt me-1"></i>Hapus
-                                                    </button>
-                                                </form>
+                                                <div class="d-flex flex-row justify-content-center gap-2">
+                                                    <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
+                                                        class="btn btn-primary btn-rounded mb-2">
+                                                        <i class="fas fa-edit me-1"></i>Edit
+                                                    </a>
+    
+                                                    <form action="{{ route('screening.destroy', $data->id_pertanyaan) }}"
+                                                        method="POST" class="delete-form" style="display: inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-danger btn-rounded"
+                                                            onclick="confirmDelete(event)">
+                                                            <i class="fas fa-trash-alt me-1"></i>Hapus
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -140,8 +142,6 @@
                                                 @endif
                                             </td>
                                             
-                                            
-
                                             <td>
                                                 <a href="{{ route('screening.show', $tes->id_screening) }}"
                                                     class="btn btn-primary btn-rounded"><i class="fa fa-info-circle me-1"></i>Detail

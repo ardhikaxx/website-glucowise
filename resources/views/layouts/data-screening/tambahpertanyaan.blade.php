@@ -80,7 +80,7 @@
                         
                                 <!-- Tombol Simpan -->
                                 <div class="col-md-12 text-center mt-4">
-                                    <button type="submit" class="btn btn-primary w-50">{{ isset($pertanyaan) ? 'Update' : 'Simpan' }}</button>
+                                    <button type="submit" class="btn btn-primary w-50 mb-2">{{ isset($pertanyaan) ? 'Update' : 'Simpan' }}</button>
                                     <a href="{{ route('screening.index') }}" class="btn btn-secondary w-50">Kembali</a>
                                 </div>
                             </div>

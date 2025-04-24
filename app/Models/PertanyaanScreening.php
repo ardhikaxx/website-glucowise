@@ -16,6 +16,8 @@ class PertanyaanScreening extends Model
         'pertanyaan',
     ];
 
+    public $timestamps = true;
+
     public function jawabanScreening()
     {
         return $this->hasMany(JawabanScreening::class, 'id_pertanyaan', 'id_pertanyaan');

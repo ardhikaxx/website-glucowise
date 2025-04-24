@@ -10,12 +10,15 @@ class HasilScreening extends Model
     use HasFactory;
 
     protected $table = 'hasil_screening';
+    protected $primaryKey = 'id_hasil';
 
     protected $fillable = [
         'id_screening',
         'id_pertanyaan',
         'id_jawaban',
     ];
+
+    public $timestamps = true;
 
     public function tesScreening()
     {

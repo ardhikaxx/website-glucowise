@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DataPenggunaController;
 use App\Http\Controllers\Api\GlucoCareController;
 use App\Http\Controllers\Api\GlucoCheckController;
-use App\Http\Controllers\api\EdukasiController; 
+use App\Http\Controllers\api\EdukasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +37,9 @@ Route::post('/gluco-check/add', [GlucoCheckController::class, 'addCheck']);
 Route::get('/gluco-check/history/{nik}', [GlucoCheckController::class, 'getHistory']);
 Route::get('/gluco-check/status/{id_data}', [GlucoCheckController::class, 'getStatus']);
 Route::get('/edukasi', [EdukasiController::class, 'index']);
+Route::prefix('screening')->group(function () {
+    Route::get('/questions', [\App\Http\Controllers\Api\ScreeningController::class, 'getQuestionsWithAnswers']);
+    Route::post('/results', [\App\Http\Controllers\Api\ScreeningController::class, 'storeScreeningResults']);
+    Route::get('/results/{id}', [\App\Http\Controllers\Api\ScreeningController::class, 'getScreeningResult']);
+    Route::get('/history/{nik}', [\App\Http\Controllers\Api\ScreeningController::class, 'getScreeningHistory']);
+});

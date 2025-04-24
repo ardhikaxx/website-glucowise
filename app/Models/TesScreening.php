@@ -16,8 +16,9 @@ class TesScreening extends Model
         'nik',
         'tanggal_screening',
         'skor_risiko',
-        'kategori_risiko',
     ];
+
+    public $timestamps = true;
 
     public function pengguna()
     {

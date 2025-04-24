@@ -10,11 +10,14 @@ class JawabanScreening extends Model
     use HasFactory;
 
     protected $table = 'jawaban_screening';
+    protected $primaryKey = 'id_jawaban';
 
     protected $fillable = [
         'id_pertanyaan',
         'jawaban',
     ];
+
+    public $timestamps = true;
 
     public function pertanyaanScreening()
     {
