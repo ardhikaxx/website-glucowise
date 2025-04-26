@@ -65,7 +65,7 @@
                                                 Remember me
                                             </label>
                                         </div>
-                                        <a class="text-decoration-none text-primary fw-semibold" href="#">Forgot
+                                        <a class="text-decoration-none text-primary fw-semibold" href="./forgot-password">Forgot
                                             Password?</a>
                                     </div>
                         

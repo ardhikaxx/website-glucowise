@@ -38,26 +38,22 @@
                         </div>
 
                         <!-- Right Column (Skor Risiko) -->
-                     <!-- Right Column (Skor Risiko) -->
-<!-- Right Column (Skor Risiko) -->
-<div class="col-md-4">
-    <table class="table table-bordered table-striped table-hover">
-        <tbody>
-            <!-- Skor Risiko Label -->
-            <tr class="table-row">
-                <th>Skor Risiko</th>
-            </tr>
-            <!-- Skor Risiko Value Below -->
-            <tr class="table-row">
-                <td class="text-center" style="font-size: 50px; font-weight: bold; color: #34B3A0;">
-                    {{ $totalSkor }} <!-- Display the total score here -->
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-
+                        <div class="col-md-4">
+                            <table class="table table-bordered table-striped table-hover">
+                                <tbody>
+                                    <!-- Skor Risiko Label -->
+                                    <tr class="table-row">
+                                        <th>Skor Risiko</th>
+                                    </tr>
+                                    <!-- Skor Risiko Value Below -->
+                                    <tr class="table-row">
+                                        <td class="text-center" style="font-size: 50px; font-weight: bold; color: #34B3A0;">
+                                            {{ $totalSkor }} <!-- Display the total score here -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- Pertanyaan dan Jawaban -->
@@ -83,21 +79,18 @@
                         </tbody>
                     </table>
 
-<!-- Button Kembali (Form) -->
-<form action="{{ route('screening.update-skor', $tesScreening->id_screening) }}" method="POST">
-    @csrf
-    @method('POST') <!-- Use POST method to trigger the update -->
-    <button type="submit" class="btn btn-primary btn-animated">Kembali</button>
-</form>
-
+                    <!-- Button Kembali (Form) -->
+                    <form action="{{ route('screening.update-skor', $tesScreening->id_screening) }}" method="POST">
+                        @csrf
+                        @method('POST') <!-- Use POST method to trigger the update -->
+                        <button type="submit" class="btn btn-primary btn-animated">Kembali</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
 
-@section('styles')
 <style>
     /* Page Title */
     .page-title {
@@ -194,11 +187,9 @@
         transform: scale(1);
     }
 </style>
-@endsection
 
-@section('scripts')
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Animating the table rows and buttons
         let rows = document.querySelectorAll('.table-row');
         rows.forEach(function(row, index) {
@@ -218,6 +209,17 @@
         setTimeout(function() {
             skorRisiko.classList.add('visible');
         }, 1500);
+        
+        // Menambahkan kelas 'active' pada menu sidebar yang relevan
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
+            // Periksa apakah href link mengandung bagian dari URL saat ini
+            if (window.location.href.indexOf(link.href) > -1) {
+                link.classList.add('active'); // Menambahkan kelas active jika URL cocok
+            } else {
+                link.classList.remove('active'); // Menghapus kelas active jika tidak cocok
+            }
+        });
     });
 </script>
 @endsection
