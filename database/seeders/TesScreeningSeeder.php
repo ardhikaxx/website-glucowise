@@ -16,21 +16,19 @@ class TesScreeningSeeder extends Seeder
             'nik' => $pengguna->nik,
             'tanggal_screening' => now(),
             'skor_risiko' => 50,
-            'kategori_risiko' => 'Sedang',
         ]);
         
         TesScreening::create([
             'nik' => Pengguna::skip(1)->first()->nik,
             'tanggal_screening' => now(),
             'skor_risiko' => 30,
-            'kategori_risiko' => 'Rendah',
+            
         ]);
         
         TesScreening::create([
             'nik' => Pengguna::skip(2)->first()->nik,
             'tanggal_screening' => now(),
             'skor_risiko' => 70,
-            'kategori_risiko' => 'Tinggi',
         ]);
     }
 }
