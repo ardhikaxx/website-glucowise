@@ -28,18 +28,22 @@ Route::post('/auth/edit-profile', [DataPenggunaController::class, 'editProfile']
 Route::post('/auth/check-email', [DataPenggunaController::class, 'checkEmail']);
 Route::post('/auth/update-password', [DataPenggunaController::class, 'updatePassword']);
 Route::post('/profile', [DataPenggunaController::class, 'getProfile']);
-Route::post('/gluco-care/add', [GlucoCareController::class, 'addCare']);
-Route::post('/gluco-care/edit/{id_care}', [GlucoCareController::class, 'editCare']);
-Route::get('/gluco-care/active/{nik}', [GlucoCareController::class, 'getActiveCare']);
-Route::get('/gluco-care/history/{nik}', [GlucoCareController::class, 'getHistoryCare']);
-Route::delete('/gluco-care/delete/{id_care}', [GlucoCareController::class, 'deleteCare']);
-Route::post('/gluco-check/add', [GlucoCheckController::class, 'addCheck']);
-Route::get('/gluco-check/history/{nik}', [GlucoCheckController::class, 'getHistory']);
-Route::get('/gluco-check/status/{id_data}', [GlucoCheckController::class, 'getStatus']);
-Route::get('/edukasi', [EdukasiController::class, 'index']);
+Route::prefix('gluco-care')->group(function () {
+    Route::post('/add', [GlucoCareController::class, 'addCare']);
+    Route::post('/edit/{id_care}', [GlucoCareController::class, 'editCare']);
+    Route::get('/active/{nik}', [GlucoCareController::class, 'getActiveCare']);
+    Route::get('/history/{nik}', [GlucoCareController::class, 'getHistoryCare']);
+    Route::delete('/delete/{id_care}', [GlucoCareController::class, 'deleteCare']);
+});
+Route::prefix('gluco-check')->group(function () {
+    Route::post('/add', [GlucoCheckController::class, 'addCheck']);
+    Route::get('/history/{nik}', [GlucoCheckController::class, 'getHistory']);
+    Route::get('/status/{id_data}', [GlucoCheckController::class, 'getStatus']);
+});
 Route::prefix('screening')->group(function () {
     Route::get('/questions', [\App\Http\Controllers\Api\ScreeningController::class, 'getQuestionsWithAnswers']);
     Route::post('/results', [\App\Http\Controllers\Api\ScreeningController::class, 'storeScreeningResults']);
     Route::get('/results/{id}', [\App\Http\Controllers\Api\ScreeningController::class, 'getScreeningResult']);
     Route::get('/history/{nik}', [\App\Http\Controllers\Api\ScreeningController::class, 'getScreeningHistory']);
 });
+Route::get('/edukasi', [EdukasiController::class, 'index']);
