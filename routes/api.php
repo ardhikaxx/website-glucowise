@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DataPenggunaController;
 use App\Http\Controllers\Api\GlucoCareController;
 use App\Http\Controllers\Api\GlucoCheckController;
-use App\Http\Controllers\api\EdukasiController;
+use App\Http\Controllers\Api\EdukasiController;
 
 /*
 |--------------------------------------------------------------------------
