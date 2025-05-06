@@ -18,9 +18,6 @@ use App\Http\Controllers\Api\EdukasiController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
 Route::post('/auth/register', [DataPenggunaController::class, 'register']);
 Route::post('/auth/login', [DataPenggunaController::class, 'login']);
