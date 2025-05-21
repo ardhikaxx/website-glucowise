@@ -50,26 +50,27 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Tanggal Pemeriksaan</th>
                                     <th>Nama Lengkap</th>
+                                    <th>Nomor Telepon</th>
+                                    <th>Umur</th>
                                     <th>Gula Darah (mg/dl)</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataKesehatan->take(10) as $data)
-                                <tr class="table-row">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($data->tanggal_pemeriksaan)->format('d M Y') }}</td>
-                                    <td>{{ $data->pengguna->nama_lengkap }}</td> <!-- Menampilkan Nama Lengkap Pengguna -->
-                                    <td>{{ $data->gula_darah }}</td>
-                                    <td>
-                                        <a class="btn btn-warning" href="{{ route('dataKesehatan.edit', $data->nik) }}"><i class="fa fa-edit me-1"></i>Edit</a>
-                                        <a class="btn btn-info" href="{{ route('dataKesehatan.show', $data->nik) }}"><i class="fa fa-info-circle me-1"></i></i>Detail</a>
-                                    </td>
-                                </tr>
+                                @foreach ($dataKesehatan as $data)
+                                    <tr class="table-row">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->nama_lengkap }}</td> <!-- Tanggal Pemeriksaan -->
+                                        <td>{{ $data->nomor_telepon }}</td> <!-- Nama Lengkap Pengguna -->
+                                        <td>{{ $data->umur }}</td> <!-- Gula Darah -->
+                                        <td>{{ $data->gula_darah }}</td> <!-- Gula Darah -->
+                                        <td>
+                                            <a class="btn btn-info" href="{{ route('dataKesehatan.show', $data->nik) }}"><i class="fa fa-info-circle me-1"></i>Detail</a> 
+                                        </td>
+                                    </tr>
                                 @endforeach
-                            </tbody>
+                            </tbody>                            
                         </table>
                     </div>
 

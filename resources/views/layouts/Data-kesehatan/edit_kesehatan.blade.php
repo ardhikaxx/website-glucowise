@@ -17,9 +17,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form id="editForm" action="{{ route('dataKesehatan.update', $data->nik) }}" method="POST">
+                    <form id="editForm" action="{{ route('dataKesehatan.update', ['nik' => $data->nik, 'tanggal_pemeriksaan' => $data->tanggal_pemeriksaan]) }}" method="POST">
                         @csrf
-                        @method('PUT') <!-- Menambahkan method spoofing untuk PUT -->
+                        @method('PUT') <!-- Method spoofing for PUT -->
                     
                         <!-- Form fields -->
                         <div class="form-group">

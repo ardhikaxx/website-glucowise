@@ -46,9 +46,10 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('data-kesehatan')->name('dataKesehatan.')->group(function () {
             Route::get('/', [DataKesehatanController::class, 'index'])->name('index'); 
             Route::get('/search', [DataKesehatanController::class, 'search'])->name('search');
-            Route::get('/edit/{nik}', [DataKesehatanController::class, 'edit'])->name('edit');
-            Route::put('/update/{nik}', [DataKesehatanController::class, 'update'])->name('update');
+            Route::get('/edit/{nik}/{tanggal_pemeriksaan}', [DataKesehatanController::class, 'edit'])->name('edit');
+            Route::put('/update/{nik}/{tanggal_pemeriksaan}', [DataKesehatanController::class, 'update'])->name('update');    
             Route::get('/detail/{nik}', [DataKesehatanController::class, 'show'])->name('show');
+            
         });
     });
 
