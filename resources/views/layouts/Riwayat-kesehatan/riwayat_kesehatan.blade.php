@@ -72,11 +72,11 @@
                                 @foreach ($riwayatKesehatan as $data)
                                     <tr class="table-row">
                                         <td>{{ $data->id_riwayat }}</td>
-                                        <td>{{ $data->dataKesehatan && $data->dataKesehatan->pengguna ? $data->dataKesehatan->pengguna->nama_lengkap : 'N/A' }}</td>
-                                        <td>{{ $data->dataKesehatan ? $data->dataKesehatan->gula_darah : 'N/A' }}</td>
+                                        <td>{{ $data->nama_lengkap  }}</td>
+                                        <td>{{ $data->gula_darah }}</td>
                                         <td>
-                                            @if($data->dataKesehatan && $data->dataKesehatan->tanggal_pemeriksaan)
-                                                {{ \Carbon\Carbon::parse($data->dataKesehatan->tanggal_pemeriksaan)->format('d M Y') }}
+                                            @if($data->tanggal_pemeriksaan)
+                                                {{ \Carbon\Carbon::parse($data->tanggal_pemeriksaan)->format('d M Y') }}
                                             @else
                                                 Tanggal tidak tersedia
                                             @endif
@@ -93,8 +93,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('riwayatKesehatan.edit', $data->id_riwayat) }}" class="btn btn-warning"><i class="fa fa-edit me-1"></i>Edit</a>
-                                            <a href="{{ route('riwayatKesehatan.show', $data->dataKesehatan->nik) }}" class="btn btn-info"> <i class="fa fa-info-circle me-1"></i>Detail</a>
+                                         
+                                            <a href="{{ route('riwayatKesehatan.show', $data->nik) }}" class="btn btn-info"> <i class="fa fa-info-circle me-1"></i>Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach
