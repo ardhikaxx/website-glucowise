@@ -77,6 +77,16 @@
       </li>
     @endif
 
+    <!-- Laporan (Hanya untuk Bidan) -->
+    @if(Auth::user()->hak_akses == 'Bidan')
+      <li class="sidebar-item {{ request()->is('laporan*') ? 'active' : '' }}">
+        <a class="sidebar-link" href="{{ route('laporan.index') }}" aria-expanded="false">
+        <span><i class="ti ti-notes"></i></span>
+        <span class="hide-menu">Laporan</span>
+        </a>
+      </li>
+    @endif
+
         <!-- Data Admin (Hanya untuk Bidan) -->
         @if(Auth::user()->hak_akses == 'Bidan')
       <li class="sidebar-item {{ request()->is('admin*') ? 'active' : '' }}">

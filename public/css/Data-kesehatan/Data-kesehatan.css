@@ -1,3 +1,57 @@
+/* Custom month filter dropdown */
+.custom-month-dropdown {
+    background-color: #34B3A0; /* Greenish color */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px; /* Make it round */
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+    width: 100%;
+    -webkit-appearance: none; /* Remove default dropdown arrow */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Icon inside the dropdown */
+.custom-month-dropdown:focus {
+    outline: none;
+    border: 2px solid #28a745; /* Darker green on focus */
+}
+
+.custom-month-dropdown option {
+    font-weight: normal;
+    padding: 10px;
+}
+
+/* Hover effect */
+.custom-month-dropdown:hover {
+    background-color: #5aaa89;
+}
+
+/* Custom Icon for dropdown */
+.dropdown-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: white;
+}
+
+.custom-month-dropdown:hover + .dropdown-icon {
+    color: #28a745; /* Change icon color on hover */
+}
+
+/* Small screen responsiveness */
+@media (max-width: 767px) {
+    .custom-month-dropdown {
+        width: 100%;
+    }
+}
+
 .pagination-container {
     display: flex;
     justify-content: flex-end;

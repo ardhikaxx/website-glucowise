@@ -12,6 +12,8 @@ use App\Http\Controllers\RiwayatKesehatanController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ScreeningController;
+use App\Http\Controllers\LaporanController;
+use App\Models\RiwayatKesehatan;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +78,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/screening/update-skor/{id}', [ScreeningController::class, 'updateSkorRisiko'])->name('update-skor');
             Route::get('{id}', [ScreeningController::class, 'show'])->name('show');
         });
+
+        // *Laporan*
+        Route::prefix('Laporan')->name('laporan.')->group(function () {
+            Route::get('/', [LaporanController::class, 'index'])->name('index');
+            Route::get('/pdf', [LaporanController::class, 'generatePDF'])->name('pdf');
+            Route::get('/searchByMonth', [LaporanController::class, 'searchByMonth'])->name('searchByMonth');
+        });
         
         
         
@@ -101,6 +110,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [RiwayatKesehatanController::class, 'index'])->name('index');
             Route::get('/create', [RiwayatKesehatanController::class, 'create'])->name('create');
             Route::post('/', [RiwayatKesehatanController::class, 'store'])->name('store');
+            Route::get('/search', [RiwayatKesehatanController::class, 'search'])->name('search');
             Route::get('/{id_riwayat}/edit', [RiwayatKesehatanController::class, 'edit'])->name('edit');
             Route::put('/{id_riwayat}', [RiwayatKesehatanController::class, 'update'])->name('update');
             Route::get('/{nik}', [RiwayatKesehatanController::class, 'show'])->name('show');

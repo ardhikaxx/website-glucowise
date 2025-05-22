@@ -33,25 +33,29 @@ class DataKesehatanController extends Controller
 }
 
     
-
-
 public function search(Request $request)
 {
-    // Ambil query pencarian dari input
     $search = $request->get('search');
 
-    // Cari data kesehatan berdasarkan pencarian
-    $dataKesehatan = DataKesehatan::with('pengguna') // Mengambil data kesehatan dengan relasi pengguna
-        ->when($search, function ($query, $search) {
-            // Pencarian berdasarkan NIK pada tabel data_kesehatan dan Nama Lengkap pada tabel pengguna
-            return $query->where('nik', 'like', "%$search%")
-                         ->orWhereHas('pengguna', function($query) use ($search) {
-                             $query->where('nama_lengkap', 'like', "%$search%");
-                         });
-        })
-        ->paginate(10); // Menampilkan 10 data per halaman
+    $dataKesehatan = DB::table('data_kesehatan')
+    ->join('pengguna as p', 'data_kesehatan.nik', '=', 'p.nik')  // Aliasing the 'pengguna' table as 'p'
+    ->join(DB::raw('(SELECT nik, MAX(tanggal_pemeriksaan) as latest_date FROM data_kesehatan GROUP BY nik) as latest_data'), 'data_kesehatan.nik', '=', 'latest_data.nik')
+    ->select(
+        'data_kesehatan.id_data',
+        'data_kesehatan.nik',
+        'latest_data.latest_date as tanggal_pemeriksaan', // Get the latest date for each user
+        'data_kesehatan.gula_darah',
+        'data_kesehatan.umur',
+        'p.nama_lengkap',  // Referencing 'pengguna' table alias 'p'
+        'p.nomor_telepon'  // Referencing 'pengguna' table alias 'p'
+    )
+    ->whereColumn('data_kesehatan.tanggal_pemeriksaan', '=', 'latest_data.latest_date') // Ensure the gula_darah comes from the latest date
+    ->when($search, function ($query) use ($search) {
+        return $query->where('p.nama_lengkap', 'like', "%$search%"); // Pencarian berdasarkan nama lengkap
+    })
+    ->paginate(10); // Menampilkan 10 data per halaman
 
-    // Menentukan pesan berdasarkan jenis pencarian
+
     $message = '';
     if ($dataKesehatan->isEmpty()) {
         if (preg_match('/^[0-9]+$/', $search)) { // Jika pencarian menggunakan NIK (angka)
@@ -63,7 +67,6 @@ public function search(Request $request)
 
     return view('layouts.Data-kesehatan.data_kesehatan', compact('dataKesehatan', 'message'));
 }
-
 
     // Menampilkan halaman detail data kesehatan
    

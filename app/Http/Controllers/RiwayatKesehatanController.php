@@ -41,7 +41,45 @@ class RiwayatKesehatanController extends Controller
         return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan'));
     }
     
-    
+    public function search(Request $request)
+{
+    // Menangkap parameter pencarian
+    $search = $request->query('search'); // Menangkap input pencarian berdasarkan nama
+
+    // Query untuk mendapatkan data kesehatan terbaru per pengguna
+    $riwayatKesehatan = DB::table('riwayat_kesehatan')
+        ->join('data_kesehatan', 'riwayat_kesehatan.id_data', '=', 'data_kesehatan.id_data')
+        ->join('pengguna as p', 'data_kesehatan.nik', '=', 'p.nik')
+        ->join(
+            DB::raw('(SELECT nik, MAX(tanggal_pemeriksaan) as latest_date 
+                      FROM data_kesehatan 
+                      GROUP BY nik) as latest'), // Dapatkan tanggal terbaru per pengguna
+            'data_kesehatan.nik', '=', 'latest.nik'
+        )
+        ->select(
+            'riwayat_kesehatan.id_riwayat',
+            'data_kesehatan.gula_darah',
+            'riwayat_kesehatan.id_data',
+            'riwayat_kesehatan.id_admin',
+            'riwayat_kesehatan.kategori_risiko',
+            'riwayat_kesehatan.catatan',
+            'latest.latest_date as tanggal_pemeriksaan',
+            'p.nama_lengkap',
+            'p.nik',
+            'p.nomor_telepon'
+        )
+        ->whereColumn('data_kesehatan.tanggal_pemeriksaan', '=', 'latest.latest_date') // Memastikan hanya yang terbaru
+        ->when($search, function ($query, $search) {
+            // Menambahkan kondisi pencarian berdasarkan nama_lengkap
+            return $query->where('p.nama_lengkap', 'like', "%$search%");
+        })
+        ->orderBy('latest.latest_date', 'desc') // Urutkan berdasarkan tanggal pemeriksaan terbaru
+        ->paginate(10); // Paginate the results
+
+    // Mengirim data ke view
+    return view('layouts.Riwayat-kesehatan.riwayat_kesehatan', compact('riwayatKesehatan'));
+}
+
 
 
     
