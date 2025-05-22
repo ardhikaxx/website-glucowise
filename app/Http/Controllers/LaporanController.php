@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RiwayatKesehatan;
 use App\Models\DataKesehatan;
+use Carbon\Carbon;
 use App\Models\Pengguna; // Ensure Pengguna model is imported
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -66,6 +67,39 @@ class LaporanController extends Controller
 
         return view('layouts.Laporan.laporan', compact('riwayatKesehatan', 'months'));
     }
+    public function show($nik)
+{
+    // Ambil semua data kesehatan berdasarkan NIK dan urutkan berdasarkan bulan dan tahun, lalu tanggal pemeriksaan terbaru
+    $dataKesehatan = DataKesehatan::join('pengguna', 'data_kesehatan.nik', '=', 'pengguna.nik') // Join dengan tabel pengguna berdasarkan NIK
+    ->join('riwayat_kesehatan', 'data_kesehatan.id_data', '=', 'riwayat_kesehatan.id_data') // Join dengan tabel riwayat_kesehatan berdasarkan id_data
+    ->where('data_kesehatan.nik', $nik) // Menggunakan NIK pengguna
+    ->orderBy('data_kesehatan.tanggal_pemeriksaan', 'desc') // Mengurutkan berdasarkan tanggal pemeriksaan terbaru
+    ->get();
     
+    
+
+    // Kelompokkan data berdasarkan bulan dan tahun
+    $dataKesehatanGrouped = $dataKesehatan->groupBy(function ($item) {
+        return Carbon::parse($item->tanggal_pemeriksaan)->format('Y-m'); // Menggunakan format tahun-bulan
+    });
+
+    // Ambil data terbaru untuk setiap bulan
+    $latestDataPerMonth = $dataKesehatanGrouped->map(function ($group) {
+        return $group->first(); // Ambil data pertama (terbaru) dari setiap grup bulan
+    });
+
+    // Jika data tidak ditemukan, redirect atau tampilkan error
+    if ($latestDataPerMonth->isEmpty()) {
+        return redirect()->route('laporan.index')->with('error', 'Data tidak ditemukan!');
+    }
+
+    // Menghitung umur dari tanggal lahir pengguna
+    $tanggalLahir = $latestDataPerMonth->first()->pengguna->tanggal_lahir; // Ambil tanggal lahir dari data pengguna
+    $umur = Carbon::parse($tanggalLahir)->age; // Menggunakan Carbon untuk menghitung umur
+
+    // Kembalikan view dengan data yang ditampilkan
+    return view('layouts.Laporan.detail_kesehatan', compact('latestDataPerMonth', 'umur'));
+}
+
 }
 

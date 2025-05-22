@@ -81,10 +81,20 @@ Route::middleware(['auth'])->group(function () {
 
         // *Laporan*
         Route::prefix('Laporan')->name('laporan.')->group(function () {
+            // Rute untuk halaman laporan utama
             Route::get('/', [LaporanController::class, 'index'])->name('index');
-            Route::get('/pdf', [LaporanController::class, 'generatePDF'])->name('pdf');
+            
+            // Rute untuk mendownload PDF
+            Route::get('/print-pdf/{nik}', [LaporanController::class, 'printPdf'])->name('printPdf');
+
+            
+            // Rute untuk pencarian berdasarkan bulan
             Route::get('/searchByMonth', [LaporanController::class, 'searchByMonth'])->name('searchByMonth');
+            
+            // Rute untuk melihat detail berdasarkan NIK
+            Route::get('/{nik}', [LaporanController::class, 'show'])->name('show');
         });
+        
         
         
         

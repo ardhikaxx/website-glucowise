@@ -100,7 +100,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('riwayatKesehatan.edit', $data->id_riwayat) }}" class="btn btn-warning">  <i class="fa fa-file-pdf me-1"></i> Export PDF                                                </a>
-                                                <a href="{{ route('riwayatKesehatan.show', $data->dataKesehatan->nik) }}" class="btn btn-info"> <i class="fa fa-info-circle me-1"></i>Detail</a>
+                                                <a href="{{ route('laporan.show', $data->dataKesehatan->nik) }}" class="btn btn-info"> <i class="fa fa-info-circle me-1"></i>Detail</a>
                                             </td>
                                         </tr>
                                     @endforeach

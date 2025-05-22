@@ -158,22 +158,23 @@ public function edit($id_riwayat)
     public function show($nik)
 {
     // Ambil data RiwayatKesehatan berdasarkan NIK dan relasi dengan DataKesehatan
-    $data = RiwayatKesehatan::whereHas('dataKesehatan', function($query) use ($nik) {
+    $riwayatKesehatan = RiwayatKesehatan::whereHas('dataKesehatan', function ($query) use ($nik) {
         $query->where('nik', $nik); // Filter data berdasarkan NIK
-    })->with('dataKesehatan') // Eager load the dataKesehatan relationship
-      ->get(); // Ambil semua data kesehatan
+    })
+    ->with('dataKesehatan') // Eager load the dataKesehatan relationship
+    ->get(); // Ambil semua data riwayat kesehatan yang terkait dengan NIK
 
     // Jika data tidak ditemukan
-    if ($data->isEmpty()) {
-        return redirect()->route('riwayatKesehatan.index')->with('error', 'Data tidak ditemukan!');
+    if ($riwayatKesehatan->isEmpty()) {
+        return redirect()->route('laporan.index')->with('error', 'Data tidak ditemukan!');
     }
 
     // Kelompokkan data berdasarkan bulan dan tahun
-    $dataGroupedByMonth = $data->groupBy(function ($item) {
+    $dataGroupedByMonth = $riwayatKesehatan->groupBy(function ($item) {
         return Carbon::parse($item->dataKesehatan->tanggal_pemeriksaan)->format('Y-m'); // Format berdasarkan tahun-bulan
     });
 
-    // Ambil data terbaru untuk setiap bulan dengan cara mengurutkan berdasarkan tanggal pemeriksaan
+    // Ambil data terbaru untuk setiap bulan
     $latestDataPerMonth = $dataGroupedByMonth->map(function ($group) {
         return $group->sortByDesc(function ($item) {
             return Carbon::parse($item->dataKesehatan->tanggal_pemeriksaan); // Mengurutkan berdasarkan tanggal terbaru
@@ -182,7 +183,7 @@ public function edit($id_riwayat)
 
     // Jika data terbaru per bulan kosong, redirect ke index
     if ($latestDataPerMonth->isEmpty()) {
-        return redirect()->route('riwayatKesehatan.index')->with('error', 'Data tidak ditemukan!');
+        return redirect()->route('laporan.index')->with('error', 'Data tidak ditemukan!');
     }
 
     // Menghitung umur dari tanggal lahir pengguna (menggunakan data dari riwayat kesehatan pertama)
@@ -190,7 +191,8 @@ public function edit($id_riwayat)
     $umur = Carbon::parse($tanggalLahir)->age; // Menggunakan Carbon untuk menghitung umur
 
     // Kembalikan view dengan data yang ditampilkan
-    return view('layouts.Riwayat-kesehatan.detail_riwayat', compact('latestDataPerMonth', 'umur'));
+    return view('layouts.Laporan.detail_kesehatan', compact('latestDataPerMonth', 'umur'));
 }
+
 
 }
