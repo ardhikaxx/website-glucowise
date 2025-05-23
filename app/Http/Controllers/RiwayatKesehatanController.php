@@ -166,7 +166,7 @@ public function edit($id_riwayat)
 
     // Jika data tidak ditemukan
     if ($riwayatKesehatan->isEmpty()) {
-        return redirect()->route('laporan.index')->with('error', 'Data tidak ditemukan!');
+        return redirect()->route('riwayatKesehatan..index')->with('error', 'Data tidak ditemukan!');
     }
 
     // Kelompokkan data berdasarkan bulan dan tahun
@@ -183,7 +183,7 @@ public function edit($id_riwayat)
 
     // Jika data terbaru per bulan kosong, redirect ke index
     if ($latestDataPerMonth->isEmpty()) {
-        return redirect()->route('laporan.index')->with('error', 'Data tidak ditemukan!');
+        return redirect()->route('riwayatKesehatan.index')->with('error', 'Data tidak ditemukan!');
     }
 
     // Menghitung umur dari tanggal lahir pengguna (menggunakan data dari riwayat kesehatan pertama)
@@ -191,7 +191,7 @@ public function edit($id_riwayat)
     $umur = Carbon::parse($tanggalLahir)->age; // Menggunakan Carbon untuk menghitung umur
 
     // Kembalikan view dengan data yang ditampilkan
-    return view('layouts.Laporan.detail_kesehatan', compact('latestDataPerMonth', 'umur'));
+    return view('layouts.Riwayat-kesehatan.detail_riwayat', compact('latestDataPerMonth', 'umur'));
 }
 
 
