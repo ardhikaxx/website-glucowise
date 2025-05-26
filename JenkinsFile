@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     // Checkout code dari repository Git
-                    git 'https://github.com/ardhikaxx/website-glucowise.git'
+                    git branch: 'main', url: 'https://github.com/ardhikaxx/website-glucowise.git'
                 }
             }
         }
