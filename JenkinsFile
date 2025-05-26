@@ -23,7 +23,8 @@ pipeline {
             steps {
                 script {
                     // Build image Docker untuk aplikasi Laravel
-                    docker.build(IMAGE_NAME)
+                    docker.build(IMAGE_NAME, 'src/Dockerfile')
+
                 }
             }
         }
