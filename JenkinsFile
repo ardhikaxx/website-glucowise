@@ -1,79 +1,57 @@
 pipeline {
     agent any
+
     environment {
-        // Variabel untuk Docker Hub
-        DOCKER_HUB_USER = 'mookyarz'
-        DOCKER_HUB_PASS = 'mookyariz123'
-        IMAGE_NAME = 'glucowise_app'
-        IMAGE_TAG = 'latest'
-        REPO_URL = 'https://github.com/ardhikaxx/website-glucowise.git'
+        IMAGE_NAME = 'glucowise_app' // Nama image Docker untuk aplikasi Laravel
+        MYSQL_PASSWORD = 'secret'
+        MYSQL_ROOT_PASSWORD = 'secret'
+        DB_NAME = 'laravel'
+        DB_USER = 'laravel_user'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout dari repository GitHub
-                git branch: 'main', url: "${REPO_URL}"
+                script {
+                    // Checkout code dari repository Git
+                    git 'https://github.com/ardhikaxx/website-glucowise.git'
+                }
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Login ke Docker Hub
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
-                    }
-
-                    // Build Docker Image
-                    sh 'docker-compose build --no-cache'
+                    // Build image Docker untuk aplikasi Laravel
+                    docker.build(IMAGE_NAME)
                 }
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Deploy with Docker Compose') {
             steps {
                 script {
-                    // Push image ke Docker Hub
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
-                        sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
-                    }
+                    // Menjalankan container menggunakan docker-compose
+                    sh 'docker-compose down' // Matikan kontainer yang sedang berjalan
+                    sh 'docker-compose up -d --build' // Jalankan kontainer dengan build baru
                 }
             }
         }
 
-        stage('Deploy to Server') {
+        stage('Post Deploy Checks') {
             steps {
                 script {
-                    // SSH ke server dan lakukan deploy
-                    sshagent(['your-ssh-credentials-id']) {
-                        sh '''
-                            ssh -o StrictHostKeyChecking=no user@your-server-ip "cd /path/to/your/project && docker-compose down && docker-compose up -d"
-                        '''
-                    }
+                    // Periksa apakah kontainer telah berjalan dengan benar
+                    sh 'docker ps'
                 }
-            }
-        }
-
-        stage('Post Deployment Cleanup') {
-            steps {
-                // Menjalankan pembersihan setelah deployment
-                echo "Clean up and check deployment"
             }
         }
     }
 
     post {
         always {
-            // Logout dari Docker Hub setelah proses selesai
-            sh "docker logout"
-        }
-        success {
-            echo "Deployment success!"
-        }
-        failure {
-            echo "Deployment failed!"
+            // Bersihkan resources yang digunakan oleh Jenkins setelah deploy selesai
+            cleanWs()
         }
     }
 }
