@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Define GitHub repository and branch
+        REPO_URL = 'https://github.com/ardhikaxx/website-glucowise.git'
+        BRANCH = 'main' // or use your preferred branch
+        IMAGE_NAME = 'glucowise_app'
+        CONTAINER_NAME = 'laravel_app1'
+        NGINX_CONTAINER = 'laravel_webserver'
+    }
+    
+    stages {
+        stage('Pull Latest Code') {
+            steps {
+                // Clone the latest changes from GitHub repository
+                git branch: BRANCH, url: REPO_URL
+            }
+        }
+        
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    // Build the Docker images using the Dockerfile and docker-compose
+                    sh 'docker-compose build --no-cache'
+                }
+            }
+        }
+
+        stage('Restart Containers') {
+            steps {
+                script {
+                    // Stop and remove the existing containers
+                    sh 'docker-compose down'
+                    
+                    // Recreate and restart the containers with the latest code
+                    sh 'docker-compose up -d'
+                }
+            }
+        }
+
+        stage('Run Composer and Migrations') {
+            steps {
+                script {
+                    // Running necessary commands inside the app container
+                    sh 'docker exec -it laravel_app1 bash -c "php artisan config:cache"'
+                    sh 'docker exec -it laravel_app1 bash -c "php artisan optimize:clear"'
+                }
+            }
+        }
+
+        stage('Clean Up') {
+            steps {
+                // Clean up unused Docker images if necessary
+                sh 'docker system prune -f'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'CI/CD pipeline executed successfully!'
+        }
+        failure {
+            echo 'Something went wrong. Check the pipeline logs for details.'
+        }
+    }
+}
