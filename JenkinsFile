@@ -8,7 +8,6 @@ pipeline {
         IMAGE_NAME = 'glucowise_app'
         CONTAINER_NAME = 'laravel_app1'
         NGINX_CONTAINER = 'laravel_webserver'
-        DOCKER_COMPOSE_PATH = './glucowise'  // Correct path to the directory where docker-compose.yml is located
     }
     
     stages {
@@ -22,12 +21,15 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    // Check if the docker-compose.yml file exists in the expected directory
-                    if (!fileExists("${DOCKER_COMPOSE_PATH}/docker-compose.yml")) {
-                        error "docker-compose.yml not found in the expected path: ${DOCKER_COMPOSE_PATH}"
+                    // Change to the 'glucowise' directory where docker-compose.yml is located
+                    dir('glucowise') {
+                        // Check if the docker-compose.yml file exists in the 'glucowise' directory
+                        if (!fileExists('docker-compose.yml')) {
+                            error "docker-compose.yml not found in the 'glucowise' directory."
+                        }
+                        // Build the Docker images using docker-compose
+                        sh 'docker-compose build --no-cache'
                     }
-                    // Build the Docker images using docker-compose
-                    sh "docker-compose -f ${DOCKER_COMPOSE_PATH}/docker-compose.yml build --no-cache"
                 }
             }
         }
@@ -35,11 +37,14 @@ pipeline {
         stage('Restart Containers') {
             steps {
                 script {
-                    // Stop and remove the existing containers
-                    sh "docker-compose -f ${DOCKER_COMPOSE_PATH}/docker-compose.yml down"
-                    
-                    // Recreate and restart the containers with the latest code
-                    sh "docker-compose -f ${DOCKER_COMPOSE_PATH}/docker-compose.yml up -d"
+                    // Change to the 'glucowise' directory and restart the containers
+                    dir('glucowise') {
+                        // Stop and remove the existing containers
+                        sh 'docker-compose down'
+                        
+                        // Recreate and restart the containers with the latest code
+                        sh 'docker-compose up -d'
+                    }
                 }
             }
         }
