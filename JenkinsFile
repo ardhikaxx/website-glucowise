@@ -8,6 +8,7 @@ pipeline {
         IMAGE_NAME = 'glucowise_app'
         CONTAINER_NAME = 'laravel_app1'
         NGINX_CONTAINER = 'laravel_webserver'
+        DOCKER_COMPOSE_PATH = './glucowise'  // Correct path to the directory where docker-compose.yml is located
     }
     
     stages {
@@ -21,8 +22,12 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    // Build the Docker images using the Dockerfile and docker-compose
-                    sh 'docker-compose build --no-cache'
+                    // Check if the docker-compose.yml file exists in the expected directory
+                    if (!fileExists("${DOCKER_COMPOSE_PATH}/docker-compose.yml")) {
+                        error "docker-compose.yml not found in the expected path: ${DOCKER_COMPOSE_PATH}"
+                    }
+                    // Build the Docker images using docker-compose
+                    sh "docker-compose -f ${DOCKER_COMPOSE_PATH}/docker-compose.yml build --no-cache"
                 }
             }
         }
@@ -31,10 +36,10 @@ pipeline {
             steps {
                 script {
                     // Stop and remove the existing containers
-                    sh 'docker-compose down'
+                    sh "docker-compose -f ${DOCKER_COMPOSE_PATH}/docker-compose.yml down"
                     
                     // Recreate and restart the containers with the latest code
-                    sh 'docker-compose up -d'
+                    sh "docker-compose -f ${DOCKER_COMPOSE_PATH}/docker-compose.yml up -d"
                 }
             }
         }
