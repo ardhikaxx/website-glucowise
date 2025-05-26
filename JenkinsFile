@@ -1,82 +1,79 @@
 pipeline {
     agent any
-    
     environment {
-        // Define GitHub repository and branch
-        REPO_URL = 'https://github.com/ardhikaxx/website-glucowise.git'
-        BRANCH = 'main' // Use the branch that you want to deploy from
+        // Variabel untuk Docker Hub
+        DOCKER_HUB_USER = 'mookyarz'
+        DOCKER_HUB_PASS = 'mookyariz123'
         IMAGE_NAME = 'glucowise_app'
-        CONTAINER_NAME = 'laravel_app1'
-        NGINX_CONTAINER = 'laravel_webserver'
+        IMAGE_TAG = 'latest'
+        REPO_URL = 'https://github.com/ardhikaxx/website-glucowise.git'
     }
-    
+
     stages {
-        stage('Pull Latest Code') {
+        stage('Checkout') {
             steps {
-                // Clone the latest changes from GitHub repository
-                git branch: BRANCH, url: REPO_URL
+                // Checkout dari repository GitHub
+                git branch: 'main', url: "${REPO_URL}"
             }
         }
-        
-        stage('Build Docker Images') {
+
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Change to the 'glucowise' directory where docker-compose.yml is located
-                    dir('glucowise') {
-                        // Check if the docker-compose.yml file exists in the 'glucowise' directory
-                        if (!fileExists('docker-compose.yml')) {
-                            error "docker-compose.yml not found in the 'glucowise' directory."
-                        }
-                        // Build the Docker images using docker-compose
-                        sh 'docker-compose build --no-cache'
+                    // Login ke Docker Hub
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                    }
+
+                    // Build Docker Image
+                    sh 'docker-compose build --no-cache'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Push image ke Docker Hub
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
+                        sh "docker push ${DOCKER_HUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}"
                     }
                 }
             }
         }
 
-        stage('Restart Containers') {
+        stage('Deploy to Server') {
             steps {
                 script {
-                    // Change to the 'glucowise' directory and restart the containers
-                    dir('glucowise') {
-                        // Stop and remove the existing containers
-                        sh 'docker-compose down'
-                        
-                        // Recreate and restart the containers with the latest code
-                        sh 'docker-compose up -d'
+                    // SSH ke server dan lakukan deploy
+                    sshagent(['your-ssh-credentials-id']) {
+                        sh '''
+                            ssh -o StrictHostKeyChecking=no user@your-server-ip "cd /path/to/your/project && docker-compose down && docker-compose up -d"
+                        '''
                     }
                 }
             }
         }
 
-        stage('Run Composer and Migrations') {
+        stage('Post Deployment Cleanup') {
             steps {
-                script {
-                    // Running necessary commands inside the app container
-                    sh 'docker exec -it laravel_app1 bash -c "composer install --optimize-autoloader --no-dev"'
-                    sh 'docker exec -it laravel_app1 bash -c "php artisan key:generate"'
-                    sh 'docker exec -it laravel_app1 bash -c "php artisan config:clear"'
-                    sh 'docker exec -it laravel_app1 bash -c "php artisan config:cache"'
-                    sh 'docker exec -it laravel_app1 bash -c "php artisan optimize:clear"'
-                    sh 'docker exec -it laravel_app1 bash -c "php artisan migrate --force"'
-                }
-            }
-        }
-
-        stage('Clean Up') {
-            steps {
-                // Clean up unused Docker images if necessary
-                sh 'docker system prune -f'
+                // Menjalankan pembersihan setelah deployment
+                echo "Clean up and check deployment"
             }
         }
     }
 
     post {
+        always {
+            // Logout dari Docker Hub setelah proses selesai
+            sh "docker logout"
+        }
         success {
-            echo 'CI/CD pipeline executed successfully!'
+            echo "Deployment success!"
         }
         failure {
-            echo 'Something went wrong. Check the pipeline logs for details.'
+            echo "Deployment failed!"
         }
     }
 }
