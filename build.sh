@@ -16,8 +16,11 @@ touch database/database.sqlite
 echo "[4/6] Installing packages using composer"
 composer install
 
-echo "[5/6] Publishing API Platform assets"
-php artisan api-platform:install
+# echo "[5/6] Publishing API Platform assets"
+# php artisan api-platform:install
+
+echo "[5/6] Generate Key for encryption"
+php artisan key:generate
 
 echo "[6/6] Running fresh migrations and seeding"
 php artisan migrate:fresh --seed
