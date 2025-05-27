@@ -20,7 +20,7 @@ echo "[5/7] Generate Key for encryption"
 php artisan key:generate
 
 echo "[6/7] Running tests"
-php artisan test
+docker exec laravel_app1 php artisan test
 
 echo "[7/7] Running migrations and seeds"
 docker exec laravel_app1 php artisan migrate:fresh --seed
