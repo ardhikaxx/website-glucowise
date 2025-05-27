@@ -3,7 +3,7 @@
 echo "Running deploy script"
 
 echo "[1/7] Pulling from GitHub"
-git pull origin
+git pull origin main
 
 echo "[2/7] Ensuring correct database host configuration"
 # Check that DB_HOST in .env matches the actual MySQL container name if using Docker
