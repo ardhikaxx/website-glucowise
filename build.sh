@@ -22,8 +22,10 @@ composer install
 echo "[5/6] Generate Key for encryption"
 php artisan key:generate
 
-echo "[6/6] Running fresh migrations and seeding"
+echo "[6/6] Login"
 docker exec -it laravel_app1 bash
+
+echo "[7/7] Running fresh migrations and seeding"
 php artisan migrate:fresh --seed
 
 echo "The app has been built and deployed!"
