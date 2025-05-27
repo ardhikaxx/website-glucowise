@@ -9,7 +9,7 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title text-center" style="color: #34B3A0; font-weight: 700;">Detail Riwayat Kesehatan - NIK: {{ $latestDataPerMonth->first()->nik }}</h1>
+            <h1 class="page-title text-center" style="color: #34B3A0; font-weight: 700;">Detail Data Kesehatan - NIK: {{ $latestDataPerMonth->first()->nik }}</h1>
         </div>
     </div>
     @if(session('success'))
@@ -26,7 +26,7 @@
                     <div class="row">
                         <!-- Kolom Kiri (NIK, Nama Lengkap, Alamat) -->
                         <div class="col-md-8">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table">
                                 <tbody>
                                     <tr class="table-row">
                                         <th>NIK</th>
@@ -46,7 +46,7 @@
 
                         <!-- Kolom Kanan (Skor Risiko - Menampilkan Umur) -->
                         <div class="col-md-4">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table">
                                 <tbody>
                                     <tr class="table-row">
                                         <th>Umur</th> <!-- Menampilkan Umur -->
@@ -63,7 +63,7 @@
 
                     <!-- Tabel Data Kesehatan Lainnya -->
                     <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Detail Kesehatan</h4>
-                    <table class="table table-bordered table-striped table-hover">
+                    <table class="table">
                         <thead class="thead-dark">
                             <tr>
                                 <th>No</th>
