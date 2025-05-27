@@ -23,6 +23,7 @@ echo "[5/6] Generate Key for encryption"
 php artisan key:generate
 
 echo "[6/6] Running fresh migrations and seeding"
+docker exec -it laravel_app1 bash
 php artisan migrate:fresh --seed
 
 echo "The app has been built and deployed!"
