@@ -1,21 +1,21 @@
 <?php
-
 namespace Database\Factories;
 
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin>
- */
 class AdminFactory extends Factory
 {
+    protected $model = Admin::class;
+
     public function definition()
     {
         return [
-            'nama' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
+            'nama_lengkap' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt('password'), // Sesuaikan dengan password yang diinginkan
+            'hak_akses' => 'Bidan', // Hak akses default
         ];
     }
-
 }

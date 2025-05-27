@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
             RiwayatKesehatanSeeder::class,
             TesScreeningSeeder::class,
             HasilScreeningSeeder::class,
-            UsersTableSeeder::class,
         ]);
     }
 }
