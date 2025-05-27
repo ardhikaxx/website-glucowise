@@ -71,7 +71,7 @@
                         
                                     <button type="submit"
                                         class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm">
-                                        <i class="bi bi-box-arrow-in-right me-2"></i> Masuk
+                                        <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
                                     </button>
                         
                                     <div class="divider my-2">
