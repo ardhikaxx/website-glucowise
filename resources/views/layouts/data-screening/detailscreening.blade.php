@@ -19,7 +19,7 @@
                     <div class="row">
                         <!-- Left Column (NIK, Nama Lengkap, Tanggal Pengisian) -->
                         <div class="col-md-8">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered ">
                                 <tbody>
                                     <tr class="table-row">
                                         <th>NIK</th>
@@ -39,7 +39,7 @@
 
                         <!-- Right Column (Skor Risiko) -->
                         <div class="col-md-4">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered ">
                                 <tbody>
                                     <!-- Skor Risiko Label -->
                                     <tr class="table-row">
@@ -58,7 +58,7 @@
 
                     <!-- Pertanyaan dan Jawaban -->
                     <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Pertanyaan dan Jawaban</h4>
-                    <table class="table table-bordered table-striped table-hover">
+                    <table class="table table-bordered ">
                         <thead class="thead-dark">
                             <tr>
                                 <th>No</th>
@@ -110,9 +110,8 @@
         padding: 30px;
     }
 
-    /* Table Styling */
     .table {
-        background-color:#34B3A0;
+        background-color: #34B3A0;
         border-radius: 10px;
         border: 1px solid #ddd;
     }
@@ -129,7 +128,6 @@
         font-size: 14px;
     }
 
-    /* Hover Effects */
     .table tbody tr:hover {
         background-color: #e6f7f3;
     }
@@ -151,14 +149,13 @@
 
     /* Table Row Animation */
     .table-row {
-        background-color: #199A8E;
+        border-radius: 10px;
         opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.5s ease;
+        transform: translateX(-20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .table-row.visible {
-        background-color: #199A8E;
         opacity: 1;
         transform: translateY(0);
     }

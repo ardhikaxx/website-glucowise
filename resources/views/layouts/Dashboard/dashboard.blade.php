@@ -135,7 +135,7 @@
                                                     $risiko = $pemeriksaan->riwayatKesehatan->kategori_risiko ?? 'N/A';
                                                     $badgeClass = match ($risiko) {
                                                         'Rendah' => 'bg-success text-white',
-                                                        'Sedang' => 'bg-warning text-dark',
+                                                        'Sedang' => 'bg-warning text-white',
                                                         'Tinggi' => 'bg-danger text-white',
                                                         default => 'bg-secondary text-white',
                                                     };
