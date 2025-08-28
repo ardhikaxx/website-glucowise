@@ -74,19 +74,6 @@
                                         <i class="bi bi-box-arrow-in-right me-2"></i> Login
                                     </button>
                         
-                                    <div class="divider my-2">
-                                        <div class="divider-text text-muted">OR</div>
-                                    </div>
-                        
-                                    <!-- Social login buttons -->
-                                    <div class="d-grid gap-3">
-                                        <a href="#"
-                                            class="btn btn-light border py-3 rounded-3 d-flex align-items-center justify-content-center shadow-sm">
-                                            <img src="{{ asset('images/logos/search.png') }}" alt="Google Logo"
-                                                width="20" class="me-2">
-                                            <span>Continue with Google</span>
-                                        </a>
-                                    </div>
                                 </form>
                             </div>
                         </div>

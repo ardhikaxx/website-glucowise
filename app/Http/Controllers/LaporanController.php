@@ -102,42 +102,55 @@ class LaporanController extends Controller
     }
 
     public function printPdf($nik)
-    {
-        // Ambil data pengguna beserta riwayat kesehatannya berdasarkan nik
-        $pengguna = Pengguna::with([
-            'dataKesehatan' => function ($query) {
-                // Filter data kesehatan berdasarkan bulan terakhir jika diperlukan
-                $query->orderBy('tanggal_pemeriksaan', 'desc');
-            }
-        ])->where('nik', $nik)->first();  // Mengambil satu pengguna berdasarkan nik
+{
+    // Ambil data pengguna beserta riwayat kesehatannya berdasarkan nik
+    $pengguna = Pengguna::with('dataKesehatan')  // Menyertakan dataKesehatan tanpa join langsung
+        ->where('nik', $nik)
+        ->first();  // Mengambil satu pengguna berdasarkan nik
 
-
-        // Cek apakah data ditemukan
-        if (!$pengguna) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan');
-        }
-
-        // Ambil data riwayat kesehatan terakhir per bulan
-        $latestDataPerMonth = $pengguna->dataKesehatan->groupBy(function ($date) {
-            return \Carbon\Carbon::parse($date->tanggal_pemeriksaan)->format('Y-m'); // Mengelompokkan berdasarkan bulan dan tahun
-        });
-
-        // Muat view dan generate PDF
-        $pdf = Pdf::loadView('layouts.Laporan.pdf', [
-            'pengguna' => $pengguna,
-            'latestDataPerMonth' => $latestDataPerMonth,
-            'umur' => $this->calculateAge($pengguna->tanggal_lahir) // Misalnya Anda memiliki fungsi untuk menghitung umur
-        ]);
-
-        // Unduh PDF
-        return $pdf->stream('laporan_kesehatan.pdf');
+    // Cek apakah data ditemukan
+    if (!$pengguna) {
+        return redirect()->back()->with('error', 'Data tidak ditemukan');
     }
+
+    // Ambil data riwayat kesehatan terkait
+    $riwayatKesehatan = RiwayatKesehatan::whereIn('id_data', $pengguna->dataKesehatan->pluck('id_data'))
+        ->get();  // Ambil semua riwayat kesehatan berdasarkan id_data yang ada pada dataKesehatan
+
+    // Gabungkan data dataKesehatan dan riwayatKesehatan
+    $combinedData = $pengguna->dataKesehatan->map(function ($data) use ($riwayatKesehatan) {
+        // Ambil data riwayat terkait berdasarkan id_data
+        $riwayat = $riwayatKesehatan->where('id_data', $data->id_data)->first();
+        // Gabungkan data kesehatan dengan riwayat kesehatan
+        $data->kategori_risiko = $riwayat ? $riwayat->kategori_risiko : null;
+        $data->catatan = $riwayat ? $riwayat->catatan : null;
+        return $data;
+    });
+
+    // Ambil data riwayat kesehatan terakhir per bulan
+    $latestDataPerMonth = $combinedData->groupBy(function ($date) {
+        return \Carbon\Carbon::parse($date->tanggal_pemeriksaan)->format('Y-m'); // Mengelompokkan berdasarkan bulan dan tahun
+    });
+
+    // Muat view dan generate PDF
+    $pdf = Pdf::loadView('layouts.Laporan.pdf', [
+        'pengguna' => $pengguna,
+        'latestDataPerMonth' => $latestDataPerMonth,
+        'umur' => $this->calculateAge($pengguna->tanggal_lahir)
+    ]);
+
+    // Unduh PDF
+    return $pdf->stream('laporan_kesehatan.pdf');
+}
+
+
+
     public function calculateAge($tanggalLahir)
     {
         // Menghitung umur berdasarkan tanggal lahir
         return \Carbon\Carbon::parse($tanggalLahir)->age;
     }
-    
+
 
 }
 
