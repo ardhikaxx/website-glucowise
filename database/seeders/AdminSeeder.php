@@ -11,23 +11,23 @@ class AdminSeeder extends Seeder
     {
         Admin::create([
             'nama_lengkap' => 'Lina Kartika, S. Kep.',
-            'email' => 'bidan1@example.com',
+            'email' => 'lina.kartika@example.com',
             'password' => bcrypt('password'),
             'jenis_kelamin' => 'Perempuan',
             'hak_akses' => 'Bidan',
         ]);
-        
+
         Admin::create([
             'nama_lengkap' => 'Rahmat Hidayat',
-            'email' => 'kader1@example.com',
+            'email' => 'rahmat.hidayat@example.com',
             'password' => bcrypt('password'),
             'jenis_kelamin' => 'Laki-laki',
             'hak_akses' => 'Kader',
         ]);
-        
+
         Admin::create([
             'nama_lengkap' => 'Nurul Ananda Pratiwi, S.Tr.Keb.',
-            'email' => 'bidan2@example.com',
+            'email' => 'nurul.ananda.pratiwi@example.com',
             'password' => bcrypt('password'),
             'jenis_kelamin' => 'Perempuan',
             'hak_akses' => 'Bidan',

@@ -15,34 +15,32 @@
     appearance: none;
 }
 
-/* Icon inside the dropdown */
+/* Efek saat focus */
 .custom-month-dropdown:focus {
     outline: none;
-    border: 2px solid #28a745; /* Darker green on focus */
+    border: 2px solid #199A8E;
+    color: #199A8E;
 }
 
+/* Styling isi option */
 .custom-month-dropdown option {
     font-weight: normal;
     padding: 10px;
 }
 
-/* Hover effect */
-.custom-month-dropdown:hover {
-    background-color: #5aaa89;
-}
-
-/* Custom Icon for dropdown */
+/* Custom Icon untuk dropdown */
 .dropdown-icon {
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
+    font-size: 16px;
     color: white;
 }
 
-.custom-month-dropdown:hover + .dropdown-icon {
-    color: #28a745; /* Change icon color on hover */
+.custom-month-dropdown:focus + .dropdown-icon {
+    color: #199A8E;
 }
 
 /* Small screen responsiveness */
