@@ -12089,7 +12089,7 @@ fieldset:disabled .btn {
 }
 
 .text-primary {
-    color: var(--bs-primary) !important
+    color: #199A8E !important
 }
 
 .text-secondary {
@@ -12244,7 +12244,7 @@ fieldset:disabled .btn {
 }
 
 .text-primary-emphasis {
-    color: var(--bs-primary-text) !important
+    color: #199A8E !important
 }
 
 .text-secondary-emphasis {

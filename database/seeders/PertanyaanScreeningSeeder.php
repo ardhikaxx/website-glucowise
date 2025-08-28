@@ -9,16 +9,35 @@ class PertanyaanScreeningSeeder extends Seeder
 {
     public function run()
     {
-        PertanyaanScreening::create([
-            'pertanyaan' => 'Apakah Anda merasa pusing?',
-        ]);
-        
-        PertanyaanScreening::create([
-            'pertanyaan' => 'Apakah Anda memiliki riwayat hipertensi?',
-        ]);
-        
-        PertanyaanScreening::create([
-            'pertanyaan' => 'Apakah Anda merasa kelelahan yang berlebihan?',
-        ]);
+        $pertanyaanData = [
+            [
+                'pertanyaan' => 'Apakah Anda rutin berolahraga (renang, bersepeda, jogging) setidaknya 2 kali dalam seminggu?',
+            ],
+            [
+                'pertanyaan' => 'Apakah Anda sering mengonsumsi makanan tinggi lemak (misalnya junk food)?',
+            ],
+            [
+                'pertanyaan' => 'Apakah Anda sering mengonsumsi buah dan sayuran?',
+            ],
+            [
+                'pertanyaan' => 'Apakah Anda sering mengonsumsi minuman manis secara berlebihan?',
+            ],
+            [
+                'pertanyaan' => 'Apakah Anda sering tidur kurang dari 8 jam?',
+            ],
+            [
+                'pertanyaan' => 'Seberapa sering Anda buang air kecil pada malam hari?',
+            ],
+            [
+                'pertanyaan' => 'Seberapa sering Anda merasa haus?',
+            ],
+            [
+                'pertanyaan' => 'Seberapa sering Anda merasa lapar?',
+            ],
+        ];
+
+        foreach ($pertanyaanData as $pertanyaan) {
+            PertanyaanScreening::create($pertanyaan);
+        }
     }
 }

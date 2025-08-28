@@ -12,19 +12,23 @@ class HasilScreeningSeeder extends Seeder
 {
     public function run()
     {
-        $tesScreening = TesScreening::first();
-        $pertanyaan1 = PertanyaanScreening::first();
-        $jawaban1 = JawabanScreening::first(); // Pastikan ini tidak null
+        $tesScreeningList = TesScreening::all();
+        $pertanyaanList = PertanyaanScreening::all();
 
-        // Cek apakah data jawaban ada
-        if ($jawaban1) {
-            HasilScreening::create([
-                'id_screening' => $tesScreening->id_screening,
-                'id_pertanyaan' => $pertanyaan1->id_pertanyaan,
-                'id_jawaban' => $jawaban1->id_jawaban,
-            ]);
-        } else {
-            echo "Jawaban pertama tidak ditemukan!";
+        foreach ($tesScreeningList as $tesScreening) {
+            foreach ($pertanyaanList as $pertanyaan) {
+                // Ambil semua jawaban untuk pertanyaan ini
+                $jawabanList = JawabanScreening::where('id_pertanyaan', $pertanyaan->id_pertanyaan)->get();
+                
+                // Pilih jawaban secara acak
+                $jawabanAcak = $jawabanList->random();
+                
+                HasilScreening::create([
+                    'id_screening' => $tesScreening->id_screening,
+                    'id_pertanyaan' => $pertanyaan->id_pertanyaan,
+                    'id_jawaban' => $jawabanAcak->id_jawaban,
+                ]);
+            }
         }
     }
 }

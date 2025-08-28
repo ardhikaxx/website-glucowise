@@ -59,7 +59,7 @@
                                             </td>
 
                                             <td>
-                                                <div class="d-flex flex-row justify-content-center gap-2">
+                                                <div class="d-flex flex-column justify-content-center gap-2">
                                                     <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
                                                         class="btn btn-primary btn-rounded mb-2">
                                                         <i class="fas fa-edit me-1"></i>Edit

@@ -5,30 +5,27 @@ namespace Database\Seeders;
 use App\Models\TesScreening;
 use App\Models\Pengguna;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class TesScreeningSeeder extends Seeder
 {
     public function run()
     {
-        $pengguna = Pengguna::first(); // Ambil pengguna pertama
-        
-        TesScreening::create([
-            'nik' => $pengguna->nik,
-            'tanggal_screening' => now(),
-            'skor_risiko' => 50,
-        ]);
-        
-        TesScreening::create([
-            'nik' => Pengguna::skip(1)->first()->nik,
-            'tanggal_screening' => now(),
-            'skor_risiko' => 30,
+        $penggunaList = Pengguna::all();
+
+        foreach ($penggunaList as $pengguna) {
+            // Buat 1-3 tes screening untuk setiap pengguna
+            $jumlahTes = rand(1, 3);
             
-        ]);
-        
-        TesScreening::create([
-            'nik' => Pengguna::skip(2)->first()->nik,
-            'tanggal_screening' => now(),
-            'skor_risiko' => 70,
-        ]);
+            for ($i = 0; $i < $jumlahTes; $i++) {
+                $skorRisiko = rand(0, 100); // Skor antara 0-100
+                
+                TesScreening::create([
+                    'nik' => $pengguna->nik,
+                    'tanggal_screening' => Carbon::now()->subDays(rand(0, 365)),
+                    'skor_risiko' => $skorRisiko,
+                ]);
+            }
+        }
     }
 }
