@@ -9,27 +9,12 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i
-                        class="fa fa-file-medical-alt me-1" style="color: #34B3A0;"></i>Manajemen Screening</h1>
+                        class="fa fa-file-medical-alt me-3" style="color: #34B3A0;"></i>Manajemen Screening</h1>
             </div>
             
         </div>
-         
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (request()->search)
-            <div class="alert alert-info">
-                Menampilkan hasil pencarian untuk: <strong>{{ request()->search }}</strong>
-            </div>
-        @endif
-
-        <!-- Tabel Data Screening Pertanyaan -->
         <div class="row mb-4">
-            
             <div class="col-md-12">
                 <div class="card visible">
                     <div class="card-body">
@@ -48,41 +33,56 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($dataScreening as $data)
-                                        <tr class="table-row">
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $data->pertanyaan }}</td>
-                                            <td>
-                                                @foreach ($data->jawabanScreening as $jawaban)
-                                                    <p>{{ $jawaban->jawaban }}</p>
-                                                @endforeach
-                                            </td>
+                                    @if($dataScreening->count() > 0)
+                                        @foreach ($dataScreening as $data)
+                                            <tr class="table-row">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $data->pertanyaan }}</td>
+                                                <td>
+                                                    @foreach ($data->jawabanScreening as $jawaban)
+                                                        <p>{{ $jawaban->jawaban }}</p>
+                                                    @endforeach
+                                                </td>
 
-                                            <td>
-                                                <div class="d-flex flex-column justify-content-center gap-2">
-                                                    <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
-                                                        class="btn btn-primary btn-rounded mb-2">
-                                                        <i class="fas fa-edit me-1"></i>Edit
+                                                <td>
+                                                    <div class="d-flex flex-column justify-content-center gap-2">
+                                                        <a href="{{ route('screening.edit', $data->id_pertanyaan) }}"
+                                                            class="btn btn-primary btn-rounded mb-2">
+                                                            <i class="fas fa-edit me-1"></i>Edit
+                                                        </a>
+        
+                                                        <form action="{{ route('screening.destroy', $data->id_pertanyaan) }}"
+                                                            method="POST" class="delete-form" style="display: inline-block;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="btn btn-danger btn-rounded"
+                                                                onclick="confirmDelete(event)">
+                                                                <i class="fas fa-trash-alt me-1"></i>Hapus
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="4" class="text-center">
+                                                <div class="no-data-message">
+                                                    <i class="fa fa-question-circle fa-3x mb-3" style="color: #34B3A0;"></i>
+                                                    <h4 style="color: #34B3A0;">Tidak Ada Data Pertanyaan Screening</h4>
+                                                    <p>Belum ada data pertanyaan screening yang tersedia.</p>
+                                                    <a href="{{ route('screening.create') }}" class="btn btn-primary mt-2">
+                                                        <i class="fa fa-plus-circle me-1"></i>Tambah Pertanyaan
                                                     </a>
-    
-                                                    <form action="{{ route('screening.destroy', $data->id_pertanyaan) }}"
-                                                        method="POST" class="delete-form" style="display: inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-danger btn-rounded"
-                                                            onclick="confirmDelete(event)">
-                                                            <i class="fas fa-trash-alt me-1"></i>Hapus
-                                                        </button>
-                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- Pagination for Pertanyaan Table -->
+                        @if($dataScreening->count() > 0)
                         <div class="pagination-container">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
@@ -105,6 +105,7 @@
                                 </ul>
                             </nav>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -124,37 +125,50 @@
                                         <th>Nama Pengguna</th>
                                         <th>Tanggal Screening</th>
                                         <th>Skor Risiko</th>
-                                      
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($tesScreeningData as $tes)
-                                        <tr class="table-row">
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $tes->pengguna->nama_lengkap }}</td>
-                                            <td>{{ $tes->tanggal_screening }}</td>
-                                            <td>
-                                                @if (is_null($tes->skor_risiko) || $tes->skor_risiko == 0)
-                                                    Coba Check Detail Dulu
-                                                @else
-                                                    {{ $tes->skor_risiko }}
-                                                @endif
+                                    @if($tesScreeningData->count() > 0)
+                                        @foreach ($tesScreeningData as $tes)
+                                            <tr class="table-row">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $tes->pengguna->nama_lengkap }}</td>
+                                                <td>{{ $tes->tanggal_screening }}</td>
+                                                <td>
+                                                    @if (is_null($tes->skor_risiko) || $tes->skor_risiko == 0)
+                                                        Coba Check Detail Dulu
+                                                    @else
+                                                        {{ $tes->skor_risiko }}
+                                                    @endif
+                                                </td>
+                                                
+                                                <td>
+                                                    <a href="{{ route('screening.show', $tes->id_screening) }}"
+                                                        class="btn btn-primary btn-rounded"><i class="fa fa-info-circle me-1"></i>Detail
+                                                    </a>
+                                                </td>
+                                                
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                <div class="no-data-message">
+                                                    <i class="fa fa-clipboard-list fa-3x mb-3" style="color: #34B3A0;"></i>
+                                                    <h4 style="color: #34B3A0;">Tidak Ada Data Screening Tes</h4>
+                                                    <p>Belum ada data hasil screening dari pengguna.</p>
+                                                    <p class="small text-muted">Data akan muncul setelah pengguna melakukan tes screening.</p>
+                                                </div>
                                             </td>
-                                            
-                                            <td>
-                                                <a href="{{ route('screening.show', $tes->id_screening) }}"
-                                                    class="btn btn-primary btn-rounded"><i class="fa fa-info-circle me-1"></i>Detail
-                                                </a>
-                                            </td>
-                                            
                                         </tr>
-                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
 
-                        <!-- Pagination for TesScreening Table -->
+                        <!-- Pagination for TesScreening Table - Hanya tampilkan jika ada data -->
+                        @if($tesScreeningData->count() > 0)
                         <div class="pagination-container">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
@@ -179,6 +193,7 @@
                                 </ul>
                             </nav>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -323,6 +338,28 @@
         .table-row.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Styling untuk pesan tidak ada data */
+        .no-data-message {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .no-data-message h4 {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .no-data-message p {
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .no-data-message .small {
+            font-size: 0.875rem;
         }
 
         @media (max-width: 768px) {

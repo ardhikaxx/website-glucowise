@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-user me-1" style="color: #34B3A0;"></i>Data Pengguna</h1>
+            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-user me-3" style="color: #34B3A0;"></i>Data Pengguna</h1>
         </div>
     </div>
 
@@ -36,13 +36,6 @@
                         </div>
                     </form>
 
-                    <!-- Pesan jika data tidak ditemukan -->
-                    @if ($message)
-                        <div class="alert alert-warning" role="alert">
-                            {{ $message }}
-                        </div>
-                    @endif
-
                     <!-- Tabel -->
                     <div class="table-wrapper">
                         <table class="table">
@@ -57,27 +50,54 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($dataPengguna as $data)
-                                    <tr class="table-row">
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->nama_lengkap ?? 'Tidak Ada Data' }}</td>
-                                        <td>{{ $data->nik ?? 'Tidak Ada Data' }}</td>
-                                        <td>{{ $data->email ?? 'Tidak Ada Data' }}</td>
-                                        <td>{{ $data->nomor_telepon ?? 'Tidak Ada Data' }}</td>
-                                        <td>
-                                            <a class="btn btn-info" href="{{ route('dataPengguna.show', $data->nik) }}"><i class="fa fa-info-circle me-1"></i>Detail</a>
+                                @if($dataPengguna->count() > 0)
+                                    @foreach ($dataPengguna as $data)
+                                        <tr class="table-row">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $data->nama_lengkap ?? 'Tidak Ada Data' }}</td>
+                                            <td>{{ $data->nik ?? 'Tidak Ada Data' }}</td>
+                                            <td>{{ $data->email ?? 'Tidak Ada Data' }}</td>
+                                            <td>{{ $data->nomor_telepon ?? 'Tidak Ada Data' }}</td>
+                                            <td>
+                                                <a class="btn btn-info" href="{{ route('dataPengguna.show', $data->nik) }}"><i class="fa fa-info-circle me-1"></i>Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="6" class="text-center">
+                                            <div class="no-data-message">
+                                                <i class="fa fa-user-slash fa-3x mb-3" style="color: #34B3A0;"></i>
+                                                <h4 style="color: #34B3A0;">Tidak Ada Data Pengguna</h4>
+                                                @if(request()->search || request()->jenis_kelamin)
+                                                    <p>Pencarian untuk 
+                                                        @if(request()->search)
+                                                            "<strong>{{ request()->search }}</strong>"
+                                                        @endif
+                                                        @if(request()->search && request()->jenis_kelamin)
+                                                            dengan 
+                                                        @endif
+                                                        @if(request()->jenis_kelamin)
+                                                            jenis kelamin <strong>{{ request()->jenis_kelamin }}</strong>
+                                                        @endif
+                                                        tidak ditemukan.
+                                                    </p>
+                                                    <a href="{{ route('dataPengguna.index') }}" class="btn btn-primary mt-2">
+                                                        <i class="fa fa-arrow-left me-1"></i>Kembali ke Semua Data
+                                                    </a>
+                                                @else
+                                                    <p>Belum ada data pengguna yang terdaftar dalam sistem.</p>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center text-muted">Tidak ada data pengguna yang tersedia</td>
-                                    </tr>
-                                @endforelse
+                                @endif
                             </tbody>                            
                         </table>
                     </div>
 
-                    <!-- Pagination -->
+                    <!-- Pagination - Hanya tampilkan jika ada data -->
+                    @if($dataPengguna->count() > 0)
                     <div class="pagination-container">
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
@@ -99,6 +119,7 @@
                             </ul>
                         </nav>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

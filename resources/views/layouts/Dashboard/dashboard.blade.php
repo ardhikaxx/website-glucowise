@@ -5,20 +5,12 @@
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    @php
-        $totalAll = $totalAdmins + $totalPengguna + $totalPemeriksaan;
-
-        $percentAdmin = $totalAll > 0 ? ($totalAdmins / $totalAll) * 100 : 0;
-        $percentPengguna = $totalAll > 0 ? ($totalPengguna / $totalAll) * 100 : 0;
-        $percentPemeriksaan = $totalAll > 0 ? ($totalPemeriksaan / $totalAll) * 100 : 0;
-    @endphp
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <!-- Dashboard Title -->
                 <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;">
-                    <i class="fa fa-chart-line me-1" style="color: #34B3A0;"></i> Dashboard
+                    <i class="fa fa-chart-line me-3" style="color: #34B3A0;"></i> Dashboard
                 </h1>
             </div>
         </div>
