@@ -105,7 +105,6 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
                                         <th>Nama</th>
                                         <th>Tanggal Pemeriksaan</th>
                                         <th>Umur</th>
@@ -116,7 +115,6 @@
                                 <tbody>
                                     @foreach ($latestPemeriksaan as $key => $pemeriksaan)
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
                                             <td>{{ $pemeriksaan->pengguna->nama_lengkap ?? 'N/A' }}</td>
                                             <td>{{ \Carbon\Carbon::parse($pemeriksaan->tanggal_pemeriksaan)->format('d M Y') }}
                                             </td>

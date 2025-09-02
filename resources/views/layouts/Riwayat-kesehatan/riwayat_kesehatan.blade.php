@@ -46,7 +46,7 @@
                                 @if($riwayatKesehatan->count() > 0)
                                     @foreach ($riwayatKesehatan as $data)
                                         <tr class="table-row">
-                                            <td>{{ $data->id_riwayat }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data->nama_lengkap  }}</td>
                                             <td>{{ $data->gula_darah }}</td>
                                             <td>
