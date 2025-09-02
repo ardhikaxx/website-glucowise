@@ -12,13 +12,13 @@ class EdukasiController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-    
-        $dataEdukasi = Edukasi::when($search, function($query) use ($search) {
+
+        $dataEdukasi = Edukasi::when($search, function ($query) use ($search) {
             return $query->where('judul', 'like', '%' . $search . '%')
-                         ->orWhere('deskripsi', 'like', '%' . $search . '%');
+                ->orWhere('deskripsi', 'like', '%' . $search . '%');
         })
-        ->paginate(10);
-    
+            ->paginate(10);
+
         return view('layouts.Edukasi.edukasi', compact('dataEdukasi'));
     }
 
@@ -38,21 +38,21 @@ class EdukasiController extends Controller
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'kategori' => 'required|in:Dasar Diabetes,Manajemen Diabetes',
         ]);
-    
+
         // Menyimpan gambar jika ada
         $imagePath = null;
         if ($request->hasFile('gambar')) {
             // Menyimpan gambar baru
             $category = strtolower(str_replace(' ', '', $request->kategori)); // Menghilangkan spasi dan membuat huruf kecil
             $imageFileName = $category . time() . '.' . $request->file('gambar')->getClientOriginalExtension();
-    
+
             // Path lengkap untuk menyimpan gambar di folder lokal
             $imagePath = public_path('images/edukasi/' . $imageFileName);
-    
+
             // Menyimpan gambar ke dalam folder 'public/images/edukasi'
             $request->file('gambar')->move(public_path('images/edukasi'), $imageFileName);
         }
-    
+
         // Menyimpan data edukasi
         Edukasi::create([
             'id_admin' => "1", // Assumed auth handling
@@ -62,7 +62,7 @@ class EdukasiController extends Controller
             'gambar' => $imagePath ? 'images/edukasi/' . $imageFileName : null,
             'tanggal_publikasi' => now(),
         ]);
-    
+
         return redirect()->route('edukasi.index')->with('success', 'Edukasi berhasil ditambahkan');
     }
 
@@ -75,33 +75,33 @@ class EdukasiController extends Controller
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'kategori' => 'required|in:Dasar Diabetes,Manajemen Diabetes',
         ]);
-    
+
         $dataEdukasi = Edukasi::findOrFail($id_edukasi);
-    
+
         // Update data edukasi
         $dataEdukasi->judul = $request->judul;
         $dataEdukasi->deskripsi = $request->deskripsi;
         $dataEdukasi->kategori = $request->kategori;
-    
+
         // Update gambar jika ada
         if ($request->hasFile('gambar')) {
             // Menyimpan gambar baru
             $category = strtolower(str_replace(' ', '', $request->kategori)); // Menghilangkan spasi dan membuat huruf kecil
             $imageFileName = $category . $dataEdukasi->id_edukasi . '.' . $request->file('gambar')->getClientOriginalExtension();
-    
+
             // Path lengkap untuk menyimpan gambar di folder lokal
             $imagePath = public_path('images/edukasi/' . $imageFileName);
-    
+
             // Menyimpan gambar ke dalam folder 'public/images/edukasi'
             $request->file('gambar')->move(public_path('images/edukasi'), $imageFileName);
-    
+
             // Menyimpan nama gambar dengan path relatif untuk disimpan di database
             $dataEdukasi->gambar = 'images/edukasi/' . $imageFileName;
         }
-    
+
         // Simpan perubahan
         $dataEdukasi->save();
-    
+
         return redirect()->route('edukasi.index')->with('success', 'Edukasi berhasil diperbarui');
     }
 

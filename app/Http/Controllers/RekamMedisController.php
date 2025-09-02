@@ -17,12 +17,12 @@ class RekamMedisController extends Controller
         $riwayatKesehatan = RiwayatKesehatan::with('dataKesehatan.pengguna')
             ->when($search, function ($query, $search) {
                 // Menambahkan kondisi pencarian untuk 'gula_darah' dan 'nama_lengkap'
-                return $query->whereHas('dataKesehatan', function($query) use ($search) {
-                    $query->whereHas('pengguna', function($query) use ($search) {
+                return $query->whereHas('dataKesehatan', function ($query) use ($search) {
+                    $query->whereHas('pengguna', function ($query) use ($search) {
                         $query->where('nama_lengkap', 'like', "%$search%");
                     });
                 })
-                ->orWhereHas('dataKesehatan', function($query) use ($search) {
+                    ->orWhereHas('dataKesehatan', function ($query) use ($search) {
                     $query->where('gula_darah', 'like', "%$search%");
                 });
             })

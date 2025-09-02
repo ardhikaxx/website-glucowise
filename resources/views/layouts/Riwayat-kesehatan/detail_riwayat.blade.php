@@ -118,7 +118,6 @@
             <div class="card shadow-lg rounded">
                 <div class="card-body">
                     <div class="row">
-                        <!-- Kolom Kiri (NIK, Nama Lengkap, Alamat) -->
                         <div class="col-md-8">
                             <table class="table">
                                 <tbody>
@@ -138,7 +137,6 @@
                             </table>
                         </div>
 
-                        <!-- Kolom Kanan (Kategori Risiko dan Umur) -->
                         <div class="col-md-4">
                             <table class="table">
                                 <tbody>
@@ -146,11 +144,10 @@
                                         <th>Umur</th>
                                     </tr>
                                     <tr class="table-row">
-                                        <td class="text-center" style="font-size: 50px; font-weight: bold; color: #34B3A0;">
-                                            {{ $umur }} <!-- Menampilkan Umur -->
+                                        <td class="text-center d-flex justify-content-center align-items-center gap-2">
+                                            <span style="font-size: 50px; font-weight: bold; color: #34B3A0;">{{ $umur }}</span> <span class="text-sm" style="font-weight: bold; color: #34B3A0;">Tahun</span>
                                         </td>
                                     </tr>
-                                   
                                 </tbody>
                             </table>
                         </div>

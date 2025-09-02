@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     public function dashboard()
-{
-    // Get total admin count
-    $totalAdmins = Admin::count(); // This will get the total number of admins
+    {
+        // Get total admin count
+        $totalAdmins = Admin::count();
 
-    // Get counts based on hak_akses
-    $bidanCount = Admin::where('hak_akses', 'Bidan')->count(); // Count admins with hak_akses 'Bidan'
-    $kaderCount = Admin::where('hak_akses', 'Kader')->count(); // Count admins with hak_akses 'Kader'
+        // Get counts based on hak_akses
+        $bidanCount = Admin::where('hak_akses', 'Bidan')->count(); // Count admins with hak_akses 'Bidan'
+        $kaderCount = Admin::where('hak_akses', 'Kader')->count(); // Count admins with hak_akses 'Kader'
 
-    // Return the dashboard view with the data
-    return view('layouts.Dashboard.dashboard', compact('totalAdmins', 'bidanCount', 'kaderCount'));
-}
+        // Return the dashboard view with the data
+        return view('layouts.Dashboard.dashboard', compact('totalAdmins', 'bidanCount', 'kaderCount'));
+    }
 
 
     public function index(Request $request)
@@ -34,9 +34,9 @@ class AdminController extends Controller
     }
     // Show form to create a new admin
     public function create()
-{
-    return view('layouts.Data-admin.tambah_admin'); // No need to pass $admin here
-}
+    {
+        return view('layouts.Data-admin.tambah_admin'); // No need to pass $admin here
+    }
     // Store a newly created admin in storage
     public function store(Request $request)
     {
@@ -75,7 +75,7 @@ class AdminController extends Controller
     {
         // Cari admin berdasarkan id_admin
         $admin = Admin::findOrFail($id_admin);  // Pastikan mencari berdasarkan id_admin
-    
+
         // Validasi input
         $validatedData = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
@@ -84,8 +84,8 @@ class AdminController extends Controller
             'jenis_kelamin' => 'required|string',
             'hak_akses' => 'nullable|string',
         ]);
-        
-    
+
+
         // Update data admin
         if ($request->password) {
             $admin->password = bcrypt($request->password);
@@ -94,20 +94,20 @@ class AdminController extends Controller
         $admin->email = $validatedData['email'];
         $admin->jenis_kelamin = $validatedData['jenis_kelamin'];
         $admin->hak_akses = $validatedData['hak_akses'] ?? $admin->hak_akses;
-    
+
         // Simpan data yang sudah diupdate
         $admin->save();
-    
+
         // Redirect dengan pesan sukses
         return redirect()->route('admin.index')->with('success', 'Admin updated successfully');
     }
-    
-    
+
+
 
     public function destroy($id)
-{
-    $admin = Admin::findOrFail($id);
-    $admin->delete();
-    return redirect()->route('admin.index')->with('success', 'Admin deleted successfully');
-}
+    {
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+        return redirect()->route('admin.index')->with('success', 'Admin deleted successfully');
+    }
 }

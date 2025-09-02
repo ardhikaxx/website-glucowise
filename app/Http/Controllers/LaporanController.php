@@ -128,7 +128,7 @@ class LaporanController extends Controller
 
         // Ambil data riwayat kesehatan terakhir per bulan
         $latestDataPerMonth = $combinedData->groupBy(function ($date) {
-            return \Carbon\Carbon::parse($date->tanggal_pemeriksaan)->format('Y-m');
+            return Carbon::parse($date->tanggal_pemeriksaan)->format('Y-m');
         });
 
         // Generate data untuk QR Code
@@ -164,7 +164,6 @@ class LaporanController extends Controller
     public function calculateAge($tanggalLahir)
     {
         // Menghitung umur berdasarkan tanggal lahir
-        return \Carbon\Carbon::parse($tanggalLahir)->age;
+        return Carbon::parse($tanggalLahir)->age;
     }
 }
-

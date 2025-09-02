@@ -44,16 +44,15 @@
                             </table>
                         </div>
 
-                        <!-- Kolom Kanan (Skor Risiko - Menampilkan Umur) -->
                         <div class="col-md-4">
                             <table class="table">
                                 <tbody>
                                     <tr class="table-row">
-                                        <th>Umur</th> <!-- Menampilkan Umur -->
+                                        <th>Umur</th>
                                     </tr>
                                     <tr class="table-row">
-                                        <td class="text-center" style="font-size: 50px; font-weight: bold; color: #34B3A0;">
-                                            {{ $umur }} <!-- Menampilkan Umur -->
+                                        <td class="text-center d-flex justify-content-center align-items-center gap-2">
+                                            <span style="font-size: 50px; font-weight: bold; color: #34B3A0;">{{ $umur }}</span> <span class="text-sm" style="font-weight: bold; color: #34B3A0;">Tahun</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -61,7 +60,6 @@
                         </div>
                     </div>
 
-                    <!-- Tabel Data Kesehatan Lainnya -->
                     <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Detail Kesehatan</h4>
                     <table class="table">
                         <thead class="thead-dark">

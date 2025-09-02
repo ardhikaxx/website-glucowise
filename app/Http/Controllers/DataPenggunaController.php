@@ -27,7 +27,7 @@ class DataPenggunaController extends Controller
         if ($search) {
             $dataPengguna->where(function ($query) use ($search) {
                 $query->where('nama_lengkap', 'like', "%{$search}%")
-                      ->orWhere('nik', 'like', "%{$search}%");
+                    ->orWhere('nik', 'like', "%{$search}%");
             });
         }
 

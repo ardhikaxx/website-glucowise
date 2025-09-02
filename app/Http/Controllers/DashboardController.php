@@ -41,8 +41,8 @@ class DashboardController extends Controller
             // Loop melalui bulan (bulan 1 hingga bulan 12) dan ambil data risiko
             for ($month = 1; $month <= 12; $month++) {
                 $monthlyData = $healthData->filter(function ($item) use ($month, $selectedYear) {
-                    return Carbon::parse($item->tanggal_pemeriksaan)->month == $month && 
-                           Carbon::parse($item->tanggal_pemeriksaan)->year == $selectedYear;
+                    return Carbon::parse($item->tanggal_pemeriksaan)->month == $month &&
+                        Carbon::parse($item->tanggal_pemeriksaan)->year == $selectedYear;
                 });
 
                 // Hitung jumlah risiko untuk setiap kategori (Rendah, Sedang, Tinggi)
@@ -93,7 +93,7 @@ class DashboardController extends Controller
             ->distinct()
             ->orderBy('year', 'desc')
             ->pluck('year');
-        
+
         // Mengembalikan tampilan dashboard dengan data yang sudah disiapkan
         return view('layouts.Dashboard.dashboard', compact(
             'totalAdmins',

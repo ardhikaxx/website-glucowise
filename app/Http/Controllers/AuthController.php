@@ -18,29 +18,29 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    $remember = $request->has('remember'); // Cek apakah "Ingat Saya" dicentang
+        $remember = $request->has('remember'); // Cek apakah "Ingat Saya" dicentang
 
-    if (Auth::attempt($credentials, $remember)) { // Gunakan $remember di sini
-        $user = Auth::user();
+        if (Auth::attempt($credentials, $remember)) { // Gunakan $remember di sini
+            $user = Auth::user();
 
-        if ($user->hak_akses == 'Bidan') {
-            return redirect()->route('dashboard');
-        } elseif ($user->hak_akses == 'Kader') {
-            return redirect()->route('dashboard');
-        } else {
-            Auth::logout();
-            return redirect('/login')->withErrors(['error' => 'Hak akses tidak valid.']);
+            if ($user->hak_akses == 'Bidan') {
+                return redirect()->route('dashboard');
+            } elseif ($user->hak_akses == 'Kader') {
+                return redirect()->route('dashboard');
+            } else {
+                Auth::logout();
+                return redirect('/login')->withErrors(['error' => 'Hak akses tidak valid.']);
+            }
         }
-    }
 
-    return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();
-}
+        return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();
+    }
 
 
     public function logout(Request $request)
@@ -60,7 +60,7 @@ class AuthController extends Controller
     public function sendResetLink(Request $request)
     {
         $request->validate(['email' => 'required|email']);
-        
+
         // Kirimkan link reset password
         $response = Password::sendResetLink($request->only('email'));
 
