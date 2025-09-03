@@ -57,6 +57,8 @@
 }
 
 .pagination {
+    text-decoration: none;
+    color: white;
     display: flex;
     list-style: none;
     padding: 0;
@@ -64,6 +66,8 @@
 }
 
 .page-item {
+    text-decoration: none;
+    color: white;
     margin: 0 5px;
 }
 
@@ -82,22 +86,27 @@
 
 .page-link:hover,
 .page-item.active .page-link {
+    text-decoration: none;
+    color: white;
     background-color: #15867D;
     border-color: #15867D;
     transform: scale(1.1);
 }
 
 .page-link:focus {
+    text-decoration: none;
     outline: none;
 }
 
 .page-item.disabled .page-link {
+    text-decoration: none;
     background-color: #e0e0e0;
-    color: #b0b0b0;
+    color: white;
     border-color: #e0e0e0;
 }
 
 .page-item.active .page-link {
+    text-decoration: none;
     background-color: #15867D;
     color: white;
     border: 1px solid #15867D;
@@ -105,16 +114,18 @@
 
 /* Enhanced style for Previous and Next buttons */
 .page-item a {
+    text-decoration: none;
     font-weight: bold;
 }
 
 .page-item a span {
+    text-decoration: none;
     font-size: 18px;
 }
 
 .page-item a:hover {
     color: inherit;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Search form and filter aligned to the right */
