@@ -23,7 +23,8 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <form action="{{ route('rekammedis.search') }}" method="GET" class="search-form float-right">
+                                <form action="{{ route('rekammedis.search') }}" method="GET"
+                                    class="search-form float-right">
                                     <div class="input-group">
                                         <input type="text" name="search" class="form-control search-input"
                                             placeholder="Cari Data Kesehatan" value="{{ request()->search }}">
@@ -39,12 +40,13 @@
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-between">
                                     <div class="dropdown">
-                                        <select id="monthFilter" class="form-control custom-month-dropdown" style="width: 200px;">
-                                            <option value="">Filter by Month</option>
+                                        <select id="monthFilter" class="form-control custom-month-dropdown"
+                                            style="width: 200px;">
+                                            <option value="">Filter Bulan</option>
                                             @foreach ($months as $month)
-                                                <option value="{{ $month->month }}" 
+                                                <option value="{{ $month->month }}"
                                                     {{ request()->month == $month->month ? 'selected' : '' }}>
-                                                    {{ \Carbon\Carbon::create()->month($month->month)->format('F') }}
+                                                    {{ \Carbon\Carbon::create()->month($month->month)->locale('id')->translatedFormat('F') }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -69,15 +71,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($riwayatKesehatan->count() > 0)
+                                    @if ($riwayatKesehatan->count() > 0)
                                         @foreach ($riwayatKesehatan as $data)
                                             <tr class="table-row">
                                                 <td>{{ $riwayatKesehatan->firstItem() + $loop->index }}</td>
-                                                <td>{{ $data->dataKesehatan && $data->dataKesehatan->pengguna ? $data->dataKesehatan->pengguna->nama_lengkap : 'N/A' }}</td>
-                                                <td>{{ $data->dataKesehatan ? $data->dataKesehatan->gula_darah : 'N/A' }}</td>
+                                                <td>{{ $data->dataKesehatan && $data->dataKesehatan->pengguna ? $data->dataKesehatan->pengguna->nama_lengkap : 'N/A' }}
+                                                </td>
+                                                <td>{{ $data->dataKesehatan ? $data->dataKesehatan->gula_darah : 'N/A' }}
+                                                    mg/dl</td>
                                                 <td>
-                                                    @if($data->dataKesehatan && $data->dataKesehatan->tanggal_pemeriksaan)
-                                                        {{ \Carbon\Carbon::parse($data->dataKesehatan->tanggal_pemeriksaan)->format('d M Y') }}
+                                                    @if ($data->dataKesehatan && $data->dataKesehatan->tanggal_pemeriksaan)
+                                                        {{ \Carbon\Carbon::parse($data->dataKesehatan->tanggal_pemeriksaan)->locale('id')->translatedFormat('d F Y') }}
                                                     @else
                                                         Tanggal tidak tersedia
                                                     @endif
@@ -90,13 +94,18 @@
                                                     @elseif ($data->kategori_risiko == 'Tinggi')
                                                         <span class="badge badge-danger p-2">Tinggi</span>
                                                     @else
-                                                        <span class="badge badge-secondary p-2"><i class="fa fa-clock me-1"></i>Menunggu Proses</span>
+                                                        <span class="badge badge-secondary p-2"><i
+                                                                class="fa fa-clock me-1"></i>Menunggu Proses</span>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <div class="d-flex flex-column justify-content-center gap-2">
-                                                        <a href="{{ route('laporan.printPdf', $data->dataKesehatan->nik) }}" class="btn btn-warning" target="_blank">  <i class="fa fa-file-pdf me-1"></i> Export PDF</a>
-                                                    <a href="{{ route('laporan.show', $data->dataKesehatan->nik) }}" class="btn btn-info"> <i class="fa fa-info-circle me-1"></i>Detail</a>
+                                                        <a href="{{ route('laporan.printPdf', $data->dataKesehatan->nik) }}"
+                                                            class="btn btn-warning" target="_blank"> <i
+                                                                class="fa fa-file-pdf me-1"></i> Export PDF</a>
+                                                        <a href="{{ route('laporan.show', $data->dataKesehatan->nik) }}"
+                                                            class="btn btn-info"> <i
+                                                                class="fa fa-info-circle me-1"></i>Detail</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -105,27 +114,31 @@
                                         <tr>
                                             <td colspan="6" class="text-center">
                                                 <div class="no-data-message">
-                                                    <i class="fa fa-file-medical-alt fa-3x mb-3" style="color: #34B3A0;"></i>
+                                                    <i class="fa fa-file-medical-alt fa-3x mb-3"
+                                                        style="color: #34B3A0;"></i>
                                                     <h4 style="color: #34B3A0;">Tidak Ada Data Laporan</h4>
-                                                    @if(request()->search || request()->month)
+                                                    @if (request()->search || request()->month)
                                                         <p>
-                                                            @if(request()->search)
+                                                            @if (request()->search)
                                                                 Pencarian untuk "<strong>{{ request()->search }}</strong>"
                                                             @endif
-                                                            @if(request()->search && request()->month)
+                                                            @if (request()->search && request()->month)
                                                                 dan
                                                             @endif
-                                                            @if(request()->month)
-                                                                filter bulan <strong>{{ \Carbon\Carbon::create()->month(request()->month)->format('F') }}</strong>
+                                                            @if (request()->month)
+                                                                filter bulan
+                                                                <strong>{{ \Carbon\Carbon::create()->month(request()->month)->format('F') }}</strong>
                                                             @endif
                                                             tidak ditemukan.
                                                         </p>
-                                                        <a href="{{ route('rekammedis.search') }}" class="btn btn-primary mt-2">
+                                                        <a href="{{ route('rekammedis.search') }}"
+                                                            class="btn btn-primary mt-2">
                                                             <i class="fa fa-arrow-left me-1"></i>Kembali ke Semua Data
                                                         </a>
                                                     @else
                                                         <p>Belum ada data laporan yang tersedia dalam sistem.</p>
-                                                        <p class="small text-muted">Data laporan akan muncul setelah pengguna melakukan pemeriksaan kesehatan dan data diproses.</p>
+                                                        <p class="small text-muted">Data laporan akan muncul setelah
+                                                            pengguna melakukan pemeriksaan kesehatan dan data diproses.</p>
                                                     @endif
                                                 </div>
                                             </td>
@@ -135,29 +148,32 @@
                             </table>
                         </div>
 
-                        @if($riwayatKesehatan->count() > 0)
-                        <div class="pagination-container">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <li class="page-item {{ $riwayatKesehatan->onFirstPage() ? 'disabled' : '' }}">
-                                        <a class="page-link" href="{{ $riwayatKesehatan->previousPageUrl() }}" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    @foreach ($riwayatKesehatan->links()->elements[0] as $page => $url)
-                                        <li class="page-item {{ $riwayatKesehatan->currentPage() == $page ? 'active' : '' }}">
-                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                        @if ($riwayatKesehatan->count() > 0)
+                            <div class="pagination-container">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li class="page-item {{ $riwayatKesehatan->onFirstPage() ? 'disabled' : '' }}">
+                                            <a class="page-link" href="{{ $riwayatKesehatan->previousPageUrl() }}"
+                                                aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
                                         </li>
-                                    @endforeach
+                                        @foreach ($riwayatKesehatan->links()->elements[0] as $page => $url)
+                                            <li
+                                                class="page-item {{ $riwayatKesehatan->currentPage() == $page ? 'active' : '' }}">
+                                                <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                            </li>
+                                        @endforeach
 
-                                    <li class="page-item {{ $riwayatKesehatan->hasMorePages() ? '' : 'disabled' }}">
-                                        <a class="page-link" href="{{ $riwayatKesehatan->nextPageUrl() }}" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                                        <li class="page-item {{ $riwayatKesehatan->hasMorePages() ? '' : 'disabled' }}">
+                                            <a class="page-link" href="{{ $riwayatKesehatan->nextPageUrl() }}"
+                                                aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -186,7 +202,31 @@
     </script>
 
     <style>
-        /* Styling untuk pesan tidak ada data */
+        .custom-month-dropdown option:hover {
+            background-color: #199A8E;
+            color: #fff;
+        }
+
+        .custom-month-dropdown option:checked {
+            background-color: #199A8E;
+            color: #fff;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #199A8E;
+            color: #fff;
+        }
+
+        .select2-container--default .select2-results__option[aria-selected=true] {
+            background-color: #199A8E;
+            color: #fff;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #199A8E;
+            font-weight: bold;
+        }
+
         .no-data-message {
             padding: 40px 20px;
             text-align: center;

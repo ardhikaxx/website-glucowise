@@ -61,8 +61,8 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->nama_lengkap }}</td> 
                                                 <td>{{ $data->nomor_telepon }}</td>
-                                                <td>{{ $data->umur }}</td> 
-                                                <td>{{ $data->gula_darah }}</td>
+                                                <td>{{ $data->umur }} Tahun</td> 
+                                                <td>{{ $data->gula_darah }} mg/dl</td>
                                                 <td>
                                                     <a class="btn btn-info"
                                                         href="{{ route('dataKesehatan.show', $data->nik) }}"><i

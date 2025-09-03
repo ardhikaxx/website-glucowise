@@ -116,9 +116,9 @@
                                     @foreach ($latestPemeriksaan as $key => $pemeriksaan)
                                         <tr>
                                             <td>{{ $pemeriksaan->pengguna->nama_lengkap ?? 'N/A' }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($pemeriksaan->tanggal_pemeriksaan)->format('d M Y') }}
+                                            <td>{{ \Carbon\Carbon::parse($pemeriksaan->tanggal_pemeriksaan)->locale('id')->translatedFormat('d M Y') }}
                                             </td>
-                                            <td>{{ $pemeriksaan->umur }}</td>
+                                            <td>{{ $pemeriksaan->umur }} Tahun</td>
                                             <td>{{ $pemeriksaan->gula_darah }} mg/dL</td>
                                             <td>
                                                 @php

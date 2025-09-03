@@ -48,10 +48,10 @@
                                         <tr class="table-row">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data->nama_lengkap  }}</td>
-                                            <td>{{ $data->gula_darah }}</td>
+                                            <td>{{ $data->gula_darah }} mg/dl</td>
                                             <td>
                                                 @if($data->tanggal_pemeriksaan)
-                                                    {{ \Carbon\Carbon::parse($data->tanggal_pemeriksaan)->format('d M Y') }}
+                                                    {{ \Carbon\Carbon::parse($data->tanggal_pemeriksaan)->locale('id')->translatedFormat('d F Y') }}
                                                 @else
                                                     Tanggal tidak tersedia
                                                 @endif

@@ -138,7 +138,13 @@
                                             <tr class="table-row">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $tes->pengguna->nama_lengkap }}</td>
-                                                <td>{{ $tes->tanggal_screening }}</td>
+                                                <td>
+                                                    @if ($tes->tanggal_screening)
+                                                        {{ \Carbon\Carbon::parse($tes->tanggal_screening)->locale('id')->translatedFormat('d F Y') }}
+                                                    @else
+                                                        Tanggal tidak tersedia
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if (is_null($tes->skor_risiko) || $tes->skor_risiko == 0)
                                                         Coba Check Detail Dulu

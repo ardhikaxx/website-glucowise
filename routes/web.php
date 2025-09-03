@@ -101,16 +101,6 @@ Route::middleware(['auth'])->group(function () {
             // Rute untuk melihat detail berdasarkan NIK
             Route::get('/{nik}', [LaporanController::class, 'show'])->name('show');
         });
-        
-        
-        
-        
-      
-// Route untuk menampilkan detail screening tes
-
-
-
-
         // **Edukasi**
         Route::prefix('edukasi')->name('edukasi.')->group(function () {
             Route::get('/', [EdukasiController::class, 'index'])->name('index');
@@ -121,9 +111,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}', [EdukasiController::class, 'destroy'])->name('destroy');
         });
 
-  
-
-        Route::prefix('riwayat_kesehatan')->name('riwayatKesehatan.')->group(function () {
+        Route::prefix('rekam-medis')->name('riwayatKesehatan.')->group(function () {
             Route::get('/', [RiwayatKesehatanController::class, 'index'])->name('index');
             Route::get('/create', [RiwayatKesehatanController::class, 'create'])->name('create');
             Route::post('/', [RiwayatKesehatanController::class, 'store'])->name('store');
