@@ -66,6 +66,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal Pemeriksaan</th>
+                                <th>Riwayat Diabetes Keluarga</th>
                                 <th>Tinggi Badan</th>
                                 <th>Berat Badan</th>
                                 <th>Gula Darah</th>
@@ -82,6 +83,7 @@
                                 <tr class="table-row">
                                     <td>{{ $counter++ }}</td> <!-- Automatically increment the counter --> 
                                     <td>{{ $data->tanggal_pemeriksaan }}</td>
+                                    <td>{{ $data->riwayat_keluarga_diabetes }}</td>
                                     <td>{{ $data->tinggi_badan }}</td>
                                     <td>{{ $data->berat_badan }}</td>
                                     <td>{{ $data->gula_darah }}</td>
