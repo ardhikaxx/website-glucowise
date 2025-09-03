@@ -43,17 +43,19 @@
                                     </div>
                                 @endif
 
-                                <form action="{{ route('send-reset-link') }}" method="POST" class="mt-3">
+                                <form action="{{ route('send-reset-link') }}" method="POST" class="mt-3" id="forgotPasswordForm">
                                     @csrf
                                     <div class="mb-4">
                                         <label for="email" class="form-label fw-semibold">Email Address</label>
                                         <div class="input-group">
-                                            <input type="email" class="form-control py-2" id="email" name="email" placeholder="Enter your email" required autofocus>
+                                            <input type="email" class="form-control py-2" id="email" name="email" 
+                                                placeholder="Enter your email" required autofocus>
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm">
-                                        <i class="bi bi-envelope me-2"></i> Send Reset Code
+                                    <button type="submit" class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm"
+                                            id="resetButton">
+                                        <i class="bi bi-envelope me-2"></i> Send Reset Link
                                     </button>
 
                                     <div class="d-flex justify-content-between">
@@ -69,13 +71,44 @@
     </div>
 @endsection
 
-@push('styles')
-@endpush
-
 @push('scripts')
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle password visibility logic (if needed)
+        // Konfigurasi Firebase
+        const firebaseConfig = {
+            apiKey: "{{ env('FIREBASE_API_KEY') }}",
+            authDomain: "{{ env('FIREBASE_AUTH_DOMAIN') }}",
+            projectId: "{{ env('FIREBASE_PROJECT_ID') }}",
+            storageBucket: "{{ env('FIREBASE_STORAGE_BUCKET') }}",
+            messagingSenderId: "{{ env('FIREBASE_MESSAGING_SENDER_ID') }}",
+            appId: "{{ env('FIREBASE_APP_ID') }}"
+        };
+        
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const button = document.getElementById('resetButton');
+            
+            button.disabled = true;
+            button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
+            
+            // Mengirim permintaan reset password melalui Firebase
+            firebase.auth().sendPasswordResetEmail(email)
+                .then(() => {
+                    // Jika berhasil, submit form ke server untuk menangani respons
+                    this.submit();
+                })
+                .catch((error) => {
+                    // Menampilkan error
+                    alert('Error: ' + error.message);
+                    button.disabled = false;
+                    button.innerHTML = '<i class="bi bi-envelope me-2"></i> Send Reset Link';
+                });
         });
     </script>
 @endpush

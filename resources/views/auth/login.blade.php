@@ -73,7 +73,18 @@
                                         class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm">
                                         <i class="bi bi-box-arrow-in-right me-2"></i> Login
                                     </button>
-                        
+
+                                    {{-- <div class="divider my-2">
+                                        <div class="divider-text text-muted">OR</div>
+                                    </div>
+
+                                    <div class="d-grid gap-3">
+                                        <a href="#" class="btn btn-outline-primary border-2 py-3 rounded-3 d-flex align-items-center justify-content-center shadow-sm">
+                                            <img src="{{ asset('images/logos/search.png') }}" alt="Google Logo"
+                                                width="20" class="me-2">
+                                            <span>Continue with Google</span>
+                                        </a>
+                                    </div> --}}
                                 </form>
                             </div>
                         </div>

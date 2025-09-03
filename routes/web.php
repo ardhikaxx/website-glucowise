@@ -29,8 +29,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // **Reset Password**
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('forgot-password');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('send-reset-link');
-Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+
+// Ubah route reset-password untuk menerima token sebagai query parameter
+Route::get('/reset-password', [AuthController::class, 'showResetPasswordForm'])
+    ->name('password.reset');
+
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
+
+// routes/web.php
+Route::get('/test-firebase', [AuthController::class, 'checkFirebaseConnection']);
 
 // **Route yang Memerlukan Login**
 Route::middleware(['auth'])->group(function () {
