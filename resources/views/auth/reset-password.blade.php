@@ -3,6 +3,59 @@
 @section('title', 'Reset Password')
 
 @section('content')
+    <!-- Menambahkan link CDN Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: transparent;
+            border: none;
+            color: #6c757d;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .form-control {
+            border-radius: 0.375rem !important;
+            padding-right: 40px;
+            /* Memberikan ruang untuk ikon mata */
+        }
+
+        .card {
+            border-radius: 1rem;
+        }
+
+        .btn-primary {
+            border-radius: 0.5rem;
+        }
+
+        .toggle-password {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            color: #6c757d;
+        }
+    </style>
+
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         <div class="position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
@@ -44,7 +97,8 @@
                                     </div>
                                 @endif
 
-                                <form action="{{ route('reset-password') }}" method="POST" class="mt-3" id="resetPasswordForm">
+                                <form action="{{ route('reset-password') }}" method="POST" class="mt-3"
+                                    id="resetPasswordForm">
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
 
@@ -62,9 +116,10 @@
                                         <div class="input-group">
                                             <input type="password" class="form-control py-2" id="password" name="password"
                                                 placeholder="Enter your new password" required>
-                                            <span class="input-group-text toggle-password">
-                                                <i class="bi bi-eye-slash"></i>
-                                            </span>
+                                            <button type="button" class="password-toggle toggle-password"
+                                                data-target="password">
+                                                <i class="fas fa-eye-slash text-muted"></i>
+                                            </button>
                                         </div>
                                         <div class="form-text">Password minimal 6 karakter</div>
                                     </div>
@@ -76,21 +131,23 @@
                                             <input type="password" class="form-control py-2" id="password_confirmation"
                                                 name="password_confirmation" placeholder="Confirm your new password"
                                                 required>
-                                            <span class="input-group-text toggle-password">
-                                                <i class="bi bi-eye-slash"></i>
-                                            </span>
+                                            <button type="button" class="password-toggle toggle-password"
+                                                data-target="password_confirmation">
+                                                <i class="fas fa-eye-slash text-muted"></i>
+                                            </button>
                                         </div>
                                     </div>
 
                                     <button type="submit"
                                         class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm"
                                         id="resetButton">
-                                        <i class="bi bi-lock me-2"></i> Reset Password
+                                        <i class="fas fa-lock me-2"></i> Reset Password
                                     </button>
 
-                                    <div class="d-flex justify-content-between">
-                                        <a href="{{ route('login') }}"
-                                            class="text-decoration-none text-primary fw-semibold">Back to Login</a>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="{{ route('login') }}" class="btn btn-outline-primary w-100 py-3 fw-semibold rounded-3 shadow-sm">
+                                            <i class="fa fa-arrow-left me-2"></i>Back to Login
+                                        </a>
                                     </div>
                                 </form>
                             </div>
@@ -100,9 +157,6 @@
             </div>
         </div>
     </div>
-@endsection
-
-@push('scripts')
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <script>
@@ -119,17 +173,18 @@
 
         document.querySelectorAll('.toggle-password').forEach(function(button) {
             button.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('input');
+                const targetId = this.getAttribute('data-target');
+                const input = document.getElementById(targetId);
                 const icon = this.querySelector('i');
 
                 if (input.type === 'password') {
                     input.type = 'text';
-                    icon.classList.remove('bi-eye-slash');
-                    icon.classList.add('bi-eye');
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
                 } else {
                     input.type = 'password';
-                    icon.classList.remove('bi-eye');
-                    icon.classList.add('bi-eye-slash');
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
                 }
             });
         });
@@ -158,4 +213,4 @@
             this.submit();
         });
     </script>
-@endpush
+@endsection

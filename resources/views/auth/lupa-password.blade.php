@@ -3,6 +3,8 @@
 @section('title', 'Forgot Password')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         <div class="position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
@@ -55,12 +57,12 @@
 
                                     <button type="submit" class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-3 shadow-sm"
                                             id="resetButton">
-                                        <i class="bi bi-envelope me-2"></i> Send Reset Link
+                                        <i class="fa fa-envelope me-2"></i> Send Reset Link
                                     </button>
 
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ route('login') }}" class="btn btn-outline-primary w-100 py-3 fw-semibold rounded-3 shadow-sm">
-                                            <i class="bi bi-arrow-left me-2"></i>Back to Login
+                                            <i class="fa fa-arrow-left me-2"></i>Back to Login
                                         </a>
                                     </div>
                                 </form>
@@ -72,26 +74,6 @@
         </div>
     </div>
 @endsection
-
-@push('styles')
-    <style>
-        .btn-outline-primary {
-            border: 2px solid #4e73df;
-            color: #4e73df;
-            transition: all 0.3s ease;
-        }
-        .btn-outline-primary:hover {
-            background-color: #4e73df;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(78, 115, 223, 0.3);
-        }
-        .btn-outline-primary:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(78, 115, 223, 0.3);
-        }
-    </style>
-@endpush
 
 @push('scripts')
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>

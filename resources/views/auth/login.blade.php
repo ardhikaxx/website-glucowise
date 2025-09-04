@@ -3,6 +3,42 @@
 @section('title', 'Login')
 
 @section('content')
+    <!-- Menambahkan link CDN Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 52%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: transparent;
+            border: none;
+            color: #6c757d;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .input-group {
+            position: relative;
+        }
+        .form-control {
+            border-radius: 0.375rem !important;
+            padding-right: 50px;
+        }
+        .card {
+            border-radius: 1rem;
+        }
+        .btn-primary {
+            border-radius: 0.5rem;
+        }
+    </style>
+
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         <div class="position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
@@ -55,6 +91,9 @@
                                         <div class="input-group">
                                             <input type="password" class="form-control py-2" id="password" name="password"
                                                 placeholder="Enter your password" required>
+                                            <button type="button" class="password-toggle" id="togglePassword">
+                                                <i class="fas fa-eye text-muted"></i>
+                                            </button>
                                         </div>
                                     </div>
                         
@@ -71,7 +110,7 @@
                         
                                     <button type="submit"
                                         class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm">
-                                        <i class="bi bi-box-arrow-in-right me-2"></i> Login
+                                        <i class="fas fa-sign-in-alt me-2"></i> Login
                                     </button>
 
                                     {{-- <div class="divider my-2">
@@ -93,24 +132,28 @@
             </div>
         </div>
     </div>
-@endsection
 
-@push('styles')
-@endpush
-
-@push('scripts')
+    <!-- JavaScript untuk toggle password visibility -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Toggle password visibility
             const togglePassword = document.querySelector('#togglePassword');
             const password = document.querySelector('#password');
-
+            const eyeIcon = togglePassword.querySelector('i');
+            
             togglePassword.addEventListener('click', function() {
+                // Toggle the type attribute
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
-                this.innerHTML = type === 'password' ? '<i class="bi bi-eye-fill text-muted"></i>' :
-                    '<i class="bi bi-eye-slash-fill text-muted"></i>';
+                
+                // Toggle the eye icon
+                if (type === 'password') {
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                } else {
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                }
             });
         });
     </script>
-@endpush
+@endsection
