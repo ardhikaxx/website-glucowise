@@ -63,7 +63,6 @@ class AdminController extends Controller
     // Store a newly created admin in storage
     public function store(Request $request)
     {
-        // Validate the input
         $validatedData = $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'email' => 'required|email|unique:admin,email',
@@ -73,7 +72,6 @@ class AdminController extends Controller
         ]);
 
         try {
-            // 1. Create user in Firebase Authentication
             $userProperties = [
                 'email' => $validatedData['email'],
                 'emailVerified' => false,
@@ -83,8 +81,6 @@ class AdminController extends Controller
             ];
 
             $this->firebaseAuth->createUser($userProperties);
-
-            // 2. Create the admin in local database
             Admin::create([
                 'nama_lengkap' => $validatedData['nama_lengkap'],
                 'email' => $validatedData['email'],
