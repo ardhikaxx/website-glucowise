@@ -19,7 +19,7 @@
                 <div class="card visible">
                     <div class="card-body">
                         <h4>Data Screening Pertanyaan</h4>
-                        <a href="{{ route('screening.create') }}" class="btn btn-primary float-left">
+                        <a href="{{ route('screening.create') }}" class="btn btn-primary float-left mt-2">
                             <i class="fa fa-plus-circle"></i> Create
                         </a>
                         <div class="table-wrapper">
@@ -420,6 +420,31 @@
                 font-size: 14px;
             }
         }
+
+        .custom-swal-popup {
+            border-radius: 15px;
+        }
+
+        .custom-confirm-btn {
+            border-radius: 8px !important;
+            padding: 10px 20px !important;
+            font-weight: 500 !important;
+            background-color: #34B3A0 !important;
+            border: none !important;
+        }
+
+        .custom-cancel-btn {
+            border-radius: 8px !important;
+            padding: 10px 20px !important;
+            font-weight: 500 !important;
+            background-color: #6c757d !important;
+            border: none !important;
+        }
+
+        .swal2-icon.swal2-warning {
+            border-color: #ffc107 !important;
+            color: #ffc107 !important;
+        }
     </style>
 
     <script>
@@ -430,11 +455,17 @@
                 title: 'Apakah Anda yakin?',
                 text: "Data ini akan dihapus secara permanen!",
                 icon: 'warning',
+                iconColor: '#ffc107',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
+                confirmButtonColor: '#34B3A0',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '<i class="fas fa-trash me-2"></i> Ya, Hapus!',
+                cancelButtonText: '<i class="fas fa-times me-2"></i> Batal',
+                customClass: {
+                    popup: 'custom-swal-popup',
+                    confirmButton: 'custom-confirm-btn',
+                    cancelButton: 'custom-cancel-btn'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     event.target.closest('form').submit(); // Mengirim form untuk menghapus
