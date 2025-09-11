@@ -4133,7 +4133,7 @@ fieldset:disabled .btn {
     --bs-btn-disabled-border-color: #199A8E
 }
 
-.btn-secondary {
+/* .btn-secondary {
     --bs-btn-color: #fff;
     --bs-btn-bg: #49BEFF;
     --bs-btn-border-color: #49BEFF;
@@ -4148,7 +4148,7 @@ fieldset:disabled .btn {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #49BEFF;
     --bs-btn-disabled-border-color: #49BEFF
-}
+} */
 
 .btn-success {
     --bs-btn-color: #fff;

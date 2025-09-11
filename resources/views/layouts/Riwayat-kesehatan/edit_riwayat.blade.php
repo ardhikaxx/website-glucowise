@@ -22,7 +22,7 @@
                         @method('PUT')
 
                         <!-- Dropdown untuk Pilihan Risiko -->
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="kategori_risiko">Status Risiko</label>
                             <select name="kategori_risiko" class="form-control" required>
                                 <option value="Rendah" {{ $data->kategori_risiko == 'Rendah' ? 'selected' : '' }}>Rendah</option>
@@ -32,13 +32,13 @@
                         </div>
 
                         <!-- Input untuk Catatan -->
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="catatan">Catatan</label>
                             <textarea name="catatan" class="form-control" rows="3">{{ $data->catatan }}</textarea>
                         </div>
 
                         <!-- Tombol Simpan -->
-                        <button type="button" id="submitBtn" class="btn btn-primary">Simpan</button>
+                        <button type="button" id="submitBtn" class="btn btn-primary me-2">Simpan</button>
                         <a href="{{ route('riwayatKesehatan.index') }}" class="btn btn-secondary">Kembali</a>
                     </form>
                 </div>

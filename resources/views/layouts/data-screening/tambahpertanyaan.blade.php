@@ -8,7 +8,7 @@
         <!-- Judul Halaman -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title text-center text-primary font-weight-bold mb-5">{{ isset($pertanyaan) ? 'Edit Data Screening' : 'Tambah Data Screening' }}</h1>
+                <h1 class="page-title text-center text-primary font-weight-bold mb-4">{{ isset($pertanyaan) ? 'Edit Data Screening' : 'Tambah Data Screening' }}</h1>
             </div>
         </div>
 
@@ -79,8 +79,8 @@
                                 </div>
                         
                                 <!-- Tombol Simpan -->
-                                <div class="col-md-12 text-center mt-4">
-                                    <button type="submit" class="btn btn-primary w-50 mb-2">{{ isset($pertanyaan) ? 'Update' : 'Simpan' }}</button>
+                                <div class="col-md-12 d-flex flex-row gap-2 text-center justify-content-center align-items-center">
+                                    <button type="submit" class="btn btn-primary w-50">{{ isset($pertanyaan) ? 'Update' : 'Simpan' }}</button>
                                     <a href="{{ route('screening.index') }}" class="btn btn-secondary w-50">Kembali</a>
                                 </div>
                             </div>
