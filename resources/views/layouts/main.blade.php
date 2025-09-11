@@ -53,8 +53,8 @@
                 showCancelButton: true,
                 confirmButtonColor: '#34B3A0',
                 cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Logout!',
-                cancelButtonText: 'Batal',
+                confirmButtonText: '<i class="fas fa-sign-out-alt me-2"></i> Ya, Logout!',
+                cancelButtonText: '<i class="fas fa-times me-2"></i> Batal',
                 customClass: {
                     popup: 'custom-swal-popup'
                 }

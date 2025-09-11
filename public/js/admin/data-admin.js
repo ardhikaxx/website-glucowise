@@ -33,21 +33,26 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function confirmDelete(event) {
-    event.preventDefault();  // Mencegah form dikirim langsung
+    event.preventDefault(); // Mencegah form dikirim langsung
 
     Swal.fire({
         title: 'Apakah Anda yakin?',
         text: "Data ini akan dihapus secara permanen!",
         icon: 'warning',
+        iconColor: '#ffc107',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, Hapus!',
-        cancelButtonText: 'Batal'
+        confirmButtonColor: '#34B3A0',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: '<i class="fas fa-trash me-2"></i> Ya, Hapus!',
+        cancelButtonText: '<i class="fas fa-times me-2"></i> Batal',
+        customClass: {
+            popup: 'custom-swal-popup',
+            confirmButton: 'custom-confirm-btn',
+            cancelButton: 'custom-cancel-btn'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
-            // Jika dikonfirmasi, kirimkan form untuk menghapus
-            event.target.closest('form').submit(); // Mengirim form untuk melakukan penghapusan
+            event.target.closest('form').submit(); // Mengirim form untuk menghapus
         }
     });
 }

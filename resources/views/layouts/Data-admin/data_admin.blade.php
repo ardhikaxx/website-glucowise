@@ -13,6 +13,32 @@
             display: inline-block;
             cursor: pointer;
         }
+
+        .custom-swal-popup {
+            border-radius: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .custom-confirm-btn {
+            border-radius: 8px !important;
+            padding: 10px 20px !important;
+            font-weight: 500 !important;
+            background-color: #34B3A0 !important;
+            border: none !important;
+        }
+
+        .custom-cancel-btn {
+            border-radius: 8px !important;
+            padding: 10px 20px !important;
+            font-weight: 500 !important;
+            background-color: #6c757d !important;
+            border: none !important;
+        }
+
+        .swal2-icon.swal2-warning {
+            border-color: #ffc107 !important;
+            color: #ffc107 !important;
+        }
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
