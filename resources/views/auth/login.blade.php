@@ -3,9 +3,6 @@
 @section('title', 'Login')
 
 @section('content')
-    <!-- Menambahkan link CDN Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         .password-toggle {
             cursor: pointer;
@@ -36,6 +33,12 @@
         }
         .btn-primary {
             border-radius: 0.5rem;
+            background-color: #34B3A0;
+            border-color: #34B3A0;
+        }
+        .btn-primary:hover {
+            background-color: #2a8f80;
+            border-color: #2a8f80;
         }
     </style>
 
@@ -61,19 +64,6 @@
                             
                             <!-- Card body - reduced top padding -->
                             <div class="card-body px-5 pt-1">
-                                
-                                {{-- Tampilkan pesan error jika login gagal --}}
-                                @if ($errors->any())
-                                    <div class="alert alert-danger alert-dismissible fade show rounded-3">
-                                        <ul class="mb-0">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                @endif
                         
                                 <form action="{{ route('login') }}" method="POST" class="mt-3">
                                     @csrf
@@ -82,7 +72,8 @@
                                         <label for="email" class="form-label fw-semibold">Email Address</label>
                                         <div class="input-group">
                                             <input type="email" class="form-control py-2" id="email" name="email"
-                                                placeholder="Enter your email" required autofocus>
+                                                placeholder="Enter your email" required autofocus
+                                                value="{{ old('email') }}">
                                         </div>
                                     </div>
                         
@@ -99,31 +90,18 @@
                         
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="remember">
                                                 Remember me
                                             </label>
                                         </div>
-                                        <a class="text-decoration-none text-primary fw-semibold" href="./forgot-password">Forgot
-                                            Password?</a>
+                                        <a class="text-decoration-none text-primary fw-semibold" href="{{ route('forgot-password') }}">Forgot Password?</a>
                                     </div>
                         
                                     <button type="submit"
                                         class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm">
                                         <i class="fas fa-sign-in-alt me-2"></i> Login
                                     </button>
-
-                                    {{-- <div class="divider my-2">
-                                        <div class="divider-text text-muted">OR</div>
-                                    </div>
-
-                                    <div class="d-grid gap-3">
-                                        <a href="#" class="btn btn-outline-primary border-2 py-3 rounded-3 d-flex align-items-center justify-content-center shadow-sm">
-                                            <img src="{{ asset('images/logos/search.png') }}" alt="Google Logo"
-                                                width="20" class="me-2">
-                                            <span>Continue with Google</span>
-                                        </a>
-                                    </div> --}}
                                 </form>
                             </div>
                         </div>

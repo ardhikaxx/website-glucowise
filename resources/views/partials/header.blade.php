@@ -29,12 +29,8 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
-                            <!-- Form Logout -->
-                            <form action="{{ route('logout') }}" method="POST" id="logout-form">
-                                @csrf
-                                <button type="submit"
-                                    class="btn btn-outline-primary mx-3 mt-2 d-block w-100">Logout</button>
-                            </form>
+                            <button type="button" onclick="confirmLogout()"
+                                class="btn btn-outline-primary mx-3 mt-2 d-block w-100">Logout</button>
                         </div>
                     </div>
                 </li>
