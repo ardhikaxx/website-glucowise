@@ -48,7 +48,12 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password">
+                                    <div class="password-container">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password">
+                                        <span class="toggle-password" data-target="password">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -56,7 +61,12 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Masukkan Konfirmasi Password">
+                                    <div class="password-container">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Masukkan Konfirmasi Password">
+                                        <span class="toggle-password" data-target="password_confirmation">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             @endif
@@ -110,6 +120,26 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('adminForm');
+        
+        // Fungsi untuk toggle show/hide password
+        const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+        togglePasswordButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const passwordInput = document.getElementById(targetId);
+                const icon = this.querySelector('i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
         
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -189,4 +219,27 @@
         }
     });
 </script>
+<style>
+    .password-container {
+        position: relative;
+    }
+    .toggle-password {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #6c757d;
+        z-index: 5;
+        background: transparent;
+        border: none;
+        padding: 5px;
+    }
+    .toggle-password:hover {
+        color: #34B3A0;
+    }
+    .form-control {
+        padding-right: 40px;
+    }
+</style>
 @endsection
