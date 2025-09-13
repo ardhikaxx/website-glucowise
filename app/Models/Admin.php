@@ -10,9 +10,9 @@ class Admin extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'admin'; // Nama tabel di database
-    protected $primaryKey = 'id_admin'; // Tentukan primary key yang benar
-    public $timestamps = false; // Jika tabel tidak memiliki timestamps
+    protected $table = 'admin';
+    protected $primaryKey = 'id_admin';
+    public $timestamps = true;
 
     protected $fillable = [
         'nama_lengkap',
@@ -20,6 +20,7 @@ class Admin extends Authenticatable
         'password',
         'jenis_kelamin',
         'hak_akses',
+        'nomor_telepon',
     ];
 
     protected $hidden = [

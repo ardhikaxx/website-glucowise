@@ -47,15 +47,15 @@ Route::get('/test-firebase', [AuthController::class, 'checkFirebaseConnection'])
 // ==============================
 Route::middleware(['auth'])->group(function () {
     
-    // Redirect root ke login
+    // Redirect root to login
     Route::get('/', function () {
         return redirect()->route('login');
     });
 
     // ==============================
-    // ROUTE UNTUK ROLE KADER
+    // ROUTE UNTUK ROLE PERAWAT
     // ==============================
-    Route::middleware('role:Kader')->group(function () {
+    Route::middleware('role:Perawat')->group(function () {
         
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -78,9 +78,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // ==============================
-    // ROUTE UNTUK ROLE BIDAN
+    // ROUTE UNTUK ROLE DOKTER
     // ==============================
-    Route::middleware('role:Bidan')->group(function () {
+    Route::middleware('role:Dokter')->group(function () {
         
         // Manajemen Admin
         Route::prefix('admin')->name('admin.')->group(function () {

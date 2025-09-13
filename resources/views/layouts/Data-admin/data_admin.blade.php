@@ -92,6 +92,7 @@
                                         <th>No</th>
                                         <th>Nama Lengkap</th>
                                         <th>Email</th>
+                                        <th>Nomor Telepon</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -103,6 +104,7 @@
                                             </td>
                                             <td>{{ $admin->nama_lengkap }}</td>
                                             <td>{{ $admin->email }}</td>
+                                            <td>{{ $admin->nomor_telepon }}</td>
                                             <td>{{ $admin->jenis_kelamin }}</td>
                                             <td>
                                                 <div class="d-flex flex-column justify-content-center gap-2">

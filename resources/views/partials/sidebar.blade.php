@@ -27,8 +27,8 @@
           </a>
         </li>
 
-        <!-- Data Pengguna (Bidan & Kader) -->
-        @if(Auth::user()->hak_akses == 'Bidan' || Auth::user()->hak_akses == 'Kader')
+        <!-- Data Pengguna (Dokter & Perawat) -->
+        @if(Auth::user()->hak_akses == 'Dokter' || Auth::user()->hak_akses == 'Perawat')
       <li class="sidebar-item {{ request()->is('dataPengguna/*') ? 'active' : '' }}">
         <a class="sidebar-link" href="{{ route('dataPengguna.index') }}" aria-expanded="false">
         <span><i class="ti ti-users"></i></span>
@@ -37,8 +37,8 @@
       </li>
     @endif
 
-        <!-- Data Kesehatan (Bidan & Kader) -->
-        @if(Auth::user()->hak_akses == 'Bidan' || Auth::user()->hak_akses == 'Kader')
+        <!-- Data Kesehatan (Dokter & Perawat) -->
+        @if(Auth::user()->hak_akses == 'Dokter' || Auth::user()->hak_akses == 'Perawat')
       <li class="sidebar-item {{ request()->is('dataKesehatan*') ? 'active' : '' }}">
         <a class="sidebar-link" href="{{ route('dataKesehatan.index') }}" aria-expanded="false">
         <span><i class="ti ti-stethoscope"></i></span>
@@ -47,8 +47,8 @@
       </li>
     @endif
 
-        <!-- Riwayat Kesehatan (Hanya untuk Bidan) -->
-        @if(Auth::user()->hak_akses == 'Bidan')
+        <!-- Riwayat Kesehatan (Hanya untuk Dokter) -->
+        @if(Auth::user()->hak_akses == 'Dokter')
       <li class="sidebar-item {{ request()->is('riwayatKesehatan*') ? 'active' : '' }}">
         <a class="sidebar-link" href="{{ route('riwayatKesehatan.index') }}" aria-expanded="false">
         <span><i class="ti ti-notes"></i></span>
@@ -57,8 +57,8 @@
       </li>
     @endif
 
-        <!-- Data Screening (Hanya untuk Bidan) -->
-        @if(Auth::user()->hak_akses == 'Bidan')
+        <!-- Data Screening (Hanya untuk Dokter) -->
+        @if(Auth::user()->hak_akses == 'Dokter')
       <li class="sidebar-item {{ request()->is('screening*') ? 'active' : '' }}">
         <a class="sidebar-link" href="{{ route('screening.index') }}" aria-expanded="false">
         <span><i class="ti ti-clipboard"></i></span>
@@ -67,8 +67,8 @@
       </li>
     @endif
 
-        <!-- Edukasi (Hanya untuk Bidan) -->
-        @if(Auth::user()->hak_akses == 'Bidan')
+        <!-- Edukasi (Hanya untuk Dokter) -->
+        @if(Auth::user()->hak_akses == 'Dokter')
       <li class="sidebar-item {{ request()->is('edukasi*') ? 'active' : '' }}">
         <a class="sidebar-link" href="{{ route('edukasi.index') }}" aria-expanded="false">
         <span><i class="ti ti-book"></i></span>
@@ -77,8 +77,8 @@
       </li>
     @endif
 
-    <!-- Laporan (Hanya untuk Bidan) -->
-    @if(Auth::user()->hak_akses == 'Bidan')
+    <!-- Laporan (Hanya untuk Dokter) -->
+    @if(Auth::user()->hak_akses == 'Dokter')
       <li class="sidebar-item {{ request()->is('laporan*') ? 'active' : '' }}">
         <a class="sidebar-link" href="{{ route('laporan.index') }}" aria-expanded="false">
         <span><i class="ti ti-notes"></i></span>
@@ -87,8 +87,8 @@
       </li>
     @endif
 
-        <!-- Data Admin (Hanya untuk Bidan) -->
-        @if(Auth::user()->hak_akses == 'Bidan')
+        <!-- Data Admin (Hanya untuk Dokter) -->
+        @if(Auth::user()->hak_akses == 'Dokter')
       <li class="sidebar-item {{ request()->is('admin*') ? 'active' : '' }}">
         <a class="sidebar-link" href="{{ route('admin.index') }}" aria-expanded="false">
         <span><i class="ti ti-shield"></i></span>

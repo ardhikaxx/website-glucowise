@@ -14,7 +14,6 @@ class DataKesehatanSeeder extends Seeder
         $dataKesehatanList = [
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 33,
                 'tinggi_badan' => 170,
                 'berat_badan' => 65,
                 'gula_darah' => 98,
@@ -23,7 +22,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 31,
                 'tinggi_badan' => 160,
                 'berat_badan' => 55,
                 'gula_darah' => 110,
@@ -32,7 +30,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 34,
                 'tinggi_badan' => 172,
                 'berat_badan' => 70,
                 'gula_darah' => 102,
@@ -41,7 +38,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 29,
                 'tinggi_badan' => 158,
                 'berat_badan' => 50,
                 'gula_darah' => 95,
@@ -50,7 +46,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 32,
                 'tinggi_badan' => 175,
                 'berat_badan' => 72,
                 'gula_darah' => 105,
@@ -59,7 +54,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 30,
                 'tinggi_badan' => 162,
                 'berat_badan' => 57,
                 'gula_darah' => 108,
@@ -68,7 +62,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 28,
                 'tinggi_badan' => 178,
                 'berat_badan' => 80,
                 'gula_darah' => 112,
@@ -77,7 +70,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 27,
                 'tinggi_badan' => 159,
                 'berat_badan' => 52,
                 'gula_darah' => 99,
@@ -86,7 +78,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 35,
                 'tinggi_badan' => 173,
                 'berat_badan' => 78,
                 'gula_darah' => 115,
@@ -95,7 +86,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 26,
                 'tinggi_badan' => 161,
                 'berat_badan' => 54,
                 'gula_darah' => 92,
@@ -105,7 +95,6 @@ class DataKesehatanSeeder extends Seeder
             // Data tambahan untuk 90 pengguna lainnya
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 38,
                 'tinggi_badan' => 168,
                 'berat_badan' => 68,
                 'gula_darah' => 100,
@@ -114,7 +103,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 42,
                 'tinggi_badan' => 165,
                 'berat_badan' => 62,
                 'gula_darah' => 112,
@@ -123,7 +111,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 29,
                 'tinggi_badan' => 175,
                 'berat_badan' => 74,
                 'gula_darah' => 104,
@@ -132,7 +119,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 31,
                 'tinggi_badan' => 163,
                 'berat_badan' => 58,
                 'gula_darah' => 97,
@@ -141,7 +127,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 36,
                 'tinggi_badan' => 180,
                 'berat_badan' => 82,
                 'gula_darah' => 108,
@@ -150,7 +135,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 33,
                 'tinggi_badan' => 158,
                 'berat_badan' => 56,
                 'gula_darah' => 106,
@@ -159,7 +143,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 27,
                 'tinggi_badan' => 182,
                 'berat_badan' => 85,
                 'gula_darah' => 115,
@@ -168,7 +151,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 25,
                 'tinggi_badan' => 160,
                 'berat_badan' => 53,
                 'gula_darah' => 101,
@@ -177,7 +159,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 40,
                 'tinggi_badan' => 176,
                 'berat_badan' => 80,
                 'gula_darah' => 118,
@@ -186,7 +167,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 24,
                 'tinggi_badan' => 162,
                 'berat_badan' => 55,
                 'gula_darah' => 94,
@@ -195,7 +175,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 37,
                 'tinggi_badan' => 169,
                 'berat_badan' => 70,
                 'gula_darah' => 103,
@@ -204,7 +183,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 44,
                 'tinggi_badan' => 164,
                 'berat_badan' => 63,
                 'gula_darah' => 114,
@@ -213,7 +191,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 30,
                 'tinggi_badan' => 174,
                 'berat_badan' => 73,
                 'gula_darah' => 106,
@@ -222,7 +199,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 32,
                 'tinggi_badan' => 161,
                 'berat_badan' => 59,
                 'gula_darah' => 99,
@@ -231,7 +207,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 39,
                 'tinggi_badan' => 179,
                 'berat_badan' => 83,
                 'gula_darah' => 110,
@@ -240,7 +215,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 34,
                 'tinggi_badan' => 159,
                 'berat_badan' => 57,
                 'gula_darah' => 107,
@@ -249,7 +223,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 26,
                 'tinggi_badan' => 181,
                 'berat_badan' => 86,
                 'gula_darah' => 116,
@@ -258,7 +231,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 23,
                 'tinggi_badan' => 163,
                 'berat_badan' => 54,
                 'gula_darah' => 102,
@@ -267,7 +239,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 41,
                 'tinggi_badan' => 177,
                 'berat_badan' => 81,
                 'gula_darah' => 119,
@@ -276,7 +247,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 22,
                 'tinggi_badan' => 164,
                 'berat_badan' => 56,
                 'gula_darah' => 96,
@@ -285,7 +255,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 35,
                 'tinggi_badan' => 171,
                 'berat_badan' => 71,
                 'gula_darah' => 104,
@@ -294,7 +263,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 45,
                 'tinggi_badan' => 166,
                 'berat_badan' => 64,
                 'gula_darah' => 115,
@@ -303,7 +271,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 31,
                 'tinggi_badan' => 176,
                 'berat_badan' => 75,
                 'gula_darah' => 107,
@@ -312,7 +279,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 33,
                 'tinggi_badan' => 162,
                 'berat_badan' => 60,
                 'gula_darah' => 100,
@@ -321,7 +287,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 37,
                 'tinggi_badan' => 180,
                 'berat_badan' => 84,
                 'gula_darah' => 111,
@@ -330,7 +295,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 35,
                 'tinggi_badan' => 160,
                 'berat_badan' => 58,
                 'gula_darah' => 108,
@@ -339,7 +303,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 28,
                 'tinggi_badan' => 183,
                 'berat_badan' => 87,
                 'gula_darah' => 117,
@@ -348,7 +311,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 24,
                 'tinggi_badan' => 165,
                 'berat_badan' => 55,
                 'gula_darah' => 103,
@@ -357,7 +319,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 42,
                 'tinggi_badan' => 178,
                 'berat_badan' => 82,
                 'gula_darah' => 120,
@@ -366,7 +327,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 21,
                 'tinggi_badan' => 165,
                 'berat_badan' => 57,
                 'gula_darah' => 97,
@@ -375,7 +335,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 36,
                 'tinggi_badan' => 172,
                 'berat_badan' => 72,
                 'gula_darah' => 105,
@@ -384,7 +343,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 46,
                 'tinggi_badan' => 167,
                 'berat_badan' => 65,
                 'gula_darah' => 116,
@@ -393,7 +351,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 32,
                 'tinggi_badan' => 177,
                 'berat_badan' => 76,
                 'gula_darah' => 108,
@@ -402,7 +359,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 34,
                 'tinggi_badan' => 163,
                 'berat_badan' => 61,
                 'gula_darah' => 101,
@@ -411,7 +367,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 38,
                 'tinggi_badan' => 181,
                 'berat_badan' => 85,
                 'gula_darah' => 112,
@@ -420,7 +375,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 36,
                 'tinggi_badan' => 161,
                 'berat_badan' => 59,
                 'gula_darah' => 109,
@@ -429,7 +383,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 29,
                 'tinggi_badan' => 184,
                 'berat_badan' => 88,
                 'gula_darah' => 118,
@@ -438,7 +391,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 25,
                 'tinggi_badan' => 166,
                 'berat_badan' => 56,
                 'gula_darah' => 104,
@@ -447,7 +399,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 43,
                 'tinggi_badan' => 179,
                 'berat_badan' => 83,
                 'gula_darah' => 121,
@@ -456,7 +407,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 20,
                 'tinggi_badan' => 166,
                 'berat_badan' => 58,
                 'gula_darah' => 98,
@@ -465,7 +415,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 37,
                 'tinggi_badan' => 173,
                 'berat_badan' => 73,
                 'gula_darah' => 106,
@@ -474,7 +423,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 47,
                 'tinggi_badan' => 168,
                 'berat_badan' => 66,
                 'gula_darah' => 117,
@@ -483,7 +431,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 33,
                 'tinggi_badan' => 178,
                 'berat_badan' => 77,
                 'gula_darah' => 109,
@@ -492,7 +439,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 35,
                 'tinggi_badan' => 164,
                 'berat_badan' => 62,
                 'gula_darah' => 102,
@@ -501,7 +447,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 39,
                 'tinggi_badan' => 182,
                 'berat_badan' => 86,
                 'gula_darah' => 113,
@@ -510,7 +455,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 37,
                 'tinggi_badan' => 162,
                 'berat_badan' => 60,
                 'gula_darah' => 110,
@@ -519,7 +463,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 30,
                 'tinggi_badan' => 185,
                 'berat_badan' => 89,
                 'gula_darah' => 119,
@@ -528,7 +471,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 26,
                 'tinggi_badan' => 167,
                 'berat_badan' => 57,
                 'gula_darah' => 105,
@@ -537,7 +479,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 44,
                 'tinggi_badan' => 180,
                 'berat_badan' => 84,
                 'gula_darah' => 122,
@@ -546,7 +487,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 19,
                 'tinggi_badan' => 167,
                 'berat_badan' => 59,
                 'gula_darah' => 99,
@@ -555,7 +495,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 38,
                 'tinggi_badan' => 174,
                 'berat_badan' => 74,
                 'gula_darah' => 107,
@@ -564,7 +503,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 48,
                 'tinggi_badan' => 169,
                 'berat_badan' => 67,
                 'gula_darah' => 118,
@@ -573,7 +511,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 34,
                 'tinggi_badan' => 179,
                 'berat_badan' => 78,
                 'gula_darah' => 110,
@@ -582,7 +519,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 36,
                 'tinggi_badan' => 165,
                 'berat_badan' => 63,
                 'gula_darah' => 103,
@@ -591,7 +527,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 40,
                 'tinggi_badan' => 183,
                 'berat_badan' => 87,
                 'gula_darah' => 114,
@@ -600,7 +535,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 38,
                 'tinggi_badan' => 163,
                 'berat_badan' => 61,
                 'gula_darah' => 111,
@@ -609,7 +543,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 31,
                 'tinggi_badan' => 186,
                 'berat_badan' => 90,
                 'gula_darah' => 120,
@@ -618,7 +551,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 27,
                 'tinggi_badan' => 168,
                 'berat_badan' => 58,
                 'gula_darah' => 106,
@@ -627,7 +559,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 45,
                 'tinggi_badan' => 181,
                 'berat_badan' => 85,
                 'gula_darah' => 123,
@@ -636,7 +567,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 18,
                 'tinggi_badan' => 168,
                 'berat_badan' => 60,
                 'gula_darah' => 100,
@@ -645,7 +575,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 39,
                 'tinggi_badan' => 175,
                 'berat_badan' => 75,
                 'gula_darah' => 108,
@@ -654,7 +583,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 49,
                 'tinggi_badan' => 170,
                 'berat_badan' => 68,
                 'gula_darah' => 119,
@@ -663,7 +591,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 35,
                 'tinggi_badan' => 180,
                 'berat_badan' => 79,
                 'gula_darah' => 111,
@@ -672,7 +599,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 37,
                 'tinggi_badan' => 166,
                 'berat_badan' => 64,
                 'gula_darah' => 104,
@@ -681,7 +607,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 41,
                 'tinggi_badan' => 184,
                 'berat_badan' => 88,
                 'gula_darah' => 115,
@@ -690,7 +615,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 39,
                 'tinggi_badan' => 164,
                 'berat_badan' => 62,
                 'gula_darah' => 112,
@@ -699,7 +623,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 32,
                 'tinggi_badan' => 187,
                 'berat_badan' => 91,
                 'gula_darah' => 121,
@@ -708,7 +631,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 28,
                 'tinggi_badan' => 169,
                 'berat_badan' => 59,
                 'gula_darah' => 107,
@@ -717,7 +639,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Tidak',
-                'umur' => 46,
                 'tinggi_badan' => 182,
                 'berat_badan' => 86,
                 'gula_darah' => 124,
@@ -726,7 +647,6 @@ class DataKesehatanSeeder extends Seeder
             ],
             [
                 'riwayat_keluarga_diabetes' => 'Ya',
-                'umur' => 17,
                 'tinggi_badan' => 169,
                 'berat_badan' => 61,
                 'gula_darah' => 101,
@@ -738,14 +658,17 @@ class DataKesehatanSeeder extends Seeder
         $penggunaList = Pengguna::all();
 
         foreach ($penggunaList as $index => $pengguna) {
-            // Pastikan index tidak melebihi jumlah data kesehatan yang tersedia
             $dataIndex = $index % count($dataKesehatanList);
+            
+            // Hitung umur dari tanggal lahir pengguna
+            $tanggalLahir = Carbon::parse($pengguna->tanggal_lahir);
+            $umur = $tanggalLahir->diffInYears(Carbon::now());
             
             DataKesehatan::create([
                 'nik' => $pengguna->nik,
-                'tanggal_pemeriksaan' => now()->subDays(rand(1, 365)), // Rentang tanggal lebih luas (1-365 hari)
+                'tanggal_pemeriksaan' => now()->subDays(rand(1, 365)),
                 'riwayat_keluarga_diabetes' => $dataKesehatanList[$dataIndex]['riwayat_keluarga_diabetes'],
-                'umur' => $dataKesehatanList[$dataIndex]['umur'],
+                'umur' => $umur, // Menggunakan umur dari data pengguna
                 'tinggi_badan' => $dataKesehatanList[$dataIndex]['tinggi_badan'],
                 'berat_badan' => $dataKesehatanList[$dataIndex]['berat_badan'],
                 'gula_darah' => $dataKesehatanList[$dataIndex]['gula_darah'],

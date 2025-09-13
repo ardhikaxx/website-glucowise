@@ -13,17 +13,6 @@
                         class="fa fa-book-medical me-3" style="color: #34B3A0;"></i>Edukasi</h1>
             </div>
         </div>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (request()->search)
-            <div class="alert alert-info">
-                Menampilkan hasil pencarian untuk: <strong>{{ request()->search }}</strong>
-            </div>
-        @endif
-
 
         <!-- Tabel Data Edukasi -->
         <div class="row">

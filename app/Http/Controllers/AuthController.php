@@ -66,7 +66,7 @@ class AuthController extends Controller
                 // 3. Login user ke Laravel
                 Auth::login($user, $remember);
 
-                if ($user->hak_akses == 'Bidan' || $user->hak_akses == 'Kader') {
+                if ($user->hak_akses == 'Dokter' || $user->hak_akses == 'Perawat') {
                     return redirect()->route('dashboard')->with('success', 'Login berhasil!');
                 } else {
                     Auth::logout();

@@ -16,10 +16,12 @@ class RiwayatKesehatanSeeder extends Seeder
         // Jika belum ada admin, buat satu admin default
         if (!$admin) {
             $admin = Admin::create([
-                'nama_lengkap' => 'Admin Medical Web',
-                'email' => 'admin@medicalweb.com',
+                'nama_lengkap' => 'Dr. Ahmad Fauzi, Sp.PD-KEMD',
+                'email' => 'ardhikayanuar58@gmail.com',
                 'password' => bcrypt('password'),
-                'nomor_telepon' => '081234567890',
+                'jenis_kelamin' => 'Laki-laki',
+                'hak_akses' => 'Dokter',
+                'nomor_telepon' => '085933648537',
             ]);
         }
 
@@ -73,9 +75,9 @@ class RiwayatKesehatanSeeder extends Seeder
         foreach ($dataKesehatanList as $index => $data) {
             // Tentukan kategori risiko berdasarkan parameter kesehatan
             $risiko = $this->tentukanKategoriRisiko($data);
-            
+
             // Pilih catatan secara acak berdasarkan kategori risiko
-            $catatan = match($risiko) {
+            $catatan = match ($risiko) {
                 'Rendah' => $catatanRendah[array_rand($catatanRendah)],
                 'Sedang' => $catatanSedang[array_rand($catatanSedang)],
                 'Tinggi' => $catatanTinggi[array_rand($catatanTinggi)],
@@ -97,25 +99,25 @@ class RiwayatKesehatanSeeder extends Seeder
     private function tentukanKategoriRisiko($dataKesehatan)
     {
         $skor = 0;
-        
+
         // Faktor 1: Riwayat keluarga diabetes
         if ($dataKesehatan->riwayat_keluarga_diabetes == 'Ya') {
             $skor += 3;
         }
-        
+
         // Faktor 2: Umur (semakin tua semakin berisiko)
-        if ($dataKesehatan->umur >= 45) {
+        if ($dataKesehatan->umur >= 25) {
             $skor += 3;
-        } elseif ($dataKesehatan->umur >= 35) {
+        } elseif ($dataKesehatan->umur >= 19) {
             $skor += 2;
-        } elseif ($dataKesehatan->umur >= 25) {
+        } elseif ($dataKesehatan->umur >= 15) {
             $skor += 1;
         }
-        
+
         // Faktor 3: BMI (Body Mass Index)
         $tinggiMeter = $dataKesehatan->tinggi_badan / 100;
         $bmi = $dataKesehatan->berat_badan / ($tinggiMeter * $tinggiMeter);
-        
+
         if ($bmi >= 30) {
             $skor += 3;
         } elseif ($bmi >= 25) {
@@ -123,7 +125,7 @@ class RiwayatKesehatanSeeder extends Seeder
         } elseif ($bmi >= 23) {
             $skor += 1;
         }
-        
+
         // Faktor 4: Gula darah
         if ($dataKesehatan->gula_darah >= 126) {
             $skor += 3;
@@ -132,7 +134,7 @@ class RiwayatKesehatanSeeder extends Seeder
         } elseif ($dataKesehatan->gula_darah >= 100) {
             $skor += 1;
         }
-        
+
         // Faktor 5: Lingkar pinggang
         if ($dataKesehatan->jenis_kelamin == 'Laki-laki') {
             if ($dataKesehatan->lingkar_pinggang >= 102) {
@@ -151,7 +153,7 @@ class RiwayatKesehatanSeeder extends Seeder
                 $skor += 1;
             }
         }
-        
+
         // Faktor 6: Tekanan darah
         if ($dataKesehatan->tensi_darah >= 140) {
             $skor += 3;
@@ -160,7 +162,7 @@ class RiwayatKesehatanSeeder extends Seeder
         } elseif ($dataKesehatan->tensi_darah >= 120) {
             $skor += 1;
         }
-        
+
         // Tentukan kategori berdasarkan skor
         if ($skor >= 12) {
             return 'Tinggi';

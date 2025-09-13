@@ -21,7 +21,7 @@ class RoleMiddleware
         }
 
         // Periksa hak akses
-        if (Auth::user()->hak_akses !== $role && Auth::user()->hak_akses !== 'Bidan') {
+        if (Auth::user()->hak_akses !== $role && Auth::user()->hak_akses !== 'Dokter') {
             return abort(403, 'Akses Ditolak');
         }
 

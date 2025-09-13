@@ -39,10 +39,10 @@ class AdminController extends Controller
     public function dashboard()
     {
         $totalAdmins = Admin::count();
-        $bidanCount = Admin::where('hak_akses', 'Bidan')->count();
-        $kaderCount = Admin::where('hak_akses', 'Kader')->count();
+        $dokterCount = Admin::where('hak_akses', 'Dokter')->count();
+        $perawatCount = Admin::where('hak_akses', 'Perawat')->count();
 
-        return view('layouts.Dashboard.dashboard', compact('totalAdmins', 'bidanCount', 'kaderCount'));
+        return view('layouts.Dashboard.dashboard', compact('totalAdmins', 'dokterCount', 'perawatCount'));
     }
 
     public function index(Request $request)
@@ -69,6 +69,7 @@ class AdminController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'jenis_kelamin' => 'required|string',
             'hak_akses' => 'required|string',
+            'nomor_telepon' => 'nullable|string|max:15',
         ]);
 
         try {
@@ -87,6 +88,7 @@ class AdminController extends Controller
                 'password' => Hash::make($validatedData['password']),
                 'jenis_kelamin' => $validatedData['jenis_kelamin'],
                 'hak_akses' => $validatedData['hak_akses'],
+                'nomor_telepon' => $validatedData['nomor_telepon'],
             ]);
 
             return redirect()->route('admin.index')->with('success', 'Admin created successfully');
@@ -113,7 +115,6 @@ class AdminController extends Controller
         return view('layouts.Data-admin.tambah_admin', compact('admin'));
     }
 
-    // Update the specified admin in storage
     public function update(Request $request, $id_admin)
     {
         $admin = Admin::findOrFail($id_admin);
@@ -124,34 +125,28 @@ class AdminController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
             'jenis_kelamin' => 'required|string',
             'hak_akses' => 'required|string',
+            'nomor_telepon' => 'nullable|string|max:15',
         ]);
 
         try {
-            // 1. Get Firebase user by email (old email)
             $firebaseUser = $this->firebaseAuth->getUserByEmail($admin->email);
 
-            // 2. Update user in Firebase Authentication
             $updateProperties = [];
 
-            // Update email if changed
             if ($admin->email !== $validatedData['email']) {
                 $updateProperties['email'] = $validatedData['email'];
             }
 
-            // Update password if provided
             if ($request->password) {
                 $updateProperties['password'] = $validatedData['password'];
             }
 
-            // Update display name
             $updateProperties['displayName'] = $validatedData['nama_lengkap'];
 
-            // Apply updates to Firebase
             if (!empty($updateProperties)) {
                 $this->firebaseAuth->updateUser($firebaseUser->uid, $updateProperties);
             }
 
-            // 3. Update data in local database
             if ($request->password) {
                 $admin->password = Hash::make($validatedData['password']);
             }
@@ -160,12 +155,12 @@ class AdminController extends Controller
             $admin->email = $validatedData['email'];
             $admin->jenis_kelamin = $validatedData['jenis_kelamin'];
             $admin->hak_akses = $validatedData['hak_akses'];
+            $admin->nomor_telepon = $validatedData['nomor_telepon'];
             $admin->save();
 
             return redirect()->route('admin.index')->with('success', 'Admin updated successfully');
 
         } catch (UserNotFound $e) {
-            // If user not found in Firebase, still update local database
             Log::warning('Firebase user not found for email: ' . $admin->email);
             
             if ($request->password) {
@@ -176,6 +171,7 @@ class AdminController extends Controller
             $admin->email = $validatedData['email'];
             $admin->jenis_kelamin = $validatedData['jenis_kelamin'];
             $admin->hak_akses = $validatedData['hak_akses'];
+            $admin->nomor_telepon = $validatedData['nomor_telepon'];
             $admin->save();
 
             return redirect()->route('admin.index')->with('warning', 'Admin updated locally but not found in authentication system.');
@@ -201,25 +197,20 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($id);
         
         try {
-            // Try to get and delete user from Firebase Authentication
             $firebaseUser = $this->firebaseAuth->getUserByEmail($admin->email);
             $this->firebaseAuth->deleteUser($firebaseUser->uid);
             
         } catch (UserNotFound $e) {
-            // User not found in Firebase, just log warning
             Log::warning('Firebase user not found for deletion, email: ' . $admin->email);
         } catch (FirebaseException $e) {
             Log::error('Firebase delete user error: ' . $e->getMessage());
-            // Continue with local deletion even if Firebase deletion fails
         }
         
-        // Always delete from local database
         $admin->delete();
         
         return redirect()->route('admin.index')->with('success', 'Admin deleted successfully');
     }
 
-    // Helper method to find Firebase user by email
     private function getFirebaseUserByEmail($email)
     {
         try {
