@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <h4>Data Screening Pertanyaan</h4>
                         <a href="{{ route('screening.create') }}" class="btn btn-primary float-left mt-2">
-                            <i class="fa fa-plus-circle"></i> Create
+                            <i class="fa fa-plus-circle me-2"></i>Tambah Pertanyaan Screening
                         </a>
                         <div class="table-wrapper">
                             <table class="table">
@@ -461,10 +461,11 @@
                 cancelButtonColor: '#6c757d',
                 confirmButtonText: '<i class="fas fa-trash me-2"></i> Ya, Hapus!',
                 cancelButtonText: '<i class="fas fa-times me-2"></i> Batal',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    confirmButton: 'custom-confirm-btn',
-                    cancelButton: 'custom-cancel-btn'
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
                 }
             }).then((result) => {
                 if (result.isConfirmed) {

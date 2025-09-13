@@ -54,6 +54,38 @@
             z-index: 10;
             color: #6c757d;
         }
+        
+        .password-strength {
+            width: auto;
+            height: 5px;
+            margin-top: 5px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .password-requirements {
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+        
+        .requirement i {
+            margin-right: 5px;
+            font-size: 0.75rem;
+        }
+        
+        .valid {
+            color: #28a745;
+        }
+        
+        .invalid {
+            color: #6c757d;
+        }
     </style>
 
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -98,7 +130,7 @@
                                 @endif
 
                                 <form action="{{ route('reset-password') }}" method="POST" class="mt-3"
-                                    id="resetPasswordForm">
+                                    id="resetPasswordForm" novalidate>
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
 
@@ -106,35 +138,50 @@
                                         <label for="email" class="form-label fw-semibold">Email Address</label>
                                         <div class="input-group">
                                             <input type="email" class="form-control py-2" id="email" name="email"
-                                                placeholder="Enter your email" required value="{{ $email ?? old('email') }}"
+                                                placeholder="Enter your email" value="{{ $email ?? old('email') }}"
                                                 readonly>
                                         </div>
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="password" class="form-label fw-semibold">New Password</label>
+                                        <label for="password" class="form-label fw-semibold">Password Baru</label>
                                         <div class="input-group">
                                             <input type="password" class="form-control py-2" id="password" name="password"
-                                                placeholder="Enter your new password" required>
+                                                placeholder="Masukkan password baru" required>
                                             <button type="button" class="password-toggle toggle-password"
                                                 data-target="password">
                                                 <i class="fas fa-eye-slash text-muted"></i>
                                             </button>
                                         </div>
-                                        <div class="form-text">Password minimal 6 karakter</div>
+                                        <div class="password-strength" id="passwordStrength"></div>
+                                        <div class="password-requirements">
+                                            <div class="requirement" id="lengthReq">
+                                                <i class="fas fa-circle invalid"></i>
+                                                <span>Minimal 6 karakter</span>
+                                            </div>
+                                            <div class="requirement" id="numberReq">
+                                                <i class="fas fa-circle invalid"></i>
+                                                <span>Mengandung angka</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="password_confirmation" class="form-label fw-semibold">Confirm
-                                            Password</label>
+                                        <label for="password_confirmation" class="form-label fw-semibold">Konfirmasi Password</label>
                                         <div class="input-group">
                                             <input type="password" class="form-control py-2" id="password_confirmation"
-                                                name="password_confirmation" placeholder="Confirm your new password"
+                                                name="password_confirmation" placeholder="Konfirmasi password baru"
                                                 required>
                                             <button type="button" class="password-toggle toggle-password"
                                                 data-target="password_confirmation">
                                                 <i class="fas fa-eye-slash text-muted"></i>
                                             </button>
+                                        </div>
+                                        <div class="password-requirements">
+                                            <div class="requirement" id="matchReq">
+                                                <i class="fas fa-circle invalid"></i>
+                                                <span>Password harus cocok</span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -146,7 +193,7 @@
 
                                     <div class="d-flex justify-content-center">
                                         <a href="{{ route('login') }}" class="btn btn-outline-primary w-100 py-3 fw-semibold rounded-3 shadow-sm">
-                                            <i class="fa fa-arrow-left me-2"></i>Back to Login
+                                            <i class="fa fa-arrow-left me-2"></i>Kembali Ke Login
                                         </a>
                                     </div>
                                 </form>
@@ -189,6 +236,110 @@
             });
         });
 
+        // Fungsi untuk memvalidasi kekuatan password
+        function validatePassword(password) {
+            const errors = [];
+            
+            if (!password) {
+                return {
+                    isValid: false,
+                    errors: ['Password harus diisi.'],
+                    strength: 0
+                };
+            }
+            
+            if (password.length < 6) {
+                errors.push('Password harus minimal 6 karakter.');
+            }
+            
+            if (!/\d/.test(password)) {
+                errors.push('Password harus mengandung minimal 1 angka.');
+            }
+            
+            // Hitung kekuatan password (0-100)
+            let strength = 0;
+            if (password.length >= 6) strength += 40;
+            if (password.length >= 8) strength += 20;
+            if (/\d/.test(password)) strength += 20;
+            if (/[A-Z]/.test(password)) strength += 10;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 10;
+            
+            return {
+                isValid: errors.length === 0,
+                errors: errors,
+                strength: strength
+            };
+        }
+
+        // Fungsi untuk memperbarui tampilan kekuatan password
+        function updatePasswordStrength(password) {
+            const strengthBar = document.getElementById('passwordStrength');
+            const lengthReq = document.getElementById('lengthReq');
+            const numberReq = document.getElementById('numberReq');
+            
+            if (!password) {
+                strengthBar.style.width = '0%';
+                strengthBar.style.backgroundColor = '#dc3545';
+                return;
+            }
+            
+            const validation = validatePassword(password);
+            
+            // Update persyaratan
+            if (password.length >= 6) {
+                lengthReq.querySelector('i').className = 'fas fa-check-circle valid';
+            } else {
+                lengthReq.querySelector('i').className = 'fas fa-circle invalid';
+            }
+            
+            if (/\d/.test(password)) {
+                numberReq.querySelector('i').className = 'fas fa-check-circle valid';
+            } else {
+                numberReq.querySelector('i').className = 'fas fa-circle invalid';
+            }
+            
+            // Update strength bar
+            strengthBar.style.width = validation.strength + '%';
+            
+            if (validation.strength < 40) {
+                strengthBar.style.backgroundColor = '#dc3545'; // Merah
+            } else if (validation.strength < 70) {
+                strengthBar.style.backgroundColor = '#ffc107'; // Kuning
+            } else {
+                strengthBar.style.backgroundColor = '#28a745'; // Hijau
+            }
+        }
+
+        // Fungsi untuk memeriksa kecocokan password
+        function checkPasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('password_confirmation').value;
+            const matchReq = document.getElementById('matchReq');
+            
+            if (!confirmPassword) {
+                matchReq.querySelector('i').className = 'fas fa-circle invalid';
+                return false;
+            }
+            
+            if (password === confirmPassword && password.length > 0) {
+                matchReq.querySelector('i').className = 'fas fa-check-circle valid';
+                return true;
+            } else {
+                matchReq.querySelector('i').className = 'fas fa-times-circle invalid';
+                return false;
+            }
+        }
+
+        // Event listeners untuk validasi real-time
+        document.getElementById('password').addEventListener('input', function() {
+            updatePasswordStrength(this.value);
+            checkPasswordMatch();
+        });
+
+        document.getElementById('password_confirmation').addEventListener('input', function() {
+            checkPasswordMatch();
+        });
+
         document.getElementById('resetPasswordForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -196,13 +347,42 @@
             const passwordConfirmation = document.getElementById('password_confirmation').value;
             const button = document.getElementById('resetButton');
 
-            if (password !== passwordConfirmation) {
-                alert('Konfirmasi password tidak sesuai.');
+            // Validasi password
+            const passwordValidation = validatePassword(password);
+            if (!passwordValidation.isValid) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Password Tidak Valid',
+                    html: passwordValidation.errors.join('<br>'),
+                    iconColor: '#dc3545',
+                    confirmButtonColor: '#34B3A0',
+                    confirmButtonText: 'Mengerti',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
                 return;
             }
 
-            if (password.length < 6) {
-                alert('Password harus minimal 6 karakter.');
+            // Validasi konfirmasi password
+            if (password !== passwordConfirmation) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Konfirmasi Password Tidak Sesuai',
+                    text: 'Password dan konfirmasi password harus sama.',
+                    iconColor: '#dc3545',
+                    confirmButtonColor: '#34B3A0',
+                    confirmButtonText: 'Mengerti',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
                 return;
             }
 
@@ -211,6 +391,19 @@
                 '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Memproses...';
 
             this.submit();
+        });
+        
+        // Menonaktifkan validasi default browser
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('resetPasswordForm').setAttribute('novalidate', 'novalidate');
+            
+            // Menghapus event listener default untuk invalid event
+            const inputs = document.querySelectorAll('input[required]');
+            inputs.forEach(input => {
+                input.addEventListener('invalid', function(e) {
+                    e.preventDefault();
+                });
+            });
         });
     </script>
 @endsection

@@ -50,7 +50,7 @@
                                     <label for="password" class="form-label">Password</label>
                                     <div class="password-container">
                                         <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan Password">
-                                        <span class="toggle-password" data-target="password">
+                                        <span class="toggle-password" onclick="togglePassword('password')">
                                             <i class="fas fa-eye"></i>
                                         </span>
                                     </div>
@@ -63,7 +63,7 @@
                                     <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                                     <div class="password-container">
                                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Masukkan Konfirmasi Password">
-                                        <span class="toggle-password" data-target="password_confirmation">
+                                        <span class="toggle-password" onclick="togglePassword('password_confirmation')">
                                             <i class="fas fa-eye"></i>
                                         </span>
                                     </div>
@@ -118,28 +118,24 @@
     </div>
 </div>
 <script>
+    // Fungsi untuk toggle show/hide password
+    function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const icon = document.querySelector(`[onclick="togglePassword('${inputId}')"] i`);
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('adminForm');
-        
-        // Fungsi untuk toggle show/hide password
-        const togglePasswordButtons = document.querySelectorAll('.toggle-password');
-        togglePasswordButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const passwordInput = document.getElementById(targetId);
-                const icon = this.querySelector('i');
-                
-                if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                } else {
-                    passwordInput.type = 'password';
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                }
-            });
-        });
         
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -209,7 +205,13 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: message,
-                confirmButtonColor: '#34B3A0'
+                confirmButtonColor: '#34B3A0',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
             });
         }
         

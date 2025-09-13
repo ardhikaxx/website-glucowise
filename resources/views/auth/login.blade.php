@@ -40,6 +40,10 @@
             background-color: #2a8f80;
             border-color: #2a8f80;
         }
+        /* Menghilangkan validasi default browser */
+        input:invalid {
+            box-shadow: none;
+        }
     </style>
 
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -65,14 +69,14 @@
                             <!-- Card body - reduced top padding -->
                             <div class="card-body px-5 pt-1">
                         
-                                <form action="{{ route('login') }}" method="POST" class="mt-3">
+                                <form action="{{ route('login') }}" method="POST" class="mt-3" id="loginForm">
                                     @csrf
                         
                                     <div class="mb-4">
-                                        <label for="email" class="form-label fw-semibold">Email Address</label>
+                                        <label for="email" class="form-label fw-semibold">Alamat Email</label>
                                         <div class="input-group">
-                                            <input type="email" class="form-control py-2" id="email" name="email"
-                                                placeholder="Enter your email" required autofocus
+                                            <input type="text" class="form-control py-2" id="email" name="email"
+                                                placeholder="Masukkan Email Anda" autofocus
                                                 value="{{ old('email') }}">
                                         </div>
                                     </div>
@@ -81,7 +85,7 @@
                                         <label for="password" class="form-label fw-semibold">Password</label>
                                         <div class="input-group">
                                             <input type="password" class="form-control py-2" id="password" name="password"
-                                                placeholder="Enter your password" required>
+                                                placeholder="Masukkan Password Anda">
                                             <button type="button" class="password-toggle" id="togglePassword">
                                                 <i class="fas fa-eye text-muted"></i>
                                             </button>
@@ -92,15 +96,15 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="remember">
-                                                Remember me
+                                                Ingat saya
                                             </label>
                                         </div>
-                                        <a class="text-decoration-none text-primary fw-semibold" href="{{ route('forgot-password') }}">Forgot Password?</a>
+                                        <a class="text-decoration-none text-primary fw-semibold" href="{{ route('forgot-password') }}">Lupa Password?</a>
                                     </div>
                         
                                     <button type="submit"
                                         class="btn btn-primary w-100 py-3 fw-semibold rounded-3 mb-2 shadow-sm">
-                                        <i class="fas fa-sign-in-alt me-2"></i> Login
+                                        <i class="fas fa-sign-in-alt me-2"></i>Masuk
                                     </button>
                                 </form>
                             </div>
@@ -111,7 +115,7 @@
         </div>
     </div>
 
-    <!-- JavaScript untuk toggle password visibility -->
+    <!-- JavaScript untuk toggle password visibility dan validasi -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const togglePassword = document.querySelector('#togglePassword');
@@ -131,6 +135,76 @@
                     eyeIcon.classList.remove('fa-eye');
                     eyeIcon.classList.add('fa-eye-slash');
                 }
+            });
+
+            // Validasi form dengan SweetAlert
+            const loginForm = document.getElementById('loginForm');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+                
+                // Validasi email harus diisi
+                if (!email) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Email Harus Diisi',
+                        text: 'Silakan masukkan alamat email Anda',
+                        iconColor: '#dc3545',
+                        confirmButtonColor: '#34B3A0',
+                        confirmButtonText: 'OK',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
+                    return;
+                }
+                
+                // Validasi format email harus mengandung @
+                if (!email.includes('@')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Format Email Tidak Valid',
+                        text: 'Email harus mengandung karakter @',
+                        iconColor: '#dc3545',
+                        confirmButtonColor: '#34B3A0',
+                        confirmButtonText: 'OK',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
+                    return;
+                }
+                
+                // Validasi password harus diisi
+                if (!password) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Password Harus Diisi',
+                        text: 'Silakan masukkan password Anda',
+                        iconColor: '#dc3545',
+                        confirmButtonColor: '#34B3A0',
+                        confirmButtonText: 'OK',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    });
+                    return;
+                }
+                
+                // Jika semua validasi berhasil, submit form
+                this.submit();
             });
         });
     </script>

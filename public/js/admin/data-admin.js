@@ -11,22 +11,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let buttons = document.querySelectorAll('.btn-rounded');
-    buttons.forEach(function(button) {
-        setTimeout(function() {
+    buttons.forEach(function (button) {
+        setTimeout(function () {
             button.classList.add('visible');
         }, 200); // Memberikan delay untuk animasi muncul, misalnya 200ms
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     document.querySelector('.page-wrapper').classList.add('loaded');
     let tableWrapper = document.querySelector('.table-wrapper');
     tableWrapper.classList.add('visible');
     let rows = document.querySelectorAll('.table tbody tr');
-    rows.forEach(function(row, index) {
-        setTimeout(function() {
+    rows.forEach(function (row, index) {
+        setTimeout(function () {
             row.classList.add('visible');
         }, index * 200);
     });
@@ -45,10 +45,11 @@ function confirmDelete(event) {
         cancelButtonColor: '#6c757d',
         confirmButtonText: '<i class="fas fa-trash me-2"></i> Ya, Hapus!',
         cancelButtonText: '<i class="fas fa-times me-2"></i> Batal',
-        customClass: {
-            popup: 'custom-swal-popup',
-            confirmButton: 'custom-confirm-btn',
-            cancelButton: 'custom-cancel-btn'
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
         }
     }).then((result) => {
         if (result.isConfirmed) {

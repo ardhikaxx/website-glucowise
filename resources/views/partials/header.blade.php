@@ -30,7 +30,7 @@
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
                             <button type="button" onclick="confirmLogout()"
-                                class="btn btn-outline-primary mx-3 mt-2 d-block w-100">Logout</button>
+                                class="btn btn-outline-primary mx-3 mt-2 d-block w-100">Keluar</button>
                         </div>
                     </div>
                 </li>

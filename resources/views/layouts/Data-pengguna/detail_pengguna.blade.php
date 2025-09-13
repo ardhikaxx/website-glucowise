@@ -27,10 +27,10 @@
                                     <th>Email</th>
                                     <td>{{ $dataPengguna->email ?? 'Tidak Ada Data' }}</td>
                                 </tr>
-                                <tr class="table-row">
+                                {{-- <tr class="table-row">
                                     <th>Password</th>
                                     <td>Terenkripsi</td> <!-- Aman, tidak tampilkan password -->
-                                </tr>
+                                </tr> --}}
                                 <tr class="table-row">
                                     <th>Nama Lengkap</th>
                                     <td>{{ $dataPengguna->nama_lengkap ?? 'Tidak Ada Data' }}</td>

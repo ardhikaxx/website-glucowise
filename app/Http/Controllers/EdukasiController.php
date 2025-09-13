@@ -35,7 +35,7 @@ class EdukasiController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'gambar' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
             'kategori' => 'required|in:Dasar Diabetes,Manajemen Diabetes',
         ]);
 
@@ -111,7 +111,9 @@ class EdukasiController extends Controller
         $edukasi = Edukasi::findOrFail($id);
 
         // Menghapus gambar
-        Storage::delete('public/images/' . $edukasi->gambar);
+        if ($edukasi->gambar && file_exists(public_path($edukasi->gambar))) {
+            unlink(public_path($edukasi->gambar));
+        }
 
         // Menghapus data edukasi
         $edukasi->delete();
@@ -119,4 +121,3 @@ class EdukasiController extends Controller
         return redirect()->route('edukasi.index')->with('success', 'Edukasi berhasil dihapus');
     }
 }
-

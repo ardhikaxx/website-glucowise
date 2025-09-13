@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logos/favicon.png') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         .custom-swal-popup {
             border-radius: 15px;
@@ -46,17 +47,20 @@
     <script>
         function confirmLogout() {
             Swal.fire({
-                title: 'Konfirmasi Logout',
-                text: "Apakah Anda yakin ingin logout?",
+                title: 'Konfirmasi Keluar',
+                text: "Apakah Anda yakin ingin keluar?",
                 icon: 'question',
                 iconColor: '#34B3A0',
                 showCancelButton: true,
                 confirmButtonColor: '#34B3A0',
                 cancelButtonColor: '#6c757d',
-                confirmButtonText: '<i class="fas fa-sign-out-alt me-2"></i> Ya, Logout!',
+                confirmButtonText: '<i class="fas fa-sign-out-alt me-2"></i> Ya, Keluar!',
                 cancelButtonText: '<i class="fas fa-times me-2"></i> Batal',
-                customClass: {
-                    popup: 'custom-swal-popup'
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
                 }
             }).then((result) => {
                 if (result.isConfirmed) {

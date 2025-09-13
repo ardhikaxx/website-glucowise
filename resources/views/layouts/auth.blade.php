@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         .auth-bg {
             position: absolute;
@@ -214,7 +216,7 @@
                         text: '{{ $error }}',
                         iconColor: '#dc3545',
                         confirmButtonColor: '#34B3A0',
-                        confirmButtonText: '<i class="fas fa-times me-2"></i>OK',
+                        confirmButtonText: 'OK',
                         showClass: {
                             popup: 'animate__animated animate__fadeInDown'
                         },

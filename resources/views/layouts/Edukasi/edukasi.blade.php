@@ -33,7 +33,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <a href="{{ route('edukasi.create') }}" class="btn btn-primary float-left">
-                                    <i class="fa fa-plus-circle"></i> Create
+                                    <i class="fa fa-plus-circle"></i> Tambah Edukasi
                                 </a>
                                 <form action="{{ route('edukasi.index') }}" method="GET" class="search-form float-right">
                                     <div class="input-group">
@@ -69,7 +69,7 @@
                                                     <!-- Menampilkan Gambar -->
                                                     <img src="{{ asset($data->gambar) }}" alt="Foto Edukasi"
                                                         class="img-fluid"
-                                                        style="max-width: 300px; height: auto; border-radius: 8px;">
+                                                        style="max-width: 200px; height: auto; border-radius: 8px;">
                                                 </td>
                                                 <td>
                                                     <div class="d-flex flex-column justify-content-center gap-2">

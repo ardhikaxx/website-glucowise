@@ -111,7 +111,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login')->with('status', 'Anda telah logout.');
+        return redirect('/login')->with('status', 'Anda telah keluar.');
     }
 
     public function showForgotPasswordForm()
@@ -121,7 +121,12 @@ class AuthController extends Controller
 
     public function sendResetLink(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $request->validate([
+            'email' => 'required|email'
+        ], [
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.'
+        ]);
 
         try {
             // Periksa apakah email terdaftar di Firebase
@@ -205,6 +210,10 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
             'token' => 'required',
+        ], [
+            'password.required' => 'Password harus diisi.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
+            'password.min' => 'Password harus minimal 6 karakter.',
         ]);
 
         try {
@@ -228,7 +237,7 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('login')->with('status', 'Password berhasil direset! Silakan login dengan password baru.');
+            return redirect()->route('login')->with('status', 'Password berhasil diperbarui! Silahkan login dengan password baru.');
 
         } catch (FirebaseException $e) {
             Log::error('Firebase reset password error: ' . $e->getMessage());

@@ -166,26 +166,13 @@
     color: white;
 }
 
-/* Adjustments for table layout */
-.table-wrapper {
-    max-height: 300px;
-    overflow-y: auto;
-    margin-top: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
 .table-wrapper.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
 .table-wrapper {
-    max-height: 300px;
+    max-height: 445px;
     overflow-y: auto;
     margin-top: 20px;
     background-color: #f8f9fa;
