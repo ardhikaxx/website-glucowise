@@ -194,7 +194,7 @@ outline: none;
 
 /* Mengatur tinggi tabel dengan scroll */
 .table-wrapper {
-    max-height: 450px; 
+    max-height: 455px; 
     overflow-y: auto;
     margin-top: 20px;
     background-color: #f8f9fa;

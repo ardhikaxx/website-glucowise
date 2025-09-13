@@ -71,6 +71,20 @@
                             </div>
                             @endif
 
+                            <!-- Nomor Telepon -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="nomor_telepon" class="form-label">Nomor Telepon</label>
+                                    <input type="text" name="nomor_telepon" id="nomor_telepon" class="form-control" 
+                                        placeholder="Masukkan Nomor Telepon" 
+                                        value="{{ old('nomor_telepon', isset($admin) ? $admin->nomor_telepon : '') }}"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                        maxlength="15">
+                                    <small class="text-muted me-2">Hanya angka, maksimal 15 digit</small>
+                                    <small class="text-muted">contoh: 08123456789</small>
+                                </div>
+                            </div>
+
                             <!-- Jenis Kelamin -->
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
@@ -89,8 +103,8 @@
                                     <label for="hak_akses" class="form-label">Hak Akses</label>
                                     <select name="hak_akses" id="hak_akses" class="form-select">
                                         <option value="">Pilih Hak Akses</option>
-                                        <option value="Bidan" {{ old('hak_akses', isset($admin) ? $admin->hak_akses : '') == 'Bidan' ? 'selected' : '' }}>Bidan</option>
-                                        <option value="Kader" {{ old('hak_akses', isset($admin) ? $admin->hak_akses : '') == 'Kader' ? 'selected' : '' }}>Kader</option>
+                                        <option value="Dokter" {{ old('hak_akses', isset($admin) ? $admin->hak_akses : '') == 'Dokter' ? 'selected' : '' }}>Dokter</option>
+                                        <option value="Perawat" {{ old('hak_akses', isset($admin) ? $admin->hak_akses : '') == 'Perawat' ? 'selected' : '' }}>Perawat</option>
                                     </select>
                                 </div>
                             </div>
@@ -134,19 +148,25 @@
         }
     }
 
+    document.getElementById('nomor_telepon').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+        if (this.value.length > 15) {
+            this.value = this.value.slice(0, 15);
+        }
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('adminForm');
         
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Validasi input
             const nama = document.getElementById('nama').value.trim();
             const email = document.getElementById('email').value.trim();
+            const nomorTelepon = document.getElementById('nomor_telepon').value.trim();
             const jenisKelamin = document.getElementById('jenis_kelamin').value;
             const hakAkses = document.getElementById('hak_akses').value;
             
-            // Jika edit admin, tidak perlu validasi password
             let password, passwordConfirmation;
             if (!{{ isset($admin) ? 'true' : 'false' }}) {
                 password = document.getElementById('password').value;
@@ -166,6 +186,16 @@
             
             if (!isValidEmail(email)) {
                 showError('Format email tidak valid!');
+                return;
+            }
+            
+            if (nomorTelepon && !/^\d+$/.test(nomorTelepon)) {
+                showError('Nomor telepon hanya boleh berisi angka!');
+                return;
+            }
+            
+            if (nomorTelepon && nomorTelepon.length > 15) {
+                showError('Nomor telepon tidak boleh lebih dari 15 digit!');
                 return;
             }
             

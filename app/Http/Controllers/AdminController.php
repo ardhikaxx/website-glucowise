@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Kreait\Firebase\Factory;
@@ -48,9 +49,13 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
+        $currentAdminId = Auth::id();
+        
         $admins = Admin::when($search, function ($query, $search) {
-            return $query->where('nama_lengkap', 'like', '%' . $search . '%');
-        })->paginate(10);
+                return $query->where('nama_lengkap', 'like', '%' . $search . '%');
+            })
+            ->where('id_admin', '!=', $currentAdminId) // Filter admin yang sedang login
+            ->paginate(10);
 
         return view('layouts.Data-admin.data_admin', compact('admins'));
     }
@@ -69,7 +74,10 @@ class AdminController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'jenis_kelamin' => 'required|string',
             'hak_akses' => 'required|string',
-            'nomor_telepon' => 'nullable|string|max:15',
+            'nomor_telepon' => 'nullable|string|max:15|regex:/^[0-9]+$/',
+        ], [
+            'nomor_telepon.regex' => 'Nomor telepon hanya boleh berisi angka.',
+            'nomor_telepon.max' => 'Nomor telepon tidak boleh lebih dari 15 digit.',
         ]);
 
         try {
@@ -125,7 +133,10 @@ class AdminController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
             'jenis_kelamin' => 'required|string',
             'hak_akses' => 'required|string',
-            'nomor_telepon' => 'nullable|string|max:15',
+            'nomor_telepon' => 'nullable|string|max:15|regex:/^[0-9]+$/',
+        ], [
+            'nomor_telepon.regex' => 'Nomor telepon hanya boleh berisi angka.',
+            'nomor_telepon.max' => 'Nomor telepon tidak boleh lebih dari 15 digit.',
         ]);
 
         try {

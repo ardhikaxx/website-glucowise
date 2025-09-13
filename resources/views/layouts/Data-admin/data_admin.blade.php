@@ -57,6 +57,11 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
         @if (request()->search)
             <div class="alert alert-info">
                 Menampilkan hasil pencarian untuk: <strong>{{ request()->search }}</strong>
@@ -94,6 +99,7 @@
                                         <th>Email</th>
                                         <th>Nomor Telepon</th>
                                         <th>Jenis Kelamin</th>
+                                        <th>Hak Akses</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -104,8 +110,9 @@
                                             </td>
                                             <td>{{ $admin->nama_lengkap }}</td>
                                             <td>{{ $admin->email }}</td>
-                                            <td>{{ $admin->nomor_telepon }}</td>
+                                            <td>{{ $admin->nomor_telepon ?? '-' }}</td>
                                             <td>{{ $admin->jenis_kelamin }}</td>
+                                            <td>{{ $admin->hak_akses }}</td>
                                             <td>
                                                 <div class="d-flex flex-column justify-content-center gap-2">
                                                     <a href="{{ route('admin.edit', $admin->id_admin) }}"
