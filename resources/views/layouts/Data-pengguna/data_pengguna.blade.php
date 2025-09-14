@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-user me-3" style="color: #34B3A0;"></i>Data Pengguna</h1>
+            <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i class="fa fa-user me-3" style="color: #34B3A0;"></i>Manajemen Pengguna</h1>
         </div>
     </div>
 

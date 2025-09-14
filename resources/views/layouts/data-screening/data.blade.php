@@ -120,7 +120,7 @@
             <div class="col-md-12">
                 <div class="card visible">
                     <div class="card-body">
-                        <h4>Data Screening Tes</h4>
+                        <h4>Data Hasil Screening Tes</h4>
                         <div class="table-wrapper">
                             <table class="table">
                                 <thead>
@@ -329,7 +329,7 @@
         }
 
         .table-wrapper {
-            max-height: 300px;
+            max-height: 420px;
             overflow-y: auto;
             margin-top: 20px;
             background-color: #f8f9fa;
