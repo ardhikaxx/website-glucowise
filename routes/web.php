@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,33 +47,40 @@ Route::get('/test-firebase', [AuthController::class, 'checkFirebaseConnection'])
 // ROUTE DENGAN AUTENTIKASI
 // ==============================
 Route::middleware(['auth'])->group(function () {
-    
+
     // Redirect root to login
     Route::get('/', function () {
         return redirect()->route('login');
+    });
+
+    // Profile Routes - Dapat diakses oleh semua role yang terautentikasi
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'showProfile'])->name('show');
+        Route::get('/edit', [ProfileController::class, 'editProfile'])->name('edit');
+        Route::put('/update', [ProfileController::class, 'updateProfile'])->name('update');
     });
 
     // ==============================
     // ROUTE UNTUK ROLE PERAWAT
     // ==============================
     Route::middleware('role:Perawat')->group(function () {
-        
+
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-        
+
         // Data Pengguna
         Route::prefix('data_pengguna')->name('dataPengguna.')->group(function () {
             Route::get('/', [DataPenggunaController::class, 'index'])->name('index');
             Route::get('/show/{id}', [DataPenggunaController::class, 'show'])->name('show');
             Route::get('/search', [DataPenggunaController::class, 'index'])->name('search');
         });
-        
+
         // Data Kesehatan
         Route::prefix('data-kesehatan')->name('dataKesehatan.')->group(function () {
-            Route::get('/', [DataKesehatanController::class, 'index'])->name('index'); 
+            Route::get('/', [DataKesehatanController::class, 'index'])->name('index');
             Route::get('/search', [DataKesehatanController::class, 'search'])->name('search');
             Route::get('/edit/{nik}/{tanggal_pemeriksaan}', [DataKesehatanController::class, 'edit'])->name('edit');
-            Route::put('/update/{nik}/{tanggal_pemeriksaan}', [DataKesehatanController::class, 'update'])->name('update');    
+            Route::put('/update/{nik}/{tanggal_pemeriksaan}', [DataKesehatanController::class, 'update'])->name('update');
             Route::get('/detail/{nik}', [DataKesehatanController::class, 'show'])->name('show');
         });
     });
@@ -81,7 +89,10 @@ Route::middleware(['auth'])->group(function () {
     // ROUTE UNTUK ROLE DOKTER
     // ==============================
     Route::middleware('role:Dokter')->group(function () {
-        
+
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
         // Manajemen Admin
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/', [AdminController::class, 'index'])->name('index');

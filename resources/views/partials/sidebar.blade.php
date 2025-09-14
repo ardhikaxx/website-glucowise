@@ -29,17 +29,17 @@
 
                 <!-- Data Pengguna (Dokter & Perawat) -->
                 @if (Auth::user()->hak_akses == 'Dokter' || Auth::user()->hak_akses == 'Perawat')
-                    <li class="sidebar-item {{ request()->is('dataPengguna/*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ request()->is('data_pengguna*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('dataPengguna.index') }}" aria-expanded="false">
                             <span><i class="ti ti-users"></i></span>
-                            <span class="hide-menu">Data Pengguna</span>
+                            <span class="hide-menu">Manajemen Pengguna</span>
                         </a>
                     </li>
                 @endif
 
                 <!-- Data Kesehatan (Dokter & Perawat) -->
                 @if (Auth::user()->hak_akses == 'Dokter' || Auth::user()->hak_akses == 'Perawat')
-                    <li class="sidebar-item {{ request()->is('dataKesehatan*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ request()->is('data-kesehatan*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('dataKesehatan.index') }}" aria-expanded="false">
                             <span><i class="ti ti-stethoscope"></i></span>
                             <span class="hide-menu">Data Kesehatan</span>
@@ -49,7 +49,7 @@
 
                 <!-- Riwayat Kesehatan (Hanya untuk Dokter) -->
                 @if (Auth::user()->hak_akses == 'Dokter')
-                    <li class="sidebar-item {{ request()->is('riwayatKesehatan*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ request()->is('rekam-medis*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('riwayatKesehatan.index') }}" aria-expanded="false">
                             <span><i class="ti ti-notes"></i></span>
                             <span class="hide-menu">Rekam Medis</span>
@@ -59,7 +59,7 @@
 
                 <!-- Data Screening (Hanya untuk Dokter) -->
                 @if (Auth::user()->hak_akses == 'Dokter')
-                    <li class="sidebar-item {{ request()->is('screening*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ request()->is('data-screening*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('screening.index') }}" aria-expanded="false">
                             <span><i class="ti ti-clipboard"></i></span>
                             <span class="hide-menu">Manajemen Screening</span>
@@ -79,9 +79,9 @@
 
                 <!-- Laporan (Hanya untuk Dokter) -->
                 @if (Auth::user()->hak_akses == 'Dokter')
-                    <li class="sidebar-item {{ request()->is('laporan*') ? 'active' : '' }}">
+                    <li class="sidebar-item {{ request()->is('Laporan*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('laporan.index') }}" aria-expanded="false">
-                            <span><i class="ti ti-notes"></i></span>
+                            <span><i class="ti ti-report"></i></span>
                             <span class="hide-menu">Laporan</span>
                         </a>
                     </li>
@@ -97,14 +97,18 @@
                     </li>
                 @endif
 
-                {{-- @if (Auth::user()->hak_akses == 'Dokter' || Auth::user()->hak_akses == 'Perawat')
-                    <li class="sidebar-item {{ request()->is('laporan*') ? 'active' : '' }}">
-                        <a class="sidebar-link" href="{{ route('laporan.index') }}" aria-expanded="false">
-                            <span><i class="ti ti-notes"></i></span>
-                            <span class="hide-menu">Profile</span>
-                        </a>
-                    </li>
-                @endif --}}
+                <!-- Profile (Dapat diakses oleh semua role) -->
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Akun</span>
+                </li>
+
+                <li class="sidebar-item {{ request()->is('profile*') ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('profile.show') }}" aria-expanded="false">
+                        <span><i class="ti ti-user-circle"></i></span>
+                        <span class="hide-menu">Profil Saya</span>
+                    </a>
+                </li>
 
             </ul>
         </nav>
