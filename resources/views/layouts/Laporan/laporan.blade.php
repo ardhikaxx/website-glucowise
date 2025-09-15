@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;">
-                    <i class="fa fa-clipboard-list me-3" style="color: #34B3A0;"></i>Laporan
+                    <i class="fa fa-clipboard-list me-3" style="color: #34B3A0;"></i>Laporan Rekam Medis
                 </h1>
             </div>
         </div>

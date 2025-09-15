@@ -7,7 +7,7 @@
         <!-- Judul Halaman -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title text-center" style="color: #34B3A0; font-weight: 700;">Detail Screening Tes -
+                <h1 class="page-title text-center" style="color: #34B3A0; font-weight: 700;">Detail Hasil Screening Tes -
                     {{ $tesScreening->pengguna->nama_lengkap }}</h1>
             </div>
         </div>

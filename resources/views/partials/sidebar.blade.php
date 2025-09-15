@@ -2,7 +2,7 @@
 <aside class="left-sidebar">
     <!-- Sidebar scroll -->
     <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
+        <div class="brand-logo d-flex align-items-center justify-content-center">
             <a href="/" class="text-nowrap logo-img pt-3">
                 <img src="{{ asset('images/logos/favicon1.png') }}" width="150" alt="Logo" />
             </a>
@@ -15,7 +15,6 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
                 <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Menu Utama</span>
                 </li>
 
@@ -82,7 +81,7 @@
                     <li class="sidebar-item {{ request()->is('Laporan*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('laporan.index') }}" aria-expanded="false">
                             <span><i class="ti ti-report"></i></span>
-                            <span class="hide-menu">Laporan</span>
+                            <span class="hide-menu">Laporan Rekam Medis</span>
                         </a>
                     </li>
                 @endif

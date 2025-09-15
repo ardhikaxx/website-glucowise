@@ -4,6 +4,7 @@
 
 @section('content')
     <style>
+        /* CSS yang sudah ada */
         .password-toggle {
             cursor: pointer;
             position: absolute;
@@ -44,6 +45,21 @@
         input:invalid {
             box-shadow: none;
         }
+        
+        /* CSS tambahan untuk header */
+        .login-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .login-title {
+            font-weight: 700;
+            color: #199A8E;
+            margin-bottom: 0.5rem;
+        }
+        .login-subtitle {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
     </style>
 
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -66,9 +82,12 @@
                                 <img src="{{ asset('images/logos/favicon1.png') }}" width="200" alt="Logo" class="img-fluid">
                             </div>
                             
-                            <!-- Card body - reduced top padding -->
+                            <!-- Header untuk halaman login -->
+                            <div class="login-header px-5 pt-2">
+                                <h2 class="login-title">Halaman Login</h2>
+                                <p class="login-subtitle">Masukkan email dan password Anda untuk mengakses sistem</p>
+                            </div>
                             <div class="card-body px-5 pt-1">
-                        
                                 <form action="{{ route('login') }}" method="POST" class="mt-3" id="loginForm">
                                     @csrf
                         

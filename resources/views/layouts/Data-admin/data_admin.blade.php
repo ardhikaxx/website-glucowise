@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Data Admin')
+@section('title', 'Manajemen Admin')
 
 @section('content')
     <style>
@@ -48,7 +48,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-title" style="font-weight: bold; font-size: 36px; color: #34B3A0;"><i
-                        class="fa fa-user-shield me-3" style="color: #34B3A0;"></i>Data Admin</h1>
+                        class="fa fa-user-shield me-3" style="color: #34B3A0;"></i>Manajemen Admin</h1>
             </div>
         </div>
 
@@ -68,7 +68,7 @@
             </div>
         @endif
 
-        <!-- Tabel Data Admin -->
+        <!-- Tabel Manajemen Admin -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card visible">

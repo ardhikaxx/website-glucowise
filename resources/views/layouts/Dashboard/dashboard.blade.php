@@ -100,7 +100,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card shadow-l border-0 rounded-lg">
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold text-muted" style="font-size: 20px;">Data Pemeriksaan Terkini</h5>
+                        <h5 class="card-title fw-semibold text-muted" style="font-size: 20px;">Data Pemeriksaan Terbaru</h5>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
