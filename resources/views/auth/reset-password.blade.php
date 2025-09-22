@@ -7,6 +7,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        @font-face {
+            font-family: 'DarumadropOne';
+            src: url('{{ asset('fonts/DarumadropOne-Regular.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        .reset-password-header {
+            text-align: center;
+        }
+        .reset-password-title {
+            font-weight: 700;
+            color: #199A8E;
+            font-size: 40px;
+            margin-bottom: 0.5rem;
+            font-family: 'DarumadropOne', cursive, sans-serif;
+        }
+        .reset-password-subtitle {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
         .password-toggle {
             cursor: pointer;
             position: absolute;
@@ -100,12 +123,18 @@
             </div>
 
             <div class="d-flex align-items-center justify-content-center w-100">
-                <div class="row justify-content-center w-100">
+                <div class="row justify-content-center w-100 h-100">
                     <div class="col-md-8 col-lg-6 col-xxl-4">
                         <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
                             <div class="card-header d-flex justify-content-center align-items-center pb-2 pt-4">
-                                <img src="{{ asset('images/logos/favicon1.png') }}" width="200" alt="Logo"
+                                <img src="{{ asset('images/logos/favicon1.png') }}" width="180" alt="Logo"
                                     class="img-fluid">
+                            </div>
+
+                            <!-- Header untuk halaman reset password -->
+                            <div class="reset-password-header px-5 pt-1">
+                                <h2 class="reset-password-title">RESET PASSWORD</h2>
+                                <p class="reset-password-subtitle">Buat password baru untuk akun Anda</p>
                             </div>
 
                             <div class="card-body px-5 pt-1">
@@ -129,7 +158,7 @@
                                     </div>
                                 @endif
 
-                                <form action="{{ route('reset-password') }}" method="POST" class="mt-3"
+                                <form action="{{ route('reset-password') }}" method="POST" class="mt-2"
                                     id="resetPasswordForm" novalidate>
                                     @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
@@ -157,7 +186,7 @@
                                         <div class="password-requirements">
                                             <div class="requirement" id="lengthReq">
                                                 <i class="fas fa-circle invalid"></i>
-                                                <span>Minimal 6 karakter</span>
+                                                <span>Minimal 8 karakter</span>
                                             </div>
                                             <div class="requirement" id="numberReq">
                                                 <i class="fas fa-circle invalid"></i>
@@ -248,8 +277,8 @@
                 };
             }
             
-            if (password.length < 6) {
-                errors.push('Password harus minimal 6 karakter.');
+            if (password.length < 8) {
+                errors.push('Password harus minimal 8 karakter.');
             }
             
             if (!/\d/.test(password)) {
@@ -258,8 +287,7 @@
             
             // Hitung kekuatan password (0-100)
             let strength = 0;
-            if (password.length >= 6) strength += 40;
-            if (password.length >= 8) strength += 20;
+            if (password.length >= 8) strength += 40;
             if (/\d/.test(password)) strength += 20;
             if (/[A-Z]/.test(password)) strength += 10;
             if (/[^A-Za-z0-9]/.test(password)) strength += 10;

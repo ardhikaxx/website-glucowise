@@ -126,7 +126,7 @@ class RiwayatKesehatanController extends Controller
     }
 
     // Mengupdate data Riwayat Kesehatan berdasarkan id_riwayat
-    public function update(Request $request, $id_riwayat)
+    public function update(Request $request, $id_data)
     {
         // Validasi input
         $request->validate([
@@ -135,7 +135,7 @@ class RiwayatKesehatanController extends Controller
         ]);
 
         // Cari data berdasarkan id_riwayat dan update
-        $data = RiwayatKesehatan::findOrFail($id_riwayat);
+        $data = RiwayatKesehatan::findOrFail($id_data);
 
         // Simpan perubahan
         $data->update([

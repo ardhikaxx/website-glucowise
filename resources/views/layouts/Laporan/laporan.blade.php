@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Laporan')
+@section('title', 'Laporan Rekam Medis')
 
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -23,36 +23,34 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <form action="{{ route('rekammedis.search') }}" method="GET"
-                                    class="search-form float-right">
-                                    <div class="input-group">
-                                        <input type="text" name="search" class="form-control search-input"
-                                            placeholder="Cari Data Kesehatan" value="{{ request()->search }}">
-                                        <button type="submit" class="btn btn-search">
-                                            <i class="fa fa-search me-1"></i>Cari
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                                <div class="d-flex justify-content-between flex-row-reverse">
+                                    <form action="{{ route('rekammedis.search') }}" method="GET"
+                                        class="search-form float-right">
+                                        <div class="input-group">
+                                            <input type="text" name="search" class="form-control search-input"
+                                                placeholder="Cari Data Kesehatan" value="{{ request()->search }}">
+                                            <button type="submit" class="btn btn-search">
+                                                <i class="fa fa-search me-1"></i>Cari
+                                            </button>
+                                        </div>
+                                    </form>
 
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <div class="d-flex justify-content-between">
-                                    <div class="dropdown">
-                                        <select id="monthFilter" class="form-control custom-month-dropdown"
-                                            style="width: 200px;">
-                                            <option value="">Filter Bulan</option>
-                                            @foreach ($months as $month)
-                                                <option value="{{ $month->month }}"
-                                                    {{ request()->month == $month->month ? 'selected' : '' }}>
-                                                    {{ \Carbon\Carbon::create()->month($month->month)->locale('id')->translatedFormat('F') }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <span class="dropdown-icon">
-                                            <i class="fa fa-chevron-down"></i>
-                                        </span>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="dropdown">
+                                            <select id="monthFilter" class="form-control custom-month-dropdown"
+                                                style="width: 200px;">
+                                                <option value="">Filter Bulan</option>
+                                                @foreach ($months as $month)
+                                                    <option value="{{ $month->month }}"
+                                                        {{ request()->month == $month->month ? 'selected' : '' }}>
+                                                        {{ \Carbon\Carbon::create()->month($month->month)->locale('id')->translatedFormat('F') }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <span class="dropdown-icon">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

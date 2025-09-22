@@ -4,6 +4,15 @@
 
 @section('content')
     <style>
+        /* CSS untuk font DarumadropOne */
+        @font-face {
+            font-family: 'DarumadropOne';
+            src: url('{{ asset('fonts/DarumadropOne-Regular.ttf') }}') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
         /* CSS yang sudah ada */
         .password-toggle {
             cursor: pointer;
@@ -49,12 +58,14 @@
         /* CSS tambahan untuk header */
         .login-header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 8px;
         }
         .login-title {
             font-weight: 700;
             color: #199A8E;
             margin-bottom: 0.5rem;
+            font-size: 40px;
+            font-family: 'DarumadropOne', cursive, sans-serif;
         }
         .login-subtitle {
             color: #6c757d;
@@ -79,16 +90,16 @@
                         <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
                             <!-- Card header with logo - reduced padding -->
                             <div class="card-header d-flex justify-content-center align-items-center pb-2 pt-4">
-                                <img src="{{ asset('images/logos/favicon1.png') }}" width="200" alt="Logo" class="img-fluid">
+                                <img src="{{ asset('images/logos/favicon1.png') }}" width="180" alt="Logo" class="img-fluid">
                             </div>
                             
                             <!-- Header untuk halaman login -->
                             <div class="login-header px-5 pt-2">
-                                <h2 class="login-title">Halaman Login</h2>
-                                <p class="login-subtitle">Masukkan email dan password Anda untuk mengakses sistem</p>
+                                <h2 class="login-title">HALAMAN LOGIN</h2>
+                                <p class="login-subtitle">Masukkan email dan password anda untuk mengakses sistem</p>
                             </div>
                             <div class="card-body px-5 pt-1">
-                                <form action="{{ route('login') }}" method="POST" class="mt-3" id="loginForm">
+                                <form action="{{ route('login') }}" method="POST" class="mt-2" id="loginForm">
                                     @csrf
                         
                                     <div class="mb-4">

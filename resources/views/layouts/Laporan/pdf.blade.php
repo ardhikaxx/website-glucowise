@@ -42,14 +42,14 @@
 
         .qr-top-right {
             position: absolute;
-            top: -20px;
+            top: 60px;
             right: 0;
             text-align: center;
             padding: 10px;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             background-color: #f9f9f9;
-            width: 100px;
+            width: 180px;
             z-index: 10;
         }
 
@@ -72,46 +72,23 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 2px solid #199A8E;
             padding-right: 110px;
-        }
-
-        .clinic-info {
-            flex: 2;
-            margin-bottom: 10px;
-        }
-
-        .clinic-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #199A8E;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-        }
-
-        .clinic-address {
-            font-size: 11px;
-            color: #7f8c8d;
-            margin-bottom: 3px;
-        }
-
-        .clinic-contact {
-            font-size: 11px;
-            color: #7f8c8d;
         }
 
         .document-title {
             flex: 1;
             text-align: left;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .document-title h1 {
-            color: #2c3e50;
+            color: #199A8E;
             margin: 0 0 5px 0;
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 24px;
+            font-weight: bolder;
         }
 
         .document-title h2 {
@@ -119,6 +96,7 @@
             margin: 0;
             font-size: 14px;
             font-weight: 600;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .header-details {
@@ -130,10 +108,7 @@
 
         .header-detail-item {
             padding: 8px 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            background-color: #f9f9f9;
-            min-width: 160px;
+            max-width: 160px;
             margin-bottom: 8px;
         }
 
@@ -314,22 +289,16 @@
         <div class="watermark">GLUCOWISE</div>
         <div class="qr-top-right">
             <div class="qr-title">KODE VERIFIKASI</div>
-            <img src="data:image/svg+xml;base64,{{ $qrCode }}" alt="QR Code Rekam Medis" width="100"
-                height="100">
+            <img src="data:image/svg+xml;base64,{{ $qrCode }}" alt="QR Code Rekam Medis" width="130"
+                height="130">
             <div class="qr-info">
                 Scan untuk verifikasi keaslian dokumen
             </div>
         </div>
 
         <div class="header">
-            <div class="clinic-info">
-                <div class="clinic-name">GLUCOWISE MEDICAL CLINIC</div>
-                <div class="clinic-address">Jl. Kesehatan No. 123, Jakarta Selatan</div>
-                <div class="clinic-contact">Telp: (021) 765-4321 | Email: info@glucowise.com</div>
-            </div>
             <div class="document-title">
-                <h1>LAPORAN REKAM MEDIS</h1>
-                <h2>Detail Riwayat Kesehatan Pasien</h2>
+                <h1>LEMBAR LAPORAN REKAM MEDIS</h1>
             </div>
         </div>
 
@@ -377,15 +346,7 @@
 
             @if (count($latestDataPerMonth) > 0)
                 @foreach ($latestDataPerMonth as $month => $dataPerMonth)
-                    @php
-                        $dateObj = \Carbon\Carbon::createFromFormat('Y-m', $month)->locale('id');
-                        $formattedMonth = $dateObj->translatedFormat('F Y');
-                    @endphp
-
-
                     <div class="month-section">
-                        <div class="month-header">Bulan: {{ $formattedMonth }}</div>
-
                         <table class="medical-table">
                             <thead>
                                 <tr>
@@ -452,7 +413,7 @@
 
         <div class="document-footer">
             Dokumen ini dicetak secara elektronik dan tidak memerlukan tanda tangan basah.<br>
-            Hak Cipta © {{ date('Y') }} GlucoWise Medical Clinic - All Rights Reserved.
+            Hak Cipta © {{ date('Y') }} GlucoWise - All Rights Reserved.
         </div>
     </div>
 

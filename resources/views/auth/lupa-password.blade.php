@@ -1,8 +1,33 @@
 @extends('layouts.auth')
 
-@section('title', 'Forgot Password')
+@section('title', 'Lupa Password')
 
 @section('content')
+<style>
+    @font-face {
+        font-family: 'DarumadropOne';
+        src: url('{{ asset('fonts/DarumadropOne-Regular.ttf') }}') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    .forgot-password-header {
+        text-align: center;
+    }
+    .forgot-password-title {
+        font-weight: 700;
+        color: #199A8E;
+        font-size: 40px;
+        margin-bottom: 0.5rem;
+        font-family: 'DarumadropOne', cursive, sans-serif;
+    }
+    .forgot-password-subtitle {
+        color: #6c757d;
+        font-size: 0.95rem;
+    }
+</style>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -21,11 +46,16 @@
                     <div class="col-md-8 col-lg-6 col-xxl-4">
                         <div class="card shadow-lg border-0 rounded-3 overflow-hidden">
                             <div class="card-header d-flex justify-content-center align-items-center pb-2 pt-4">
-                                <img src="{{ asset('images/logos/favicon1.png') }}" width="200" alt="Logo" class="img-fluid">
+                                <img src="{{ asset('images/logos/favicon1.png') }}" width="180" alt="Logo" class="img-fluid">
+                            </div>
+
+                            <div class="forgot-password-header px-5 pt-2">
+                                <h2 class="forgot-password-title">LUPA PASSWORD</h2>
+                                <p class="forgot-password-subtitle">Masukkan email Anda untuk menerima link reset password</p>
                             </div>
 
                             <div class="card-body px-5 pt-1">
-                                <form action="{{ route('send-reset-link') }}" method="POST" class="mt-3" id="forgotPasswordForm" novalidate>
+                                <form action="{{ route('send-reset-link') }}" method="POST" class="mt-2" id="forgotPasswordForm" novalidate>
                                     @csrf
                                     <div class="mb-4">
                                         <label for="email" class="form-label fw-semibold">Email Address</label>
@@ -59,7 +89,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <script>
-        // Konfigurasi Firebase
         const firebaseConfig = {
             apiKey: "{{ env('FIREBASE_API_KEY') }}",
             authDomain: "{{ env('FIREBASE_AUTH_DOMAIN') }}",
@@ -69,10 +98,8 @@
             appId: "{{ env('FIREBASE_APP_ID') }}"
         };
         
-        // Inisialisasi Firebase
         firebase.initializeApp(firebaseConfig);
         
-        // Fungsi untuk memvalidasi format email
         function validateEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
@@ -84,7 +111,6 @@
             const email = document.getElementById('email').value.trim();
             const button = document.getElementById('resetButton');
             
-            // Validasi email
             if (!email) {
                 Swal.fire({
                     icon: 'error',
@@ -124,14 +150,11 @@
             button.disabled = true;
             button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengirim...';
             
-            // Mengirim permintaan reset password melalui Firebase
             firebase.auth().sendPasswordResetEmail(email)
                 .then(() => {
-                    // Jika berhasil, submit form ke server untuk menangani respons
                     this.submit();
                 })
                 .catch((error) => {
-                    // Menampilkan error dengan SweetAlert
                     let errorMessage = 'Terjadi kesalahan saat mengirim email reset.';
                     
                     if (error.code === 'auth/user-not-found') {
@@ -164,11 +187,9 @@
                 });
         });
         
-        // Menonaktifkan validasi default browser
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('forgotPasswordForm').setAttribute('novalidate', 'novalidate');
             
-            // Menghapus event listener default untuk invalid event
             document.getElementById('email').addEventListener('invalid', function(e) {
                 e.preventDefault();
             });
