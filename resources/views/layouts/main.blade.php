@@ -51,6 +51,32 @@
         .sidebar-item.active .sidebar-link .hide-menu {
             color: white !important;
         }
+
+        .close-btn {
+            position: absolute;
+            left: 15px;
+            top: 40%;
+            width: 32px;
+            height: 32px;
+            border: none;
+            font-size: 58px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #34B3A0 0%, #2a9d8a 100%);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            background: linear-gradient(135deg, #34B3A0 0%, #2a9d8a 100%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(52, 179, 160, 0.3);
+        }
     </style>
 </head>
 
