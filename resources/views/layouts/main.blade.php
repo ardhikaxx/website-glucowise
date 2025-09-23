@@ -18,6 +18,39 @@
             border-color: #34B3A0;
             color: #34B3A0;
         }
+        
+        /* Style untuk tombol keluar di sidebar */
+        .logout-item .sidebar-link {
+            color: #f85149 !important;
+        }
+        
+        .logout-item .sidebar-link:hover {
+            background-color: rgba(248, 81, 73, 0.1) !important;
+        }
+        
+        .logout-item.active .sidebar-link {
+            background-color: #f85149 !important;
+            color: white !important;
+        }
+        
+        .logout-item.active .sidebar-link i {
+            color: white !important;
+        }
+        
+        /* Style untuk semua item sidebar saat aktif */
+        .sidebar-item.active .sidebar-link {
+            background-color: #34B3A0;
+            color: white !important;
+            border-radius: 8px;
+        }
+        
+        .sidebar-item.active .sidebar-link i {
+            color: white !important;
+        }
+        
+        .sidebar-item.active .sidebar-link .hide-menu {
+            color: white !important;
+        }
     </style>
 </head>
 
@@ -46,6 +79,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function confirmLogout() {
+            // Tambahkan kelas aktif ke tombol keluar saat diklik
+            document.querySelectorAll('.logout-item').forEach(item => {
+                item.classList.add('active');
+            });
+            
             Swal.fire({
                 title: 'Konfirmasi Keluar',
                 text: "Apakah Anda yakin ingin keluar?",
@@ -63,12 +101,28 @@
                     popup: 'animate__animated animate__fadeOutUp'
                 }
             }).then((result) => {
+                // Hapus kelas aktif jika user membatalkan
+                if (!result.isConfirmed) {
+                    document.querySelectorAll('.logout-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                }
+                
                 if (result.isConfirmed) {
                     // Submit form logout
                     document.getElementById('logout-form').submit();
                 }
             });
         }
+        
+        // Hapus status aktif saat mouse meninggalkan tombol keluar (kecuali jika sedang aktif)
+        document.querySelectorAll('.logout-item').forEach(item => {
+            item.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.querySelector('.sidebar-link').style.backgroundColor = '';
+                }
+            });
+        });
     </script>
     <form action="{{ route('logout') }}" method="POST" id="logout-form" style="display: none;">
         @csrf

@@ -109,6 +109,14 @@
                     </a>
                 </li>
 
+                <!-- Tombol Keluar -->
+                <li class="sidebar-item logout-item">
+                    <a class="sidebar-link" href="javascript:void(0)" onclick="confirmLogout()" aria-expanded="false">
+                        <span><i class="ti ti-logout"></i></span>
+                        <span class="hide-menu">Keluar</span>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
