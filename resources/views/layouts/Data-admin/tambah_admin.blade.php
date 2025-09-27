@@ -12,7 +12,7 @@
     <!-- Judul Halaman -->
     <div class="row">
         <div class="col-md-12">
-            <h1 class="page-title text-center" style="font-weight: bold; font-size: 36px; color: #34B3A0;">{{ isset($admin) ? 'Edit Admin' : 'Tambah Admin Baru' }}</h1>
+            <h1 class="page-title text-center" style="font-weight: bold; font-size: 36px; color: #34B3A0;">{{ isset($admin) ? 'Edit Data Admin' : 'Tambah Data Admin Baru' }}</h1>
         </div>
     </div>
 

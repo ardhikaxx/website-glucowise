@@ -64,7 +64,7 @@
                             </div>
                         </div>
 
-                        <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Detail Kesehatan</h4>
+                        <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Detail Data Kesehatan</h4>
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>

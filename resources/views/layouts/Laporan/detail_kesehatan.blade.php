@@ -11,7 +11,7 @@
         <div class="row mb-5">
             <div class="col-md-12">
                 <h1 class="page-title text-center" style="color: #34B3A0; font-weight: 700;">
-                    Detail Laporan Kesehatan - NIK: {{ $latestDataPerMonth->first()->nik }}
+                    Detail Laporan Rekam Medis - NIK: {{ $latestDataPerMonth->first()->nik }}
                 </h1>
                 <!-- Tombol Print PDF -->
             </div>
@@ -64,7 +64,7 @@
                         </div>
 
                         <!-- Tabel Data Kesehatan Lainnya -->
-                        <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Detail Kesehatan</h4>
+                        <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Detail Laporan Rekam Medis</h4>
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>

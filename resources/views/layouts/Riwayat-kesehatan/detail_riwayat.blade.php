@@ -160,7 +160,7 @@
                         </div>
 
                         <!-- Tabel Data Riwayat Kesehatan -->
-                        <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Riwayat Kesehatan</h4>
+                        <h4 class="mt-4 text-center" style="color: #34B3A0; font-weight: 700;">Detail Data Rekam Medis</h4>
                         <!-- Menambahkan table-responsive agar tabel menjadi responsif -->
                         <div class="table-responsive">
                             <table class="table">

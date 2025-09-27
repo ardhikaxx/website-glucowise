@@ -8,7 +8,7 @@
         <!-- Judul Halaman -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title">Edit Riwayat Kesehatan - ID: {{ $data->id_riwayat }}</h1>
+                <h1 class="page-title">Edit Rekam Medis - ID: {{ $data->id_riwayat }}</h1>
             </div>
         </div>
 

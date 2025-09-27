@@ -8,7 +8,7 @@
         <!-- Judul Halaman -->
         <div class="row">
             <div class="col-md-12">
-                <h1 class="page-title">Detail Pengguna - Nomor Identitas: {{ $dataPengguna->nik }}</h1>
+                <h1 class="page-title text-center">Detail Pengguna - NIK: {{ $dataPengguna->nik }}</h1>
             </div>
         </div>
 
