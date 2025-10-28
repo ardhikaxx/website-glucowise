@@ -47,4 +47,14 @@ class Pengguna extends Authenticatable
     {
         return $this->hasMany(DataKesehatan::class, 'nik', 'nik');
     }
+
+    public function chatConversations()
+    {
+        return $this->hasMany(ChatConversation::class, 'nik', 'nik');
+    }
+
+    public function chatMessages()
+    {
+        return $this->hasManyThrough(ChatMessage::class, ChatConversation::class, 'nik', 'id_conversation');
+    }
 }

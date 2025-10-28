@@ -45,4 +45,14 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Edukasi::class, 'id_admin', 'id_admin');
     }
+
+    public function chatConversations()
+    {
+        return $this->hasMany(ChatConversation::class, 'id_admin', 'id_admin');
+    }
+
+    public function chatMessages()
+    {
+        return $this->hasManyThrough(ChatMessage::class, ChatConversation::class, 'id_admin', 'id_conversation');
+    }
 }

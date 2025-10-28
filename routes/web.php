@@ -12,6 +12,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,16 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}/edit', [AdminController::class, 'edit'])->name('edit');
             Route::put('/{id_admin}/update', [AdminController::class, 'update'])->name('update');
             Route::delete('/{id}', [AdminController::class, 'destroy'])->name('destroy');
+        });
+
+        // Chat Konsultasi
+        Route::prefix('chat')->name('chat.')->group(function () {
+            Route::get('/', [ChatController::class, 'index'])->name('index');
+            Route::get('/{id_conversation}', [ChatController::class, 'showChat'])->name('show');
+            Route::post('/{id_conversation}/send', [ChatController::class, 'sendMessage'])->name('send');
+            Route::get('/{id_conversation}/messages', [ChatController::class, 'getMessages'])->name('messages');
+            Route::get('/{id_conversation}/new-messages', [ChatController::class, 'getNewMessages'])->name('new.messages');
+            Route::get('/unread/count', [ChatController::class, 'getUnreadCount'])->name('unread.count');
         });
 
         // Data Screening
