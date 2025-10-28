@@ -44,6 +44,15 @@
                     </li>
                 @endif
 
+                @if (Auth::user()->hak_akses == 'Dokter')
+                    <li class="sidebar-item {{ request()->is('chat*') ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{ route('chat.index') }}" aria-expanded="false">
+                            <span class="sidebar-icon"><i class="ti ti-messages"></i></span>
+                            <span class="hide-menu">Chat Konsultasi</span>
+                        </a>
+                    </li>
+                @endif
+
                 <!-- Data Kesehatan (Dokter & Perawat) -->
                 @if (Auth::user()->hak_akses == 'Dokter' || Auth::user()->hak_akses == 'Perawat')
                     <li class="sidebar-item {{ request()->is('data-kesehatan*') ? 'active' : '' }}">

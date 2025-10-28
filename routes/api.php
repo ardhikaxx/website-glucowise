@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\GlucoCareController;
 use App\Http\Controllers\Api\GlucoCheckController;
 use App\Http\Controllers\Api\EdukasiController;
 use App\Http\Controllers\Api\ScreeningController;
+use App\Http\Controllers\Api\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,18 @@ Route::prefix('screening')->group(function () {
     Route::post('/results', [ScreeningController::class, 'storeScreeningResults']);
     Route::get('/results/{id}', [ScreeningController::class, 'getScreeningResult']);
     Route::get('/history/{nik}', [ScreeningController::class, 'getScreeningHistory']);
+});
+
+// ==============================
+// ROUTE CHAT KONSULTASI
+// ==============================
+Route::prefix('chat')->group(function () {
+    Route::get('/dokters', [ChatController::class, 'getDokters']);
+    Route::post('/conversation', [ChatController::class, 'getOrCreateConversation']);
+    Route::post('/send-message', [ChatController::class, 'sendMessage']);
+    Route::get('/messages/{id_conversation}', [ChatController::class, 'getMessages']);
+    Route::get('/conversations/{nik}', [ChatController::class, 'getUserConversations']);
+    Route::post('/mark-read', [ChatController::class, 'markAsRead']);
 });
 
 // ==============================
