@@ -27,12 +27,19 @@
                     </a>
                 </li>
 
+                {{-- <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                        <span class="sidebar-icon"><i class="ti ti-list"></i></span>
+                        <span class="hide-menu">Manajemen Kunjungan</span>
+                    </a>
+                </li> --}}
+
                 <!-- Data Pengguna (Dokter & Perawat) -->
                 @if (Auth::user()->hak_akses == 'Dokter' || Auth::user()->hak_akses == 'Perawat')
                     <li class="sidebar-item {{ request()->is('data_pengguna*') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('dataPengguna.index') }}" aria-expanded="false">
                             <span class="sidebar-icon"><i class="ti ti-users"></i></span>
-                            <span class="hide-menu">Manajemen Pengguna</span>
+                            <span class="hide-menu">Manajemen Pasien</span>
                         </a>
                     </li>
                 @endif
